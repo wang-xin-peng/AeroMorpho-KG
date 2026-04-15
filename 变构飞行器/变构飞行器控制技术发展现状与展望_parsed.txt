@@ -1,0 +1,62 @@
+
+ｔｒＤａｎｃｅｒｅｅｃｔｌｏｎＣｏｎｔｒｏｌＩｏｒｕｎＣｅｒｔａｉｎｔｉ
+
+systems[J].NonlinearDynamics，2019，96（2）：975-
+
+ear systems[J].Automatica，2020，112：10
+
+[103]
+
+KJ，ZHANGPX，WUH.Anewcontroldesignfor
+
+rejechioncontrolforuncertainnonafinein
+
+phingUAVbasedondisturbanceobserverandcom-
+
+filteredbacksteppingtechniques[J.ScienceChina
+
+nologicalSciences，2019，62（10）:1845-1853.
+
+RAN MP，XIELH.Adaptiveobservatic
+
+cient reinforcement learning for uncertain
+
+IEEE Transactions on Neural Networksa
+
+Systems，2021：3070852.
+
+[105] LEEJ，KIMY.Neuralnetwork-basednonl
+
+ic inversion control of variable-span morp
+
+[J].ProceedingsoftheInstitutionofMecl
+
+neers，PartG: Jonal ofAerospace Engine
+
+234（10）：16241637
+
+ZH,LUJC,SHIJP，etal.Robustadaptiveneural
+
+olofmorphing aircraft with prescribed performance
+
+Mathematical Problemsin Engineering，2017,2017:
+
+127.
+
+)FX，SHIJP，QUXB，etal.Adaptiveback-step-
+
+neural control for an embedded and tiltable
+
+hing aircraft[J].International Journal of Con
+
+mationandSystems，2022，20(2）:678-690.
+
+GLG，WANGQ，DONGCY，et
+
+rmance control of morphing aircraft Dased on
+
+MeasurementandControl，2019，52（5-6）：608-624.
+
+HUCH，etal.Switchingcon-
+
+
