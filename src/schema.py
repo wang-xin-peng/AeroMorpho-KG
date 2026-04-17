@@ -45,39 +45,64 @@ class DeepKESchema:
     def to_instruction_block(self) -> str:
         """
         将Schema格式化为OneKE模型可理解的指令块
-        输出格式示例：
-            你是专门进行关系抽取的专家...
-            
-            [实体类型]
-            - 变形方式: 飞行器改变外形的方法
-            - 气动特性: 与空气动力学相关的性能参数
-            
-            [关系类型]
-            - 具有: 实体拥有某个属性或部件
-            - 优化: 方法对目标产生改善效果
-            
-            输出格式要求：仅输出 JSON 数组，不要额外解释。
+        按照OneKE的KGzh指令格式，支持example示例：
+        1. 使用OneKE标准指令
+        2. 包含详细的schema描述
+        3. 融入example示例提升抽取效果
         
         Returns:
             格式化后的指令字符串
         """
         
-        # 构建实体类型的描述行
-        entity_lines = [
-            f"- {x.get('name', '').strip()}: {x.get('description', '').strip()}"
-            for x in self.entity_types
-        ]
+        # 构建实体类型的描述行（包含example提示）
+        entity_lines = []
+        for x in self.entity_types:
+            name = x.get('name', '').strip()
+            desc = x.get('description', '').strip()
+            examples = x.get('example', [])
+            
+            # 基本描述
+            line = f"- {name}: {desc}"
+            
+            # 如果有example，添加示例提示
+            if examples and len(examples) >= 2:
+                pos_ex = examples[0].get('output', {})
+                neg_ex = examples[1].get('output', {})
+                pos_vals = pos_ex.get(name, [])
+                
+                if pos_vals:
+                    line += f" [正例: {', '.join(pos_vals[:2])}]"
+            
+            entity_lines.append(line)
         
-        # 构建关系类型的描述行
-        relation_lines = [
-            f"- {x.get('name', '').strip()}: {x.get('description', '').strip()}"
-            for x in self.relation_types
-        ]
+        # 构建关系类型的描述行（包含example提示）
+        relation_lines = []
+        for x in self.relation_types:
+            name = x.get('name', '').strip()
+            desc = x.get('description', '').strip()
+            examples = x.get('example', [])
+            
+            # 基本描述
+            line = f"- {name}: {desc}"
+            
+            # 如果有example，添加示例提示
+            if examples and len(examples) >= 1:
+                pos_ex = examples[0].get('output', [])
+                if pos_ex and len(pos_ex) > 0:
+                    # 提取第一个三元组示例
+                    first_triple = pos_ex[0]
+                    if isinstance(first_triple, dict):
+                        h = first_triple.get('head', '')
+                        t = first_triple.get('tail', '')
+                        if h and t:
+                            line += f" [例: {h}-{name}->{t}]"
+            
+            relation_lines.append(line)
         
-        # 组装完整的指令块
+        # 组装完整的指令块，使用OneKE标准指令
         return (
-            f"{self.instruction}\n\n"
+            f"你是一个图谱实体知识结构化专家。根据输入实体类型(entity type)的schema描述，从文本中抽取出相应的实体实例和其属性信息，不存在的属性不输出, 属性存在多值就返回列表，并输出为可解析的json格式。\n\n"
             f"[实体类型]\n{chr(10).join(entity_lines)}\n\n"  # chr(10) 即换行符\n
             f"[关系类型]\n{chr(10).join(relation_lines)}\n\n"
-            "输出格式要求：仅输出 JSON 数组，不要额外解释。"
+            "请按照JSON字符串的格式回答。"
         )

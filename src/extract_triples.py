@@ -90,6 +90,7 @@ class Extractor:
     1. 加载OneKE预训练模型
     2. 接收Schema提示词和文本块
     3. 调用模型推理并解析结果
+    4. 支持轮询方式抽取（每次抽取固定数量的schema）
     """
     
     def __init__(
@@ -97,12 +98,14 @@ class Extractor:
         model_path: str = "model/OneKE",
         load_in_4bit: bool = True,
         max_new_tokens: int = 768,
+        split_num: int = 4,  # RE任务的推荐切分长度
     ) -> None:
         """
         初始化抽取器，加载模型
         Args:
             model_path: 模型路径或HuggingFace模型名
             max_new_tokens: 生成的最大token数
+            split_num: 每次轮询抽取的schema数量
         """
         # 加载分词器
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
@@ -113,23 +116,108 @@ class Extractor:
         # 加载模型
         self.model = AutoModelForCausalLM.from_pretrained(model_path, **model_kwargs)
         self.max_new_tokens = max_new_tokens
+        self.split_num = split_num
 
     def infer_chunk(self, schema_prompt: str, chunk: str) -> List[Dict]:
         """
         对单个文本块进行推理，抽取三元组
+        使用OneKE轮询方式：将schema切分成多个小块，分别抽取后合并结果
         Args:
             schema_prompt: 包含实体类型、关系类型定义和指令的提示词
             chunk: 待抽取的文本块
         Returns:
             从该文本块中抽取的三元组列表
         """
-
-        prompt = (
-            f"{schema_prompt}\n\n"
-            f"[输入文本]\n{chunk}\n\n"
-            "请抽取三元组并返回 JSON 数组："
-        )
+        # 解析schema_prompt中的实体类型和关系类型
+        entity_types = []
+        relation_types = []
         
+        # 简单的解析逻辑，从schema_prompt中提取类型
+        in_entity_section = False
+        in_relation_section = False
+        
+        for line in schema_prompt.split('\n'):
+            if '[实体类型]' in line:
+                in_entity_section = True
+                in_relation_section = False
+                continue
+            elif '[关系类型]' in line:
+                in_entity_section = False
+                in_relation_section = True
+                continue
+            elif line.strip() == '' or line.startswith('你是一个') or line.startswith('请按照'):
+                continue
+            
+            if in_entity_section and line.startswith('- '):
+                entity_name = line[2:].split(':')[0].strip()
+                entity_types.append(entity_name)
+            elif in_relation_section and line.startswith('- '):
+                relation_name = line[2:].split(':')[0].strip()
+                relation_types.append(relation_name)
+        
+        # 使用轮询方式抽取
+        all_triples = []
+        
+        # 对关系类型进行轮询抽取
+        for i in range(0, len(relation_types), self.split_num):
+            batch_relations = relation_types[i:i + self.split_num]
+            
+            # 构建轮询指令
+            instruction = "你是专门进行关系抽取的专家。请从input中抽取出符合schema定义的关系三元组，不存在的关系返回空列表。请按照JSON字符串的格式回答。"
+            
+            # 构建schema描述
+            schema_desc = '\n'.join([
+                f"- {rel}: {self._get_relation_description(schema_prompt, rel)}"
+                for rel in batch_relations
+            ])
+            
+            # 使用OneKE标准指令格式
+            prompt = self._build_oneke_prompt(instruction, schema_desc, chunk)
+            
+            # 推理并解析
+            triples = self._run_inference(prompt)
+            all_triples.extend(triples)
+        
+        return all_triples
+    
+    def _get_relation_description(self, schema_prompt: str, relation_name: str) -> str:
+        """从schema_prompt中提取关系描述"""
+        in_relation_section = False
+        for line in schema_prompt.split('\n'):
+            if '[关系类型]' in line:
+                in_relation_section = True
+                continue
+            if in_relation_section and line.startswith(f'- {relation_name}:'):
+                return line.split(':', 1)[1].strip() if ':' in line else ''
+        return ''
+    
+    def _build_oneke_prompt(self, instruction: str, schema_desc: str, input_text: str) -> str:
+        """
+        构建OneKE标准格式的指令
+        按照OneKE文档中的instruction_mapper格式
+        """
+        import json
+        
+        # 构建schema列表（仅关系名称）
+        schema_list = [line.split(':')[0].strip().lstrip('- ') for line in schema_desc.split('\n') if line.startswith('- ')]
+        
+        # 使用OneKE的JSON格式指令
+        sintruct = json.dumps({
+            'instruction': instruction,
+            'schema': schema_list,
+            'input': input_text
+        }, ensure_ascii=False)
+        
+        return sintruct
+    
+    def _run_inference(self, prompt: str) -> List[Dict]:
+        """
+        执行模型推理并解析结果
+        Args:
+            prompt: OneKE格式的提示词
+        Returns:
+            解析后的三元组列表
+        """
         # 分词并移动到模型设备
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
         
@@ -146,7 +234,7 @@ class Extractor:
         text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
         
         # 提取模型生成的部分（去掉输入提示词）
-        tail_text = text[len(prompt) :] if text.startswith(prompt) else text
+        tail_text = text[len(prompt):] if text.startswith(prompt) else text
         
         # 解析JSON数组
         return parse_json_array(tail_text)
