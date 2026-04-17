@@ -1,3 +1,4 @@
+# 提供知识图谱关系统计与关键词查询的命令行演示。
 import argparse
 from typing import Dict, List
 
@@ -24,7 +25,12 @@ def relation_stat(triples: List[Dict], top_k: int = 20) -> List[tuple]:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--triples", required=True, help="融合后三元组 jsonl")
+    parser.add_argument(
+        "--triples",
+        required=False,
+        default="data/triples_fused/triples_bge.jsonl",
+        help="融合后三元组 jsonl（默认 BGE 输出）",
+    )
     parser.add_argument("--query", default="变构飞行器", help="查询关键词")
     args = parser.parse_args()
 

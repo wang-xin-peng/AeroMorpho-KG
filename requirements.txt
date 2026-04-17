@@ -1,8 +1,11 @@
 python-dotenv>=1.0.1
 llama-cloud>=0.1.20
 tqdm>=4.66.4
-rapidfuzz>=3.9.6
 sentence-transformers>=3.0.1
 numpy>=1.26.4
 neo4j>=5.23.1
 pypdf>=4.3.1
+transformers>=4.41.0
+accelerate>=0.33.0
+bitsandbytes>=0.43.1
+deepke>=2.2.7

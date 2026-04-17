@@ -1,3 +1,4 @@
+# 抽样生成200概念与400关系的人工评估CSV文件
 import argparse
 import csv
 import random
@@ -44,22 +45,22 @@ def write_relations_csv(path: str, triples: List[Dict]) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--fused-triples", 
-        required=False,  # 改为 False
-        default="../data/triples_fused/triples_fused.jsonl",  # 添加默认值
-        help="融合后的三元组 jsonl"
+        "--fused-triples",
+        required=False,
+        default="data/triples_fused/triples_bge.jsonl",
+        help="融合后的三元组 jsonl（默认 BGE 输出）",
     )
     parser.add_argument(
-        "--out-concepts", 
+        "--out-concepts",
         required=False,
-        default="../data/eval/sample_concepts.csv",
-        help="概念抽样 CSV"
+        default="data/eval/sample_concepts.csv",
+        help="概念抽样 CSV",
     )
     parser.add_argument(
-        "--out-relations", 
+        "--out-relations",
         required=False,
-        default="../data/eval/sample_relations.csv",
-        help="关系抽样 CSV"
+        default="data/eval/sample_relations.csv",
+        help="关系抽样 CSV",
     )
     parser.add_argument("--concept-n", type=int, default=200)
     parser.add_argument("--relation-n", type=int, default=400)

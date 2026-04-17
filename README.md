@@ -32,21 +32,24 @@ pip install -r requirements.txt
 copy .env.example .env
 ```
 
-1. 执行完整流水线
+1. 执行完整流水线（DeepKE + OneKE + BGE）
 
 ```bash
 python src/pipeline.py ^
   --pdf-dir "变构飞行器" ^
   --parse-dir "data/parsed" ^
-  --raw-triples "data/triples_raw/triples.jsonl" ^
-  --fused-triples "data/triples_fused/triples_fused.jsonl"
+  --raw-triples "data/triples_raw/triples_oneke.jsonl" ^
+  --fused-triples "data/triples_fused/triples_bge.jsonl" ^
+  --schema-path "config/schema.json" ^
+  --oneke-model "zjunlp/OneKE" ^
+  --bge-model "BAAI/bge-base-zh-v1.5"
 ```
 
 1. 生成人工评估抽样（200 概念 + 400 关系）
 
 ```bash
 python src/evaluate.py ^
-  --fused-triples "data/triples_fused/triples_fused.jsonl" ^
+  --fused-triples "data/triples_fused/triples_bge.jsonl" ^
   --out-concepts "data/eval/sample_concepts.csv" ^
   --out-relations "data/eval/sample_relations.csv"
 ```
@@ -54,11 +57,27 @@ python src/evaluate.py ^
 1. 导入 Neo4j
 
 ```bash
-python src/load_to_neo4j.py --triples "data/triples_fused/triples_fused.jsonl"
+python src/load_to_neo4j.py --triples "data/triples_fused/triples_bge.jsonl"
 ```
 
-### 说明
+### 技术路线（按课程方案）
 
-- 本项目默认优先使用规则与可控算法实现抽取，符合“不允许只用 LLM”的要求。
-- DeepKE/OneKE 可作为抽取层可插拔后端接入（见 `src/extract_triples.py`）。
+- Layer 1：LlamaCloud 文档解析（`src/parse_docs.py`）
+- Layer 2：DeepKE + OneKE Schema 抽取（`src/extract_triples_oneke.py`）
+- Layer 3：BGE 向量融合归一化（`src/fuse_entities_bge.py`）
+- Layer 4：Neo4j 存储与查询（`src/load_to_neo4j.py`）
+- Layer 5：评估抽样与应用展示（`src/evaluate.py`、`src/app_demo.py`）
+
+### OneKE + BGE 执行命令（同上）
+
+```bash
+python src/pipeline.py ^
+  --pdf-dir "变构飞行器" ^
+  --parse-dir "data/parsed" ^
+  --raw-triples "data/triples_raw/triples_oneke.jsonl" ^
+  --fused-triples "data/triples_fused/triples_bge.jsonl" ^
+  --schema-path "config/schema.json" ^
+  --oneke-model "zjunlp/OneKE" ^
+  --bge-model "BAAI/bge-base-zh-v1.5"
+```
 
