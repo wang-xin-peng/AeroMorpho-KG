@@ -17,7 +17,7 @@ from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from common import dump_jsonl
-from deepke_schema import DeepKESchema
+from schema import DeepKESchema
 
 
 def split_text(text: str, max_chars: int = 1200) -> List[str]:
@@ -83,7 +83,7 @@ def parse_json_array(text: str) -> List[Dict]:
     return rows
 
 
-class OneKEExtractor:
+class Extractor:
     """
     OneKE知识抽取器封装类
     功能：
@@ -94,7 +94,8 @@ class OneKEExtractor:
     
     def __init__(
         self,
-        model_path: str = "zjunlp/OneKE",
+        model_path: str = "model/OneKE",
+        load_in_4bit: bool = True,
         max_new_tokens: int = 768,
     ) -> None:
         """
@@ -151,11 +152,11 @@ class OneKEExtractor:
         return parse_json_array(tail_text)
 
 
-def run_extract_oneke(
+def run_extract(
     parsed_dir: str,
     out_jsonl: str,
     schema_path: str,
-    model_path: str = "zjunlp/OneKE",
+    model_path: str = "model/OneKE",
     load_in_4bit: bool = True,
     chunk_chars: int = 1200,
 ) -> int:
@@ -186,7 +187,7 @@ def run_extract_oneke(
     schema_prompt = DeepKESchema.from_json(schema_path).to_instruction_block()
     
     # Step 2: 初始化OneKE抽取器
-    extractor = OneKEExtractor(model_path=model_path, load_in_4bit=load_in_4bit)
+    extractor = Extractor(model_path=model_path, load_in_4bit=load_in_4bit)
 
     all_rows: List[Dict] = []
     dedup = set() 
@@ -229,7 +230,7 @@ def run_extract_oneke(
 def main() -> None:
     """
     使用示例：
-    python extract_triples_oneke.py \
+    python extract_triples.py \
         --parsed-dir ./ragtest/input \
         --out-jsonl ./triples.jsonl \
         --schema-path ./config/schema.json
@@ -239,11 +240,11 @@ def main() -> None:
     parser.add_argument("--parsed-dir", required=True, help="LlamaParse解析后的Markdown目录")
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径")
     parser.add_argument("--schema-path", default="config/schema.json", help="Schema配置文件路径")
-    parser.add_argument("--model-path", default="zjunlp/OneKE", help="OneKE模型路径")
+    parser.add_argument("--model-path", default="model/OneKE", help="OneKE模型路径")
     parser.add_argument("--chunk-chars", type=int, default=1200, help="文本块最大字符数")
     args = parser.parse_args()
 
-    run_extract_oneke(
+    run_extract(
         parsed_dir=args.parsed_dir,
         out_jsonl=args.out_jsonl,
         schema_path=args.schema_path,

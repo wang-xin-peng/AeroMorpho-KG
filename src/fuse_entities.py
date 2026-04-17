@@ -1,8 +1,8 @@
 """
-使用BGE向量模型进行实体与关系归一化融合
+使用Yuan-Embedding向量模型进行实体与关系归一化融合
 功能：
 1. 加载OneKE抽取的三元组
-2. 使用BGE中文向量模型计算实体和关系的语义向量
+2. 使用Yuan-Embedding中文向量模型计算实体和关系的语义向量
 3. 基于余弦相似度聚类，合并同义实体
 4. 合并近义关系
 5. 输出归一化、去重后的标准化三元组
@@ -78,23 +78,23 @@ def build_clusters(items: List[str], embeddings: np.ndarray, threshold: float) -
     return canonical
 
 
-def normalize_by_bge(
+def normalize(
     triples: List[Dict],
-    model_name: str = "IEITYuan/Yuan-embedding-2.0-zh",
+    model_name: str = "model/Yuan-Embedding",
     entity_threshold: float = 0.85,
     relation_threshold: float = 0.9,
 ) -> List[Dict]:
     """
-    使用BGE向量模型对三元组进行实体和关系的归一化融合
+    使用Yuan-Embedding向量模型对三元组进行实体和关系的归一化融合
     流程：
     1. 提取所有唯一的实体（头实体+尾实体）和关系
-    2. 用BGE模型将文本转换为向量
+    2. 用Yuan-Embedding模型将文本转换为向量
     3. 基于相似度聚类，合并同义实体和近义关系
     4. 应用映射，生成归一化后的三元组
     5. 去重后返回
     Args:
         triples: 原始三元组列表，每个元素包含head、relation、tail字段
-        model_name: BGE模型名称，默认使用BAAI/bge-base-zh-v1.5
+        model_name: Yuan-Embedding模型路径，默认使用本地model/Yuan-Embedding
         entity_threshold: 实体相似度阈值（0.85），高于此值视为同一实体
         relation_threshold: 关系相似度阈值（0.9），关系要求更严格
     Returns:
@@ -102,7 +102,7 @@ def normalize_by_bge(
     """
 
     # Step 1: 加载向量模型
-    print(f"加载BGE模型: {model_name}")
+    print(f"加载Yuan-Embedding模型: {model_name}")
     model = SentenceTransformer(model_name)
 
     # Step 2: 提取所有唯一的实体和关系
@@ -154,19 +154,19 @@ def normalize_by_bge(
     return fused
 
 
-def run_fusion_bge(
+def run_fusion(
     in_jsonl: str,
     out_jsonl: str,
-    model_name: str = "BAAI/bge-base-zh-v1.5",
+    model_name: str = "model/Yuan-Embedding",
     entity_threshold: float = 0.85,
     relation_threshold: float = 0.9,
 ) -> int:
     """
-    运行BGE知识融合的主函数
+    运行Yuan-Embedding知识融合的主函数
     Args:
         in_jsonl: 输入文件路径（OneKE抽取的三元组，JSONL格式）
         out_jsonl: 输出文件路径（融合后的三元组）
-        model_name: BGE模型名称
+        model_name: Yuan-Embedding模型路径
         entity_threshold: 实体相似度阈值
         relation_threshold: 关系相似度阈值
     Returns:
@@ -181,7 +181,7 @@ def run_fusion_bge(
     print(f"加载原始三元组: {len(triples)} 条")
 
     # 执行归一化融合
-    fused = normalize_by_bge(
+    fused = normalize(
         triples,
         model_name=model_name,
         entity_threshold=entity_threshold,
@@ -193,7 +193,7 @@ def run_fusion_bge(
     
     # 统计信息
     entity_count = len({x["head"] for x in fused} | {x["tail"] for x in fused})
-    print(f"[DONE] BGE融合完成:")
+    print(f"[DONE] Yuan-Embedding融合完成:")
     print(f"  - 融合后三元组: {len(fused)} 条")
     print(f"  - 融合后唯一实体: {entity_count} 个")
     print(f"  - 压缩率: {(1 - len(fused)/len(triples)) * 100:.1f}%")
@@ -205,27 +205,27 @@ def run_fusion_bge(
 def main() -> None:
     """
     使用示例：
-    python fuse_entities_bge.py \
+    python fuse_entities.py \
         --in-jsonl ./triples.jsonl \
         --out-jsonl ./triples_fused.jsonl \
         --entity-threshold 0.85 \
         --relation-threshold 0.9
     """
 
-    parser = argparse.ArgumentParser(description="使用BGE向量模型融合实体和关系")
+    parser = argparse.ArgumentParser(description="使用Yuan-Embedding向量模型融合实体和关系")
     parser.add_argument("--in-jsonl", required=True, help="输入JSONL文件路径（OneKE抽取结果）")
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径（融合后结果）")
-    parser.add_argument("--bge-model", default="IEITYuan/Yuan-embedding-2.0-zh", help="BGE模型名称")
+    parser.add_argument("--embedding-model", default="model/Yuan-Embedding", help="Yuan-Embedding模型路径")
     parser.add_argument("--entity-threshold", type=float, default=0.85, 
                         help="实体相似度阈值（0.7-0.9），越高越严格，越低越激进")
     parser.add_argument("--relation-threshold", type=float, default=0.9,
                         help="关系相似度阈值（0.8-0.95），关系要求比实体更严格")
     args = parser.parse_args()
 
-    run_fusion_bge(
+    run_fusion(
         in_jsonl=args.in_jsonl,
         out_jsonl=args.out_jsonl,
-        model_name=args.bge_model,
+        model_name=args.embedding_model,
         entity_threshold=args.entity_threshold,
         relation_threshold=args.relation_threshold,
     )

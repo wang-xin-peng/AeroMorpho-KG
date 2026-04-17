@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 本脚本用于在服务器上一键执行依赖安装与OneKE+BGE全流程构建。
+# 本脚本用于在服务器上一键执行依赖安装与OneKE+Yuan-Embedding全流程构建。
 set -euo pipefail
 
 # =========================
@@ -17,8 +17,8 @@ set -euo pipefail
 #   RAW_TRIPLES=data/triples_raw/triples_oneke.jsonl
 #   FUSED_TRIPLES=data/triples_fused/triples_bge.jsonl
 #   SCHEMA_PATH=config/schema.json
-#   ONEKE_MODEL=zjunlp/OneKE
-#   BGE_MODEL=BAAI/bge-base-zh-v1.5
+#   ONEKE_MODEL=model/OneKE
+#   EMBEDDING_MODEL=model/Yuan-Embedding
 #   ENTITY_THRESHOLD=0.85
 #   RELATION_THRESHOLD=0.9
 #   CHUNK_CHARS=1200
@@ -34,8 +34,8 @@ PARSE_DIR="${PARSE_DIR:-data/parsed}"
 RAW_TRIPLES="${RAW_TRIPLES:-data/triples_raw/triples_oneke.jsonl}"
 FUSED_TRIPLES="${FUSED_TRIPLES:-data/triples_fused/triples_bge.jsonl}"
 SCHEMA_PATH="${SCHEMA_PATH:-config/schema.json}"
-ONEKE_MODEL="${ONEKE_MODEL:-zjunlp/OneKE}"
-BGE_MODEL="${BGE_MODEL:-BAAI/bge-base-zh-v1.5}"
+ONEKE_MODEL="${ONEKE_MODEL:-model/OneKE}"
+EMBEDDING_MODEL="${EMBEDDING_MODEL:-model/Yuan-Embedding}"
 ENTITY_THRESHOLD="${ENTITY_THRESHOLD:-0.85}"
 RELATION_THRESHOLD="${RELATION_THRESHOLD:-0.9}"
 CHUNK_CHARS="${CHUNK_CHARS:-1200}"
@@ -68,7 +68,7 @@ PIPELINE_CMD=(
   --fused-triples "${FUSED_TRIPLES}"
   --schema-path "${SCHEMA_PATH}"
   --oneke-model "${ONEKE_MODEL}"
-  --bge-model "${BGE_MODEL}"
+  --embedding-model "${EMBEDDING_MODEL}"
   --entity-threshold "${ENTITY_THRESHOLD}"
   --relation-threshold "${RELATION_THRESHOLD}"
   --chunk-chars "${CHUNK_CHARS}"

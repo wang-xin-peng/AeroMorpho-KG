@@ -20,6 +20,14 @@
 
 ### 快速开始
 
+下载模型
+
+pip install modelscope
+
+modelscope download --model ZJUNLP/OneKE --local_dir ./model/OneKE
+
+modelscope download --model IEITYuan/Yuan-embedding-2.0-zh --local_dir ./model/Yuan-Embedding
+
 1. 安装依赖
 
 ```bash
@@ -32,7 +40,7 @@ pip install -r requirements.txt
 copy .env.example .env
 ```
 
-1. 执行完整流水线（DeepKE + OneKE + BGE）
+1. 执行完整流水线（DeepKE + OneKE + Yuan-Embedding）
 
 ```bash
 python src/pipeline.py ^
@@ -41,8 +49,8 @@ python src/pipeline.py ^
   --raw-triples "data/triples_raw/triples_oneke.jsonl" ^
   --fused-triples "data/triples_fused/triples_bge.jsonl" ^
   --schema-path "config/schema.json" ^
-  --oneke-model "zjunlp/OneKE" ^
-  --bge-model "BAAI/bge-base-zh-v1.5"
+  --oneke-model "model/OneKE" ^
+  --embedding-model "model/Yuan-Embedding"
 ```
 
 1. 生成人工评估抽样（200 概念 + 400 关系）
@@ -64,11 +72,11 @@ python src/load_to_neo4j.py --triples "data/triples_fused/triples_bge.jsonl"
 
 - Layer 1：LlamaCloud 文档解析（`src/parse_docs.py`）
 - Layer 2：DeepKE + OneKE Schema 抽取（`src/extract_triples_oneke.py`）
-- Layer 3：BGE 向量融合归一化（`src/fuse_entities_bge.py`）
+- Layer 3：Yuan-Embedding 向量融合归一化（`src/fuse_entities_bge.py`）
 - Layer 4：Neo4j 存储与查询（`src/load_to_neo4j.py`）
 - Layer 5：评估抽样与应用展示（`src/evaluate.py`、`src/app_demo.py`）
 
-### OneKE + BGE 执行命令（同上）
+### OneKE + Yuan-Embedding 执行命令（同上）
 
 ```bash
 python src/pipeline.py ^
@@ -77,7 +85,7 @@ python src/pipeline.py ^
   --raw-triples "data/triples_raw/triples_oneke.jsonl" ^
   --fused-triples "data/triples_fused/triples_bge.jsonl" ^
   --schema-path "config/schema.json" ^
-  --oneke-model "zjunlp/OneKE" ^
-  --bge-model "BAAI/bge-base-zh-v1.5"
+  --oneke-model "model/OneKE" ^
+  --embedding-model "model/Yuan-Embedding"
 ```
 
