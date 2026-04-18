@@ -1,0 +1,107 @@
+nohup: ignoring input
+
+Parsing PDFs:   0%|          | 0/9 [00:00<?, ?it/s]
+Parsing PDFs: 100%|██████████| 9/9 [00:00<00:00, 1168.26it/s]
+
+Loading weights:   0%|          | 0/363 [00:00<?, ?it/s]
+Loading weights:   1%|          | 2/363 [00:00<00:23, 15.36it/s]
+Loading weights:   4%|▎         | 13/363 [00:00<00:06, 58.31it/s]
+Loading weights:   6%|▌         | 20/363 [00:00<00:05, 62.83it/s]
+Loading weights:   7%|▋         | 27/363 [00:00<00:05, 58.28it/s]
+Loading weights:   9%|▉         | 33/363 [00:00<00:06, 48.08it/s]
+Loading weights:  11%|█         | 40/363 [00:00<00:06, 53.06it/s]
+Loading weights:  13%|█▎        | 46/363 [00:00<00:06, 50.01it/s]
+Loading weights:  14%|█▍        | 52/363 [00:01<00:06, 48.32it/s]
+Loading weights:  16%|█▋        | 59/363 [00:01<00:06, 49.42it/s]
+Loading weights:  18%|█▊        | 65/363 [00:01<00:05, 51.87it/s]
+Loading weights:  20%|█▉        | 71/363 [00:01<00:06, 47.20it/s]
+Loading weights:  21%|██        | 77/363 [00:01<00:06, 46.04it/s]
+Loading weights:  23%|██▎       | 83/363 [00:01<00:05, 48.05it/s]
+Loading weights:  24%|██▍       | 88/363 [00:01<00:06, 44.86it/s]
+Loading weights:  26%|██▌       | 94/363 [00:01<00:05, 47.87it/s]
+Loading weights:  27%|██▋       | 99/363 [00:02<00:05, 45.56it/s]
+Loading weights:  29%|██▊       | 104/363 [00:02<00:05, 43.71it/s]
+Loading weights:  31%|███       | 112/363 [00:02<00:05, 48.55it/s]
+Loading weights:  32%|███▏      | 117/363 [00:02<00:05, 48.09it/s]
+Loading weights:  34%|███▎      | 122/363 [00:02<00:05, 47.51it/s]
+Loading weights:  36%|███▌      | 130/363 [00:02<00:04, 51.66it/s]
+Loading weights:  38%|███▊      | 137/363 [00:02<00:04, 54.66it/s]
+Loading weights:  39%|███▉      | 143/363 [00:02<00:04, 52.72it/s]
+Loading weights:  41%|████      | 149/363 [00:03<00:04, 51.41it/s]
+Loading weights:  43%|████▎     | 155/363 [00:03<00:03, 52.57it/s]
+Loading weights:  44%|████▍     | 161/363 [00:03<00:04, 48.98it/s]
+Loading weights:  46%|████▌     | 167/363 [00:03<00:04, 47.76it/s]
+Loading weights:  48%|████▊     | 173/363 [00:03<00:03, 49.88it/s]
+Loading weights:  49%|████▉     | 179/363 [00:03<00:03, 49.17it/s]
+Loading weights:  51%|█████     | 185/363 [00:03<00:03, 49.40it/s]
+Loading weights:  53%|█████▎    | 193/363 [00:03<00:03, 53.03it/s]
+Loading weights:  55%|█████▍    | 199/363 [00:03<00:03, 52.59it/s]
+Loading weights:  56%|█████▋    | 205/363 [00:04<00:03, 50.62it/s]
+Loading weights:  58%|█████▊    | 212/363 [00:04<00:02, 51.27it/s]
+Loading weights:  61%|██████    | 220/363 [00:04<00:02, 53.68it/s]
+Loading weights:  62%|██████▏   | 226/363 [00:04<00:02, 51.39it/s]
+Loading weights:  64%|██████▍   | 232/363 [00:04<00:02, 47.47it/s]
+Loading weights:  66%|██████▌   | 238/363 [00:04<00:02, 50.26it/s]
+Loading weights:  67%|██████▋   | 244/363 [00:04<00:02, 50.65it/s]
+Loading weights:  69%|██████▉   | 250/363 [00:05<00:02, 49.75it/s]
+Loading weights:  71%|███████   | 257/363 [00:05<00:02, 51.03it/s]
+Loading weights:  73%|███████▎  | 265/363 [00:05<00:01, 54.32it/s]
+Loading weights:  75%|███████▍  | 271/363 [00:05<00:01, 53.25it/s]
+Loading weights:  76%|███████▋  | 277/363 [00:05<00:01, 50.95it/s]
+Loading weights:  78%|███████▊  | 284/363 [00:05<00:01, 50.61it/s]
+Loading weights:  80%|███████▉  | 290/363 [00:05<00:01, 52.65it/s]
+Loading weights:  82%|████████▏ | 296/363 [00:05<00:01, 51.53it/s]
+Loading weights:  83%|████████▎ | 302/363 [00:06<00:01, 52.00it/s]
+Loading weights:  85%|████████▍ | 308/363 [00:06<00:01, 53.75it/s]
+Loading weights:  87%|████████▋ | 314/363 [00:06<00:00, 52.27it/s]
+Loading weights:  88%|████████▊ | 320/363 [00:06<00:00, 51.82it/s]
+Loading weights:  90%|█████████ | 328/363 [00:06<00:00, 55.08it/s]
+Loading weights:  92%|█████████▏| 334/363 [00:06<00:00, 53.46it/s]
+Loading weights:  94%|█████████▎| 340/363 [00:06<00:00, 48.96it/s]
+Loading weights:  96%|█████████▌| 347/363 [00:06<00:00, 50.03it/s]
+Loading weights:  98%|█████████▊| 355/363 [00:07<00:00, 52.43it/s]
+Loading weights:  99%|█████████▉| 361/363 [00:07<00:00, 50.15it/s]
+Loading weights: 100%|██████████| 363/363 [00:07<00:00, 50.63it/s]
+
+OneKE Extracting:   0%|          | 0/9 [00:00<?, ?it/s]The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+
+OneKE Extracting:  11%|█         | 1/9 [09:51<1:18:50, 591.36s/it]
+OneKE Extracting:  22%|██▏       | 2/9 [16:05<54:05, 463.69s/it]
+OneKE Extracting:  33%|███▎      | 3/9 [18:34<31:58, 319.77s/it]
+OneKE Extracting:  44%|████▍     | 4/9 [37:28<53:26, 641.31s/it]
+OneKE Extracting:  56%|█████▌    | 5/9 [37:30<27:23, 410.80s/it]
+OneKE Extracting:  67%|██████▋   | 6/9 [38:08<14:12, 284.14s/it]
+OneKE Extracting:  78%|███████▊  | 7/9 [39:52<07:30, 225.13s/it]
+OneKE Extracting:  89%|████████▉ | 8/9 [41:16<03:00, 180.33s/it]
+OneKE Extracting: 100%|██████████| 9/9 [43:25<00:00, 164.04s/it]
+OneKE Extracting: 100%|██████████| 9/9 [43:25<00:00, 289.45s/it]
+[EXTRACT] 2018311055郭廷宇.md: 21 triples
+[EXTRACT] 变体飞行器变形方式及气动布局设计关键技术研究进展_加水印.md: 22 triples
+[EXTRACT] 变构飞行器控制技术发展现状与展望.md: 14 triples
+[EXTRACT] 国防科技著作精品译丛  变体飞行器与结构_14229129.md: 81 triples
+[EXTRACT] 空天变构飞行技术专栏序_包为民.md: 0 triples
+[EXTRACT] 空天变构飞行技术研究现状与未来发展研判_刘思佳.md: 2 triples
+[EXTRACT] 论文-CJA.md: 14 triples
+[EXTRACT] 跨域变构飞行器变形方案设计及气动特性分析_安英韬.md: 5 triples
+[EXTRACT] 跨域变构飞行器自学习模型预测姿态控制方法_贾正宇.md: 7 triples
+[DONE] OneKE triples = 166, saved to ./data/triples_raw/triples.jsonl
+加载原始三元组: 166 条
+加载Yuan-Embedding模型: model/Yuan-Embedding
+
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 391/391 [00:00<00:00, 7202.18it/s]
+模型已加载到: cuda
+原始统计: 230 个唯一实体, 5 个唯一关系
+
+编码文本:   0%|          | 0/8 [00:00<?, ?it/s]
+编码文本:  12%|█▎        | 1/8 [00:00<00:00,  7.05it/s]
+编码文本:  75%|███████▌  | 6/8 [00:00<00:00, 25.64it/s]
+编码文本: 100%|██████████| 8/8 [00:00<00:00, 26.24it/s]
+实体归一化: 230 → 207 个标准实体
+关系归一化: 5 → 5 个标准关系
+[DONE] Yuan-Embedding融合完成:
+  - 融合后三元组: 162 条
+  - 融合后唯一实体: 207 个
+  - 压缩率: 2.4%
+[SAVE] ./data/triples_fused/triples_fused.jsonl
+[PIPELINE DONE] raw=166, fused=162

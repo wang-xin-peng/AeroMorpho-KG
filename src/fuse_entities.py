@@ -9,12 +9,94 @@
 """
 
 import argparse
+import os
 from typing import Dict, List
 
 import numpy as np
-from sentence_transformers import SentenceTransformer
+import torch
+from transformers import AutoModel, AutoTokenizer
 
 from common import dump_jsonl, load_jsonl
+
+
+class YuanEmbeddingEncoder:
+    """
+    使用transformers直接加载Yuan-Embedding模型
+    不依赖SentenceTransformer，避免配置文件缺失问题
+    """
+    
+    def __init__(self, model_path: str):
+        """加载模型和分词器"""
+        print(f"加载Yuan-Embedding模型: {model_path}")
+        
+        # 检查本地路径
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"模型路径不存在: {model_path}")
+        
+        # 加载分词器
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
+        
+        # 加载模型
+        self.model = AutoModel.from_pretrained(model_path)
+        self.model.eval()
+        
+        # 使用GPU如果可用
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.model.to(self.device)
+        print(f"模型已加载到: {self.device}")
+    
+    def encode(self, texts: List[str], normalize_embeddings: bool = True, show_progress_bar: bool = True) -> np.ndarray:
+        """
+        将文本编码为向量
+        Args:
+            texts: 文本列表
+            normalize_embeddings: 是否归一化向量
+            show_progress_bar: 是否显示进度条
+        Returns:
+            向量矩阵 (n, d)
+        """
+        from tqdm import tqdm
+        
+        embeddings = []
+        
+        # 批量处理
+        batch_size = 32
+        iterator = tqdm(range(0, len(texts), batch_size), desc="编码文本") if show_progress_bar else range(0, len(texts), batch_size)
+        
+        for i in iterator:
+            batch_texts = texts[i:i + batch_size]
+            
+            # 分词
+            encoded_input = self.tokenizer(
+                batch_texts,
+                padding=True,
+                truncation=True,
+                max_length=512,
+                return_tensors="pt"
+            ).to(self.device)
+            
+            # 推理
+            with torch.no_grad():
+                outputs = self.model(**encoded_input)
+                
+                # Mean Pooling - 取所有token的平均值
+                attention_mask = encoded_input["attention_mask"]
+                token_embeddings = outputs.last_hidden_state
+                
+                # 计算带attention mask的mean pooling
+                input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+                sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
+                sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+                sentence_embeddings = sum_embeddings / sum_mask
+            
+            # 归一化
+            if normalize_embeddings:
+                sentence_embeddings = torch.nn.functional.normalize(sentence_embeddings, p=2, dim=1)
+            
+            embeddings.append(sentence_embeddings.cpu().numpy())
+        
+        # 合并所有批次
+        return np.vstack(embeddings)
 
 
 def cosine_sim_matrix(embeddings: np.ndarray) -> np.ndarray:
@@ -102,8 +184,7 @@ def normalize(
     """
 
     # Step 1: 加载向量模型
-    print(f"加载Yuan-Embedding模型: {model_name}")
-    model = SentenceTransformer(model_name)
+    encoder = YuanEmbeddingEncoder(model_name)
 
     # Step 2: 提取所有唯一的实体和关系
     entities = sorted({t["head"].strip() for t in triples} | {t["tail"].strip() for t in triples})
@@ -112,8 +193,8 @@ def normalize(
     print(f"原始统计: {len(entities)} 个唯一实体, {len(relations)} 个唯一关系")
 
     # Step 3: 生成向量
-    entity_emb = model.encode(entities, normalize_embeddings=True, show_progress_bar=True)
-    relation_emb = model.encode(relations, normalize_embeddings=True, show_progress_bar=False)
+    entity_emb = encoder.encode(entities, normalize_embeddings=True, show_progress_bar=True)
+    relation_emb = encoder.encode(relations, normalize_embeddings=True, show_progress_bar=False)
 
     # Step 4: 聚类合并
     entity_map = build_clusters(entities, entity_emb, threshold=entity_threshold)

@@ -107,8 +107,8 @@ def main() -> None:
     parser.add_argument(
         "--triples",
         required=False,
-        default="data/triples_fused/triples_bge.jsonl",
-        help="融合后三元组jsonl文件路径（默认: data/triples_fused/triples_bge.jsonl）",
+        default="data/triples_fused/triples_fused.jsonl",
+        help="融合后三元组jsonl文件路径（默认: data/triples_fused/triples_fused.jsonl）",
     )
     
     args = parser.parse_args()

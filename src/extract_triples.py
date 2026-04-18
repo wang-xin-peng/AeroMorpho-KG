@@ -50,35 +50,52 @@ def split_text(text: str, max_chars: int = 1200) -> List[str]:
 
 def parse_json_array(text: str) -> List[Dict]:
     """
-    从模型输出文本中解析JSON数组格式的三元组
+    从模型输出文本中解析JSON格式的三元组
+    支持两种格式：
+    1. OneKE格式：{"关系名": [{"subject": "...", "object": "..."}]}
+    2. 标准格式：[{"head": "...", "relation": "...", "tail": "..."}]
+    
     Args:
         text: 模型输出的原始文本，可能包含额外的解释文字
     Returns:
         解析后的三元组列表，每个三元组包含head、relation、tail字段
     """
-    # 使用正则表达式提取JSON数组部分[....]
-    match = re.search(r"\[[\s\S]*\]", text)
+    # 使用正则表达式提取JSON部分
+    match = re.search(r"\{[\s\S]*\}|\[[\s\S]*\]", text)
     if not match:
         return []
     
     raw = match.group(0)  
     
     try:
-        arr = json.loads(raw) 
+        data = json.loads(raw)
     except Exception:
         return []
     
     rows: List[Dict] = []
-    for item in arr:
-        if not isinstance(item, dict):
-            continue
-        
-        # 提取头实体、关系、尾实体，并去除首尾空白
-        h = str(item.get("head", "")).strip()
-        r = str(item.get("relation", "")).strip()
-        t = str(item.get("tail", "")).strip()
-        if h and r and t:
-            rows.append({"head": h, "relation": r, "tail": t})
+    
+    # 格式1: OneKE格式 {"关系名": [{"subject": "...", "object": "..."}]}
+    if isinstance(data, dict):
+        for relation, items in data.items():
+            if isinstance(items, list):
+                for item in items:
+                    if isinstance(item, dict):
+                        h = str(item.get("subject", "")).strip()
+                        t = str(item.get("object", "")).strip()
+                        if h and relation and t:
+                            rows.append({"head": h, "relation": relation, "tail": t})
+    
+    # 格式2: 标准格式 [{"head": "...", "relation": "...", "tail": "..."}]
+    elif isinstance(data, list):
+        for item in data:
+            if not isinstance(item, dict):
+                continue
+            
+            h = str(item.get("head", "")).strip()
+            r = str(item.get("relation", "")).strip()
+            t = str(item.get("tail", "")).strip()
+            if h and r and t:
+                rows.append({"head": h, "relation": r, "tail": t})
     
     return rows
 
@@ -98,7 +115,7 @@ class Extractor:
         model_path: str = "model/OneKE",
         load_in_4bit: bool = True,
         max_new_tokens: int = 768,
-        split_num: int = 4,  # RE任务的推荐切分长度
+        split_num: int = 4,  # RE任务的推荐切分长度是4
     ) -> None:
         """
         初始化抽取器，加载模型
@@ -128,11 +145,12 @@ class Extractor:
         Returns:
             从该文本块中抽取的三元组列表
         """
-        # 解析schema_prompt中的实体类型和关系类型
+
+        # 实体类型和关系类型
         entity_types = []
         relation_types = []
         
-        # 简单的解析逻辑，从schema_prompt中提取类型
+        # 从schema_prompt中提取类型
         in_entity_section = False
         in_relation_section = False
         
@@ -161,54 +179,31 @@ class Extractor:
         # 对关系类型进行轮询抽取
         for i in range(0, len(relation_types), self.split_num):
             batch_relations = relation_types[i:i + self.split_num]
-            
-            # 构建轮询指令
             instruction = "你是专门进行关系抽取的专家。请从input中抽取出符合schema定义的关系三元组，不存在的关系返回空列表。请按照JSON字符串的格式回答。"
-            
-            # 构建schema描述
-            schema_desc = '\n'.join([
-                f"- {rel}: {self._get_relation_description(schema_prompt, rel)}"
-                for rel in batch_relations
-            ])
-            
-            # 使用OneKE标准指令格式
-            prompt = self._build_oneke_prompt(instruction, schema_desc, chunk)
-            
-            # 推理并解析
+            prompt = self._build_oneke_prompt(instruction, batch_relations, chunk)
             triples = self._run_inference(prompt)
             all_triples.extend(triples)
         
         return all_triples
     
-    def _get_relation_description(self, schema_prompt: str, relation_name: str) -> str:
-        """从schema_prompt中提取关系描述"""
-        in_relation_section = False
-        for line in schema_prompt.split('\n'):
-            if '[关系类型]' in line:
-                in_relation_section = True
-                continue
-            if in_relation_section and line.startswith(f'- {relation_name}:'):
-                return line.split(':', 1)[1].strip() if ':' in line else ''
-        return ''
-    
-    def _build_oneke_prompt(self, instruction: str, schema_desc: str, input_text: str) -> str:
+    def _build_oneke_prompt(self, instruction: str, schema_list: list, input_text: str) -> str:
         """
         构建OneKE标准格式的指令
-        按照OneKE文档中的instruction_mapper格式
+        使用LLaMA对话格式：[INST] <<SYS>>...<</SYS>> input: ... [/INST]
         """
         import json
         
-        # 构建schema列表（仅关系名称）
-        schema_list = [line.split(':')[0].strip().lstrip('- ') for line in schema_desc.split('\n') if line.startswith('- ')]
+        system_prompt = (
+            '<<SYS>>' 
+            + instruction 
+            + 'schema: ' 
+            + json.dumps(schema_list, ensure_ascii=False) 
+            + '\n<</SYS>>\n\n'
+        )
         
-        # 使用OneKE的JSON格式指令
-        sintruct = json.dumps({
-            'instruction': instruction,
-            'schema': schema_list,
-            'input': input_text
-        }, ensure_ascii=False)
+        prompt = '[INST] ' + system_prompt + "input: " + input_text + ' [/INST]'
         
-        return sintruct
+        return prompt
     
     def _run_inference(self, prompt: str) -> List[Dict]:
         """
@@ -226,8 +221,9 @@ class Extractor:
             outputs = self.model.generate(
                 **inputs,
                 max_new_tokens=self.max_new_tokens,
-                do_sample=False,      # 不使用随机采样，保证确定性输出
-                temperature=0.0,      # 温度设为0，选择概率最高的输出
+                do_sample=False,      
+                temperature=0.0,     
+                pad_token_id=self.tokenizer.eos_token_id,
             )
         
         # 解码输出

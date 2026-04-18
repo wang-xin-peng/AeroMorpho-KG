@@ -5,8 +5,8 @@
 import argparse
 import asyncio
 
-from extract_triples_oneke import run_extract
-from fuse_entities_bge import run_fusion
+from extract_triples import run_extract
+from fuse_entities import run_fusion
 from parse_docs import run_parse
 
 
@@ -28,7 +28,7 @@ def main() -> None:
     parser.add_argument("--schema-path", default="config/schema.json")
     parser.add_argument("--oneke-model", default="model/OneKE")
     parser.add_argument("--chunk-chars", type=int, default=1200)
-    parser.add_argument("--embedding_model", default="model/Yuan-embedding")
+    parser.add_argument("--embedding-model", default="model/Yuan-Embedding")
     parser.add_argument("--entity-threshold", type=float, default=0.85)
     parser.add_argument("--relation-threshold", type=float, default=0.9)
     args = parser.parse_args()
@@ -48,7 +48,7 @@ def main() -> None:
     fused_count = run_fusion(
         in_jsonl=args.raw_triples,
         out_jsonl=args.fused_triples,
-        model_name=args.embedding_model,
+        model_name=args.embedding_model,  # argparse会把连字符转为下划线
         entity_threshold=args.entity_threshold,
         relation_threshold=args.relation_threshold,
     )
