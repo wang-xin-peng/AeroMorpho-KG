@@ -13,20 +13,22 @@ from typing import Dict, List, Union
 @dataclass
 class DeepKESchema:
     """
-    DeepKE Schema数据结构,描述知识抽取任务的领域知识，包括：
-    1.instruction: 系统指令，告诉模型要做什么
-    2.relation_types: 关系类型列表（支持 name + description + example）
+    DeepKE Schema数据结构,描述知识抽取任务的领域知识
+    只包含 relation_types（关系类型列表）
+    instruction 在 extract_triples.py 中硬编码
     """
-    instruction: str
-    relation_types: List[Dict]   # 关系类型列表，每个包含 name, description, example
+    relation_types: List[Dict]   # 关系类型列表，每个包含 name, description
 
     @classmethod
     def from_json(cls, path: str) -> "DeepKESchema":
         """
-        从JSON文件加载Schema配置。
-        支持两种格式：
-        1. 简单格式：{"instruction": "...", "schema": ["关系1", "关系2"]}
-        2. 完整格式：{"instruction": "...", "relation_types": [{"name": "关系1", "description": "..."}]}
+        从JSON文件加载关系类型配置
+        文件格式：直接是关系类型数组
+        [
+          {"name": "具有", "description": "..."},
+          {"name": "优化", "description": "..."},
+          ...
+        ]
         
         Args:
             path: JSON配置文件路径
@@ -35,29 +37,13 @@ class DeepKESchema:
         """
 
         with open(path, "r", encoding="utf-8") as f:
-            payload = json.load(f)
+            relation_types = json.load(f)
         
-        instruction = payload.get("instruction", "你是专门进行关系抽取的专家。请从input中抽取出符合schema定义的关系三元组，不存在的关系返回空列表。请按照JSON字符串的格式回答。")
+        # 确保是列表格式
+        if not isinstance(relation_types, list):
+            raise ValueError(f"relation_types.json应该是数组格式，但得到了: {type(relation_types)}")
         
-        # 兼容两种格式
-        if "relation_types" in payload:
-            # 完整格式
-            relation_types = payload["relation_types"]
-        elif "schema" in payload:
-            # 简单格式，转换为完整格式
-            schema = payload["schema"]
-            if isinstance(schema, list) and len(schema) > 0 and isinstance(schema[0], str):
-                # 纯字符串列表
-                relation_types = [{"name": r, "description": "", "example": []} for r in schema]
-            else:
-                relation_types = schema
-        else:
-            relation_types = []
-        
-        return cls(
-            instruction=instruction,
-            relation_types=relation_types,
-        )
+        return cls(relation_types=relation_types)
     
     def get_relation_names(self) -> List[str]:
         """

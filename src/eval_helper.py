@@ -166,7 +166,7 @@ def print_evaluation_status(
         print("\n2. 运行综合评估")
         print("   python src/eval_all.py \\")
         print(f"       --triples {triples_path} \\")
-        print("       --schema config/schema.json \\")
+        print("       --schema config/relation_types.json \\")
         print(f"       --entity-csv {entity_csv} \\")
         print(f"       --relation-csv {relation_csv}")
     

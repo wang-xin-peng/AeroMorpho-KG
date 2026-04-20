@@ -322,12 +322,12 @@ def main() -> None:
     使用示例：
     python eval_consistency.py \
         --triples data/triples_fused/triples_fused.jsonl \
-        --schema config/schema.json \
+        --schema config/relation_types.json \
         --output-report data/eval/consistency_report.txt
     """
     parser = argparse.ArgumentParser(description="一致性评估工具")
     parser.add_argument("--triples", required=True, help="三元组JSONL文件路径")
-    parser.add_argument("--schema", default="config/schema.json", help="Schema配置文件路径")
+    parser.add_argument("--schema", default="config/relation_types.json", help="关系类型配置文件路径")
     parser.add_argument("--output-report", default="data/eval/consistency_report.txt", help="输出报告路径")
     args = parser.parse_args()
     

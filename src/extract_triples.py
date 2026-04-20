@@ -20,30 +20,73 @@ from common import dump_jsonl
 from schema import DeepKESchema
 
 
-def split_text(text: str, max_chars: int = 1200) -> List[str]:
+def split_text(text: str, max_chars: int = 2000, overlap: int = 200) -> List[str]:
     """
-    将长文本按句子边界切分成多个文本块(OneKE模型有输入长度限制)
+    将长文本按句子边界切分成多个文本块，使用重叠窗口避免边界处关系丢失
+    
+    改进策略：
+    1. 先按句子切分（使用中文标点：。！？；）
+    2. 将句子组合成不超过max_chars的文本块
+    3. 使用overlap字符的重叠窗口，避免跨块关系丢失
+    
     Args:
         text: 原始文本
-        max_chars: 每个文本块的最大字符数，默认1200字符
+        max_chars: 每个文本块的最大字符数，默认2000字符
+        overlap: 重叠字符数，默认200字符
     Returns:
         切分后的文本块列表
     """
-
-    parts = re.split(r"(?<=[。！？\n])", text)
+    # 按句子切分（保留句子完整性）
+    # 使用正向预查，保留分隔符
+    sentences = re.split(r'(?<=[。！？；])', text)
+    
+    # 过滤空句子
+    sentences = [s.strip() for s in sentences if s.strip()]
+    
     chunks: List[str] = []
-    cur = ""
+    current_chunk = ""
     
-    for p in parts:
-        if len(cur) + len(p) <= max_chars:
-            cur += p
+    for sentence in sentences:
+        # 如果当前句子本身就超过max_chars，单独作为一个chunk
+        if len(sentence) > max_chars:
+            if current_chunk:
+                chunks.append(current_chunk.strip())
+                current_chunk = ""
+            chunks.append(sentence.strip())
+            continue
+        
+        # 如果加上当前句子不超过max_chars，添加到当前chunk
+        if len(current_chunk) + len(sentence) <= max_chars:
+            current_chunk += sentence
         else:
-            if cur.strip():
-                chunks.append(cur.strip())
-            cur = p
+            # 当前chunk已满，保存并开始新chunk
+            if current_chunk:
+                chunks.append(current_chunk.strip())
+                
+                # 创建重叠：从当前chunk末尾取overlap个字符作为新chunk的开头
+                if len(current_chunk) > overlap:
+                    # 找到overlap范围内最近的句子边界
+                    overlap_text = current_chunk[-overlap:]
+                    # 尝试从完整句子开始
+                    sentence_start = max(
+                        overlap_text.rfind('。') + 1,
+                        overlap_text.rfind('！') + 1,
+                        overlap_text.rfind('？') + 1,
+                        overlap_text.rfind('；') + 1,
+                        0
+                    )
+                    if sentence_start > 0:
+                        current_chunk = overlap_text[sentence_start:] + sentence
+                    else:
+                        current_chunk = overlap_text + sentence
+                else:
+                    current_chunk = sentence
+            else:
+                current_chunk = sentence
     
-    if cur.strip():
-        chunks.append(cur.strip())
+    # 添加最后一个chunk
+    if current_chunk.strip():
+        chunks.append(current_chunk.strip())
     
     return chunks
 
@@ -110,12 +153,15 @@ class Extractor:
     4. 支持轮询方式抽取（每次抽取固定数量的schema）
     """
     
+    # OneKE官方推荐的RE任务instruction
+    RE_INSTRUCTION = "你是专门进行关系抽取的专家。请从input中抽取出符合schema定义的关系三元组，不存在的关系返回空列表。请按照JSON字符串的格式回答。"
+    
     def __init__(
         self,
-        model_path: str = "./model/OneKE",
+        model_path: str = "model/OneKE",
         load_in_4bit: bool = True,
-        max_new_tokens: int = 768,
-        split_num: int = 4,  # RE任务的推荐切分长度是4
+        max_new_tokens: int = 1536,  # 适度增加输出长度
+        split_num: int = 4,  # RE任务推荐值
     ) -> None:
         """
         初始化抽取器，加载模型
@@ -151,16 +197,15 @@ class Extractor:
         # 使用轮询方式抽取
         all_triples = []
         
-        # 对关系类型进行轮询抽取
+        # 对关系类型进行轮询抽取（每次处理split_num个关系）
         for i in range(0, len(relation_names), self.split_num):
             batch_relations = relation_names[i:i + self.split_num]
             
-            # 生成 OneKE schema（自动选择基础模式或增强模式）
+            # 生成 OneKE schema（字典格式：{关系名: 描述}）
             oneke_schema = schema.get_relation_schema_dict(batch_relations)
             
-            # 构建 OneKE 指令
-            instruction = schema.instruction
-            prompt = self._build_oneke_prompt(instruction, oneke_schema, chunk)
+            # 构建 OneKE 指令（使用类常量中的instruction）
+            prompt = self._build_oneke_prompt(self.RE_INSTRUCTION, oneke_schema, chunk)
             
             # 执行推理
             triples = self._run_inference(prompt)
@@ -230,9 +275,9 @@ def run_extract(
     parsed_dir: str,
     out_jsonl: str,
     schema_path: str,
-    model_path: str = "./model/OneKE",
+    model_path: str = "model/OneKE",
     load_in_4bit: bool = True,
-    chunk_chars: int = 1200,
+    chunk_chars: int = 2000,  # 增加默认chunk大小
 ) -> int:
     """
     OneKE抽取主函数
@@ -274,9 +319,20 @@ def run_extract(
         text = md_file.read_text(encoding="utf-8", errors="ignore")
         chunks = split_text(text, max_chars=chunk_chars)
         
+        # 计算分块统计信息
+        avg_chunk_size = sum(len(c) for c in chunks) / len(chunks) if chunks else 0
+        print(f"\n[INFO] {md_file.name}:")
+        print(f"  文本长度: {len(text)} 字符")
+        print(f"  切分块数: {len(chunks)} 个")
+        print(f"  平均块大小: {avg_chunk_size:.0f} 字符")
+        print(f"  块大小范围: {min(len(c) for c in chunks) if chunks else 0} - {max(len(c) for c in chunks) if chunks else 0} 字符")
+        
         doc_count = 0
-        for chunk in chunks:
+        for idx, chunk in enumerate(chunks):
             rows = extractor.infer_chunk(schema, chunk)
+            chunk_triples = len(rows)
+            if chunk_triples > 0:
+                print(f"  Chunk {idx+1}/{len(chunks)} ({len(chunk)}字符): 抽取{chunk_triples}个三元组")
             for r in rows:
                 key = (r["head"], r["relation"], r["tail"])
                 if key in dedup:
@@ -293,7 +349,7 @@ def run_extract(
                 )
                 doc_count += 1
         
-        print(f"[EXTRACT] {md_file.name}: {doc_count} triples")
+        print(f"[EXTRACT] {md_file.name}: 总计{doc_count}个唯一三元组")
 
     # Step 5: 保存结果
     dump_jsonl(out_jsonl, all_rows)
@@ -307,15 +363,15 @@ def main() -> None:
     python extract_triples.py \
         --parsed-dir ./ragtest/input \
         --out-jsonl ./triples.jsonl \
-        --schema-path ./config/schema.json
+        --schema-path ./config/relation_types.json
     """
 
     parser = argparse.ArgumentParser(description="使用OneKE抽取知识三元组")
     parser.add_argument("--parsed-dir", required=True, help="LlamaParse解析后的Markdown目录")
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径")
-    parser.add_argument("--schema-path", default="./config/schema.json", help="Schema配置文件路径")
-    parser.add_argument("--model-path", default="./model/OneKE", help="OneKE模型路径")
-    parser.add_argument("--chunk-chars", type=int, default=1200, help="文本块最大字符数")
+    parser.add_argument("--schema-path", default="./config/relation_types.json", help="关系类型配置文件路径")
+    parser.add_argument("--model-path", default="model/OneKE", help="OneKE模型路径")
+    parser.add_argument("--chunk-chars", type=int, default=2000, help="文本块最大字符数")
     args = parser.parse_args()
 
     run_extract(

@@ -293,14 +293,14 @@ def main() -> None:
     使用示例：
     python eval_all.py \
         --triples data/triples_fused/triples_fused.jsonl \
-        --schema config/schema.json \
+        --schema config/relation_types.json \
         --entity-csv data/eval/sample_concepts.csv \
         --relation-csv data/eval/sample_relations.csv \
         --output-dir data/eval
     """
     parser = argparse.ArgumentParser(description="综合评估工具")
     parser.add_argument("--triples", required=True, help="三元组JSONL文件路径")
-    parser.add_argument("--schema", default="config/schema.json", help="Schema配置文件路径")
+    parser.add_argument("--schema", default="config/relation_types.json", help="关系类型配置文件路径")
     parser.add_argument("--entity-csv", help="实体标注CSV路径（可选）")
     parser.add_argument("--relation-csv", help="关系标注CSV路径（可选）")
     parser.add_argument("--output-dir", default="data/eval", help="输出目录")
