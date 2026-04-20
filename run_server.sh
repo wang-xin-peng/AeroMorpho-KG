@@ -29,7 +29,7 @@ set -euo pipefail
 #   export LLAMA_CLOUD_API_KEY=xxx
 
 CONDA_ENV="${CONDA_ENV:-kg_env}"
-PDF_DIR="${PDF_DIR:-变构飞行器}"
+PDF_DIR="${PDF_DIR:-data/raw}"
 PARSE_DIR="${PARSE_DIR:-data/parsed}"
 RAW_TRIPLES="${RAW_TRIPLES:-data/triples_raw/triples_oneke.jsonl}"
 FUSED_TRIPLES="${FUSED_TRIPLES:-data/triples_fused/triples_bge.jsonl}"

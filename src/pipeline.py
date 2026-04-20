@@ -20,13 +20,13 @@ def main() -> None:
     """
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pdf-dir", default="./变构飞行器")
+    parser.add_argument("--pdf-dir", default="./data/raw")
     parser.add_argument("--parse-dir", default="./data/parsed")
     parser.add_argument("--raw-triples", default="./data/triples_raw/triples.jsonl")
     parser.add_argument("--fused-triples", default="./data/triples_fused/triples_fused.jsonl")
     parser.add_argument("--skip-parse", action="store_true", help="跳过解析层")
     parser.add_argument("--schema-path", default="config/schema.json")
-    parser.add_argument("--oneke-model", default="model/OneKE")
+    parser.add_argument("--oneke-model", default="./model/OneKE")
     parser.add_argument("--chunk-chars", type=int, default=1200)
     parser.add_argument("--embedding-model", default="model/Yuan-Embedding")
     parser.add_argument("--entity-threshold", type=float, default=0.85)

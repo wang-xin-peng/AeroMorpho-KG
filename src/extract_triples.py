@@ -10,7 +10,7 @@ import argparse
 import json
 import re
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Union
 
 import torch
 from tqdm import tqdm
@@ -112,7 +112,7 @@ class Extractor:
     
     def __init__(
         self,
-        model_path: str = "model/OneKE",
+        model_path: str = "./model/OneKE",
         load_in_4bit: bool = True,
         max_new_tokens: int = 768,
         split_num: int = 4,  # RE任务的推荐切分长度是4
@@ -135,73 +135,63 @@ class Extractor:
         self.max_new_tokens = max_new_tokens
         self.split_num = split_num
 
-    def infer_chunk(self, schema_prompt: str, chunk: str) -> List[Dict]:
+    def infer_chunk(self, schema: DeepKESchema, chunk: str) -> List[Dict]:
         """
         对单个文本块进行推理，抽取三元组
         使用OneKE轮询方式：将schema切分成多个小块，分别抽取后合并结果
         Args:
-            schema_prompt: 包含实体类型、关系类型定义和指令的提示词
+            schema: DeepKESchema 对象，包含关系类型定义
             chunk: 待抽取的文本块
         Returns:
             从该文本块中抽取的三元组列表
         """
-
-        # 实体类型和关系类型
-        entity_types = []
-        relation_types = []
-        
-        # 从schema_prompt中提取类型
-        in_entity_section = False
-        in_relation_section = False
-        
-        for line in schema_prompt.split('\n'):
-            if '[实体类型]' in line:
-                in_entity_section = True
-                in_relation_section = False
-                continue
-            elif '[关系类型]' in line:
-                in_entity_section = False
-                in_relation_section = True
-                continue
-            elif line.strip() == '' or line.startswith('你是一个') or line.startswith('请按照'):
-                continue
-            
-            if in_entity_section and line.startswith('- '):
-                entity_name = line[2:].split(':')[0].strip()
-                entity_types.append(entity_name)
-            elif in_relation_section and line.startswith('- '):
-                relation_name = line[2:].split(':')[0].strip()
-                relation_types.append(relation_name)
+        # 获取所有关系名称
+        relation_names = schema.get_relation_names()
         
         # 使用轮询方式抽取
         all_triples = []
         
         # 对关系类型进行轮询抽取
-        for i in range(0, len(relation_types), self.split_num):
-            batch_relations = relation_types[i:i + self.split_num]
-            instruction = "你是专门进行关系抽取的专家。请从input中抽取出符合schema定义的关系三元组，不存在的关系返回空列表。请按照JSON字符串的格式回答。"
-            prompt = self._build_oneke_prompt(instruction, batch_relations, chunk)
+        for i in range(0, len(relation_names), self.split_num):
+            batch_relations = relation_names[i:i + self.split_num]
+            
+            # 生成 OneKE schema（自动选择基础模式或增强模式）
+            oneke_schema = schema.get_relation_schema_dict(batch_relations)
+            
+            # 构建 OneKE 指令
+            instruction = schema.instruction
+            prompt = self._build_oneke_prompt(instruction, oneke_schema, chunk)
+            
+            # 执行推理
             triples = self._run_inference(prompt)
             all_triples.extend(triples)
         
         return all_triples
     
-    def _build_oneke_prompt(self, instruction: str, schema_list: list, input_text: str) -> str:
+    def _build_oneke_prompt(self, instruction: str, schema: Union[List[str], Dict[str, str]], input_text: str) -> str:
         """
         构建OneKE标准格式的指令
-        使用LLaMA对话格式：[INST] <<SYS>>...<</SYS>> input: ... [/INST]
+        使用LLaMA对话格式：[INST] <<SYS>>...<</SYS>> {JSON指令} [/INST]
+        支持两种 schema 格式：
+        1. 列表格式（基础模式）：["关系1", "关系2"]
+        2. 字典格式（增强模式）：{"关系1": "描述1", "关系2": "描述2"}
+        
+        参考 OneKE 文档的快速运行示例
         """
         import json
         
-        system_prompt = (
-            '<<SYS>>' 
-            + instruction 
-            + 'schema: ' 
-            + json.dumps(schema_list, ensure_ascii=False) 
-            + '\n<</SYS>>\n\n'
-        )
+        # 通用的 system prompt（固定）
+        system_prompt = '<<SYS>>\nYou are a helpful assistant. 你是一个乐于助人的助手。\n<</SYS>>\n\n'
         
-        prompt = '[INST] ' + system_prompt + "input: " + input_text + ' [/INST]'
+        # 构建 JSON 指令字符串
+        sintruct = json.dumps({
+            "instruction": instruction,
+            "schema": schema,
+            "input": input_text
+        }, ensure_ascii=False)
+        
+        # 组合成完整 prompt
+        prompt = '[INST] ' + system_prompt + sintruct + ' [/INST]'
         
         return prompt
     
@@ -240,7 +230,7 @@ def run_extract(
     parsed_dir: str,
     out_jsonl: str,
     schema_path: str,
-    model_path: str = "model/OneKE",
+    model_path: str = "./model/OneKE",
     load_in_4bit: bool = True,
     chunk_chars: int = 1200,
 ) -> int:
@@ -268,7 +258,7 @@ def run_extract(
         raise FileNotFoundError(f"解析目录不存在: {parsed_dir}")
 
     # Step 1: 加载DeepKE Schema配置
-    schema_prompt = DeepKESchema.from_json(schema_path).to_instruction_block()
+    schema = DeepKESchema.from_json(schema_path)
     
     # Step 2: 初始化OneKE抽取器
     extractor = Extractor(model_path=model_path, load_in_4bit=load_in_4bit)
@@ -286,7 +276,7 @@ def run_extract(
         
         doc_count = 0
         for chunk in chunks:
-            rows = extractor.infer_chunk(schema_prompt, chunk)
+            rows = extractor.infer_chunk(schema, chunk)
             for r in rows:
                 key = (r["head"], r["relation"], r["tail"])
                 if key in dedup:
@@ -323,8 +313,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="使用OneKE抽取知识三元组")
     parser.add_argument("--parsed-dir", required=True, help="LlamaParse解析后的Markdown目录")
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径")
-    parser.add_argument("--schema-path", default="config/schema.json", help="Schema配置文件路径")
-    parser.add_argument("--model-path", default="model/OneKE", help="OneKE模型路径")
+    parser.add_argument("--schema-path", default="./config/schema.json", help="Schema配置文件路径")
+    parser.add_argument("--model-path", default="./model/OneKE", help="OneKE模型路径")
     parser.add_argument("--chunk-chars", type=int, default=1200, help="文本块最大字符数")
     args = parser.parse_args()
 

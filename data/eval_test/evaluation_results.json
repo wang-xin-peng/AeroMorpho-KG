@@ -1,0 +1,232 @@
+{
+  "accuracy": {
+    "entity": {
+      "precision": 0.6666666666666666,
+      "recall": null,
+      "f1": null,
+      "correct": 10,
+      "total": 15,
+      "error_types": {
+        "边界错误": 2,
+        "类型错误": 0,
+        "幻觉": 0,
+        "其他": 3
+      }
+    },
+    "relation": {
+      "precision": 0.75,
+      "recall": null,
+      "f1": null,
+      "correct": 9,
+      "total": 12,
+      "error_types": {
+        "边界错误": 0,
+        "类型错误": 2,
+        "幻觉": 1,
+        "其他": 0
+      }
+    }
+  },
+  "consistency": {
+    "entity_synonyms": {
+      "count": 0,
+      "examples": []
+    },
+    "symmetric_violations": {
+      "count": 0,
+      "examples": []
+    },
+    "transitive_missing": {
+      "count": 1,
+      "examples": [
+        {
+          "type": "传递性缺失",
+          "relation": "包含",
+          "chain": "变体飞行器->机翼结构->控制面",
+          "missing": "变体飞行器-包含-控制面"
+        }
+      ]
+    },
+    "relation_conflicts": {
+      "count": 1,
+      "examples": [
+        {
+          "type": "关系互斥冲突",
+          "head": "变体飞行器",
+          "tail": "气动特性",
+          "conflict_relations": [
+            "优化",
+            "降低"
+          ]
+        }
+      ]
+    },
+    "schema_violations": {
+      "count": 2,
+      "examples": [
+        {
+          "type": "Schema违规",
+          "head": "飞行性能",
+          "relation": "相关于",
+          "tail": "升阻比",
+          "reason": "关系类型不在预定义Schema中"
+        },
+        {
+          "type": "Schema违规",
+          "head": "升阻比",
+          "relation": "相关于",
+          "tail": "飞行性能",
+          "reason": "关系类型不在预定义Schema中"
+        }
+      ]
+    }
+  },
+  "completeness": {
+    "entity_coverage": {
+      "total_entities": 10,
+      "total_mentions": 20,
+      "avg_mentions_per_entity": 2.0,
+      "source_coverage": {
+        "doc1.md": 3,
+        "doc2.md": 3,
+        "doc3.md": 4
+      },
+      "top_entities": [
+        [
+          "变体飞行器",
+          4
+        ],
+        [
+          "气动特性",
+          4
+        ],
+        [
+          "飞行性能",
+          3
+        ],
+        [
+          "机翼结构",
+          2
+        ],
+        [
+          "升阻比",
+          2
+        ],
+        [
+          "控制面",
+          1
+        ],
+        [
+          "变形机翼",
+          1
+        ],
+        [
+          "柔性蒙皮",
+          1
+        ],
+        [
+          "变体机翼",
+          1
+        ],
+        [
+          "智能材料",
+          1
+        ]
+      ]
+    },
+    "relation_coverage": {
+      "total_relation_types": 36,
+      "used_relation_types": 6,
+      "coverage_rate": 0.16666666666666666,
+      "unused_relations": [
+        "不同于",
+        "产生",
+        "传递",
+        "位于",
+        "依赖于",
+        "发展为",
+        "基于",
+        "增强",
+        "实现",
+        "对比",
+        "导致",
+        "属于",
+        "应用于",
+        "抑制",
+        "提出",
+        "提高",
+        "支持",
+        "权衡",
+        "用于",
+        "监测",
+        "解决",
+        "转换为",
+        "连接",
+        "适应",
+        "配合",
+        "采用",
+        "限制",
+        "集成",
+        "面临",
+        "驱动",
+        "验证"
+      ],
+      "relation_distribution": {
+        "具有": 3,
+        "包含": 2,
+        "影响": 1,
+        "相关于": 2,
+        "优化": 1,
+        "降低": 1
+      },
+      "top_relations": [
+        [
+          "具有",
+          3
+        ],
+        [
+          "包含",
+          2
+        ],
+        [
+          "相关于",
+          2
+        ],
+        [
+          "影响",
+          1
+        ],
+        [
+          "优化",
+          1
+        ],
+        [
+          "降低",
+          1
+        ]
+      ]
+    },
+    "entity_connectivity": {
+      "total_entities": 10,
+      "isolated_entities": 0,
+      "isolated_rate": 0.0,
+      "avg_connectivity": 1.4,
+      "max_connectivity": 2,
+      "min_connectivity": 1,
+      "connectivity_distribution": {
+        "0": 0,
+        "1-5": 10,
+        "6-10": 0,
+        "11-20": 0,
+        "20+": 0
+      }
+    },
+    "knowledge_density": {
+      "entity_count": 10,
+      "relation_count": 10,
+      "max_possible_relations": 90,
+      "density": 0.1111111111111111,
+      "entity_relation_ratio": 1.0
+    }
+  }
+}
