@@ -165,56 +165,78 @@ def normalize(
     model_name: str = "model/Yuan-Embedding",
     entity_threshold: float = 0.85,
     relation_threshold: float = 0.9,
+    schema_path: str = "config/relation_types.json",
 ) -> List[Dict]:
     """
-    使用Yuan-Embedding向量模型对三元组进行实体和关系的归一化融合
+    使用Yuan-Embedding向量模型对三元组进行实体归一化融合
+    注意：关系已在schema中预定义，不需要融合
     流程：
-    1. 提取所有唯一的实体（头实体+尾实体）和关系
-    2. 用Yuan-Embedding模型将文本转换为向量
-    3. 基于相似度聚类，合并同义实体和近义关系
+    1. 提取所有唯一的实体（头实体+尾实体）
+    2. 用Yuan-Embedding模型将实体转换为向量
+    3. 基于相似度聚类，合并同义实体
     4. 应用映射，生成归一化后的三元组
     5. 去重后返回
     Args:
         triples: 原始三元组列表，每个元素包含head、relation、tail字段
         model_name: Yuan-Embedding模型路径，默认使用本地model/Yuan-Embedding
         entity_threshold: 实体相似度阈值（0.85），高于此值视为同一实体
-        relation_threshold: 关系相似度阈值（0.9），关系要求更严格
+        relation_threshold: 关系相似度阈值（已废弃，关系不需要融合）
+        schema_path: schema配置文件路径，用于验证关系有效性
     Returns:
         归一化、去重后的三元组列表
     """
+    import json
+    from pathlib import Path
 
-    # Step 1: 加载向量模型
+    # Step 1: 加载schema中的预定义关系
+    valid_relations = set()
+    if Path(schema_path).exists():
+        with open(schema_path, 'r', encoding='utf-8') as f:
+            schema_data = json.load(f)
+            valid_relations = {item["name"] for item in schema_data}
+        print(f"加载schema: {len(valid_relations)} 个预定义关系")
+    else:
+        print(f"警告: schema文件不存在 {schema_path}，跳过关系验证")
+
+    # Step 2: 加载向量模型
     encoder = YuanEmbeddingEncoder(model_name)
 
-    # Step 2: 提取所有唯一的实体和关系
+    # Step 3: 提取所有唯一的实体（关系不需要融合）
     entities = sorted({t["head"].strip() for t in triples} | {t["tail"].strip() for t in triples})
     relations = sorted({t["relation"].strip() for t in triples})
     
     print(f"原始统计: {len(entities)} 个唯一实体, {len(relations)} 个唯一关系")
 
-    # Step 3: 生成向量
+    # Step 4: 只对实体生成向量
+    print("编码实体向量...")
     entity_emb = encoder.encode(entities, normalize_embeddings=True, show_progress_bar=True)
-    relation_emb = encoder.encode(relations, normalize_embeddings=True, show_progress_bar=False)
 
-    # Step 4: 聚类合并
+    # Step 5: 只对实体进行聚类合并
     entity_map = build_clusters(entities, entity_emb, threshold=entity_threshold)
-    relation_map = build_clusters(relations, relation_emb, threshold=relation_threshold)
+    
+    # 关系不需要融合，直接使用原值
+    print("关系已预定义，跳过关系融合")
     
     # 打印映射统计
     unique_canonical_entities = len(set(entity_map.values()))
-    unique_canonical_relations = len(set(relation_map.values()))
     print(f"实体归一化: {len(entities)} → {unique_canonical_entities} 个标准实体")
-    print(f"关系归一化: {len(relations)} → {unique_canonical_relations} 个标准关系")
+    print(f"关系保持不变: {len(relations)} 个预定义关系")
 
-    # Step 5: 应用映射并去重
+    # Step 6: 应用实体映射并去重
     fused: List[Dict] = []
     dedup = set()
+    invalid_relations = set()  # 记录无效关系
     
     for t in triples:
-        # 获取归一化后的值，如果不在映射中则保留原值
+        # 只归一化实体，关系保持原值
         h = entity_map.get(t["head"].strip(), t["head"].strip())
-        r = relation_map.get(t["relation"].strip(), t["relation"].strip())
+        r = t["relation"].strip()  # 关系直接使用原值
         ta = entity_map.get(t["tail"].strip(), t["tail"].strip())
+        
+        # 验证关系是否在schema中（如果加载了schema）
+        if valid_relations and r not in valid_relations:
+            invalid_relations.add(r)
+            continue  # 跳过无效关系
         
         # 去重
         key = (h, r, ta)
@@ -228,9 +250,12 @@ def normalize(
                 "relation": r,
                 "tail": ta,
                 "source": t.get("source", ""),
-                "method": "bge_normalization",  # 标记经过融合处理
+                "method": "entity_normalization",  # 更新标记
             }
         )
+    
+    if invalid_relations:
+        print(f"警告: 发现 {len(invalid_relations)} 个无效关系: {invalid_relations}")
     
     return fused
 
@@ -241,6 +266,7 @@ def run_fusion(
     model_name: str = "model/Yuan-Embedding",
     entity_threshold: float = 0.85,
     relation_threshold: float = 0.9,
+    schema_path: str = "config/relation_types.json",
 ) -> int:
     """
     运行Yuan-Embedding知识融合的主函数
@@ -249,7 +275,8 @@ def run_fusion(
         out_jsonl: 输出文件路径（融合后的三元组）
         model_name: Yuan-Embedding模型路径
         entity_threshold: 实体相似度阈值
-        relation_threshold: 关系相似度阈值
+        relation_threshold: 关系相似度阈值（已废弃）
+        schema_path: schema配置文件路径
     Returns:
         融合后的三元组数量
     """
@@ -267,6 +294,7 @@ def run_fusion(
         model_name=model_name,
         entity_threshold=entity_threshold,
         relation_threshold=relation_threshold,
+        schema_path=schema_path,
     )
     
     # 保存结果
@@ -297,10 +325,11 @@ def main() -> None:
     parser.add_argument("--in-jsonl", required=True, help="输入JSONL文件路径（OneKE抽取结果）")
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径（融合后结果）")
     parser.add_argument("--embedding-model", default="model/Yuan-Embedding", help="Yuan-Embedding模型路径")
+    parser.add_argument("--schema-path", default="config/relation_types.json", help="schema配置文件路径")
     parser.add_argument("--entity-threshold", type=float, default=0.85, 
-                        help="实体相似度阈值（0.7-0.9），越高越严格，越低越激进")
+                        help="实体相似度阈值（0.7-0.9），越高越严格")
     parser.add_argument("--relation-threshold", type=float, default=0.9,
-                        help="关系相似度阈值（0.8-0.95），关系要求比实体更严格")
+                        help="关系相似度阈值（已废弃，关系不需要融合）")
     args = parser.parse_args()
 
     run_fusion(
@@ -309,6 +338,7 @@ def main() -> None:
         model_name=args.embedding_model,
         entity_threshold=args.entity_threshold,
         relation_threshold=args.relation_threshold,
+        schema_path=args.schema_path,
     )
 
 

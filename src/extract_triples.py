@@ -20,7 +20,7 @@ from common import dump_jsonl
 from schema import DeepKESchema
 
 
-def split_text(text: str, max_chars: int = 2000, overlap: int = 200) -> List[str]:
+def split_text(text: str, max_chars: int = 150, overlap: int = 30) -> List[str]:
     """
     将长文本按句子边界切分成多个文本块，使用重叠窗口避免边界处关系丢失
     
@@ -31,8 +31,9 @@ def split_text(text: str, max_chars: int = 2000, overlap: int = 200) -> List[str
     
     Args:
         text: 原始文本
-        max_chars: 每个文本块的最大字符数，默认2000字符
-        overlap: 重叠字符数，默认200字符
+        max_chars: 每个文本块的最大字符数，默认150字符（官方配置cutoff_len = 512tokens, prompt
+        剩余给input的tokens约250个，一个汉字1.5~2个token，这里保守选择150）
+        overlap: 重叠字符数，默认30字符（20%重叠）
     Returns:
         切分后的文本块列表
     """
@@ -159,25 +160,37 @@ class Extractor:
     def __init__(
         self,
         model_path: str = "model/OneKE",
-        load_in_4bit: bool = True,
-        max_new_tokens: int = 1536,  # 适度增加输出长度
-        split_num: int = 4,  # RE任务推荐值
+        load_in_4bit: bool = False,  # 显存充裕，不用量化
+        max_new_tokens: int = 300,  # 官方推荐
+        split_num: int = 4,  # RE任务官方推荐值
     ) -> None:
         """
         初始化抽取器，加载模型
         Args:
             model_path: 模型路径或HuggingFace模型名
-            max_new_tokens: 生成的最大token数
-            split_num: 每次轮询抽取的schema数量
+            max_new_tokens: 生成的最大token数（官方推荐300）
+            split_num: 每次轮询抽取的schema数量（RE任务官方推荐4）
         """
+        print(f"\n[模型加载] 正在加载 OneKE 模型: {model_path}", flush=True)
+        
         # 加载分词器
+        print("[模型加载] 加载分词器...", flush=True)
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
         
-        # 模型参数
-        model_kwargs = {"device_map": "auto", "trust_remote_code": True}
+        # 模型参数（参考官方配置）
+        model_kwargs = {
+            "device_map": "auto",
+            "trust_remote_code": True,
+            "torch_dtype": torch.bfloat16,  # 使用bf16精度
+        }
         
-        # 加载模型
+        # 加载模型（不使用量化）
+        print("[模型加载] 加载模型权重（bf16精度，无量化）...", flush=True)
         self.model = AutoModelForCausalLM.from_pretrained(model_path, **model_kwargs)
+        
+        print(f"[模型加载] ✓ 模型加载完成", flush=True)
+        print(f"[模型配置] max_new_tokens={max_new_tokens}, split_num={split_num}", flush=True)
+        
         self.max_new_tokens = max_new_tokens
         self.split_num = split_num
 
@@ -198,8 +211,13 @@ class Extractor:
         all_triples = []
         
         # 对关系类型进行轮询抽取（每次处理split_num个关系）
+        num_batches = (len(relation_names) + self.split_num - 1) // self.split_num
+        
         for i in range(0, len(relation_names), self.split_num):
+            batch_idx = i // self.split_num + 1
             batch_relations = relation_names[i:i + self.split_num]
+            
+            print(f"    [轮询 {batch_idx}/{num_batches}] 处理关系: {', '.join(batch_relations[:3])}{'...' if len(batch_relations) > 3 else ''}", flush=True)
             
             # 生成 OneKE schema（字典格式：{关系名: 描述}）
             oneke_schema = schema.get_relation_schema_dict(batch_relations)
@@ -210,6 +228,9 @@ class Extractor:
             # 执行推理
             triples = self._run_inference(prompt)
             all_triples.extend(triples)
+            
+            if triples:
+                print(f"    [轮询 {batch_idx}/{num_batches}] 抽取到 {len(triples)} 个三元组", flush=True)
         
         return all_triples
     
@@ -248,18 +269,27 @@ class Extractor:
         Returns:
             解析后的三元组列表
         """
+        import sys
+        
         # 分词并移动到模型设备
+        print("      [推理] 分词中...", end='', flush=True)
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
+        print(f" 输入tokens: {inputs['input_ids'].shape[1]}", flush=True)
         
         # 模型推理
+        print("      [推理] 生成中...", end='', flush=True)
+        sys.stdout.flush()
+        
         with torch.no_grad():
             outputs = self.model.generate(
                 **inputs,
                 max_new_tokens=self.max_new_tokens,
                 do_sample=False,      
-                temperature=0.0,     
+                temperature=None,  # 修复：temperature=0.0 时应该设为 None
                 pad_token_id=self.tokenizer.eos_token_id,
             )
+        
+        print(" 完成", flush=True)
         
         # 解码输出
         text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
@@ -268,7 +298,9 @@ class Extractor:
         tail_text = text[len(prompt):] if text.startswith(prompt) else text
         
         # 解析JSON数组
-        return parse_json_array(tail_text)
+        triples = parse_json_array(tail_text)
+        
+        return triples
 
 
 def run_extract(
@@ -276,8 +308,9 @@ def run_extract(
     out_jsonl: str,
     schema_path: str,
     model_path: str = "model/OneKE",
-    load_in_4bit: bool = True,
-    chunk_chars: int = 2000,  # 增加默认chunk大小
+    load_in_4bit: bool = False,  # 显存充裕，不用量化
+    chunk_chars: int = 150,  # 极小chunk，最大化召回率
+    overlap: int = 30,  # 20%重叠
 ) -> int:
     """
     OneKE抽取主函数
@@ -293,7 +326,8 @@ def run_extract(
         schema_path: Schema配置文件路径
         model_path: OneKE模型路径
         load_in_4bit: 是否使用4bit量化
-        chunk_chars: 文本块最大字符数
+        chunk_chars: 文本块最大字符数（150字符，极小chunk策略）
+        overlap: 重叠字符数（20%重叠，最大化覆盖）
     Returns:
         抽取的三元组总数
     """
@@ -303,9 +337,13 @@ def run_extract(
         raise FileNotFoundError(f"解析目录不存在: {parsed_dir}")
 
     # Step 1: 加载DeepKE Schema配置
+    print(f"\n[Step 1/3] 加载 Schema 配置: {schema_path}", flush=True)
     schema = DeepKESchema.from_json(schema_path)
+    relation_count = len(schema.get_relation_names())
+    print(f"[Schema] 加载了 {relation_count} 个关系类型", flush=True)
     
     # Step 2: 初始化OneKE抽取器
+    print(f"\n[Step 2/3] 初始化 OneKE 抽取器", flush=True)
     extractor = Extractor(model_path=model_path, load_in_4bit=load_in_4bit)
 
     all_rows: List[Dict] = []
@@ -313,26 +351,37 @@ def run_extract(
     
     # Step 3: 遍历所有Markdown文件
     md_files = sorted(parsed_path.glob("*.md"))
+    print(f"\n[Step 3/3] 开始抽取三元组", flush=True)
+    print(f"[文件统计] 共 {len(md_files)} 个文档待处理", flush=True)
+    print(f"[分块配置] chunk_chars={chunk_chars}, overlap={overlap}, 每个关系批次={extractor.split_num}个", flush=True)
     
     # Step 4: 对每个文件切分文本块并抽取
     for md_file in tqdm(md_files, desc="OneKE Extracting"):
         text = md_file.read_text(encoding="utf-8", errors="ignore")
-        chunks = split_text(text, max_chars=chunk_chars)
+        chunks = split_text(text, max_chars=chunk_chars, overlap=overlap)
         
         # 计算分块统计信息
         avg_chunk_size = sum(len(c) for c in chunks) / len(chunks) if chunks else 0
-        print(f"\n[INFO] {md_file.name}:")
+        print(f"\n{'='*60}")
+        print(f"[文件] {md_file.name}")
         print(f"  文本长度: {len(text)} 字符")
         print(f"  切分块数: {len(chunks)} 个")
         print(f"  平均块大小: {avg_chunk_size:.0f} 字符")
         print(f"  块大小范围: {min(len(c) for c in chunks) if chunks else 0} - {max(len(c) for c in chunks) if chunks else 0} 字符")
+        print(f"{'='*60}", flush=True)
         
         doc_count = 0
         for idx, chunk in enumerate(chunks):
+            print(f"\n  [Chunk {idx+1}/{len(chunks)}] 长度: {len(chunk)} 字符", flush=True)
+            
             rows = extractor.infer_chunk(schema, chunk)
             chunk_triples = len(rows)
+            
             if chunk_triples > 0:
-                print(f"  Chunk {idx+1}/{len(chunks)} ({len(chunk)}字符): 抽取{chunk_triples}个三元组")
+                print(f"  [Chunk {idx+1}/{len(chunks)}] ✓ 抽取到 {chunk_triples} 个三元组", flush=True)
+            else:
+                print(f"  [Chunk {idx+1}/{len(chunks)}] - 未抽取到三元组", flush=True)
+            
             for r in rows:
                 key = (r["head"], r["relation"], r["tail"])
                 if key in dedup:
@@ -349,7 +398,7 @@ def run_extract(
                 )
                 doc_count += 1
         
-        print(f"[EXTRACT] {md_file.name}: 总计{doc_count}个唯一三元组")
+        print(f"\n[完成] {md_file.name}: 总计 {doc_count} 个唯一三元组\n", flush=True)
 
     # Step 5: 保存结果
     dump_jsonl(out_jsonl, all_rows)
@@ -371,7 +420,8 @@ def main() -> None:
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径")
     parser.add_argument("--schema-path", default="./config/relation_types.json", help="关系类型配置文件路径")
     parser.add_argument("--model-path", default="model/OneKE", help="OneKE模型路径")
-    parser.add_argument("--chunk-chars", type=int, default=2000, help="文本块最大字符数")
+    parser.add_argument("--chunk-chars", type=int, default=150, help="文本块最大字符数（极小chunk策略）")
+    parser.add_argument("--overlap", type=int, default=30, help="重叠字符数（20%重叠）")
     args = parser.parse_args()
 
     run_extract(
@@ -380,6 +430,7 @@ def main() -> None:
         schema_path=args.schema_path,
         model_path=args.model_path,
         chunk_chars=args.chunk_chars,
+        overlap=args.overlap,
     )
 
 

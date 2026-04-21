@@ -32,7 +32,8 @@ def main() -> None:
     parser.add_argument("--keep-abstract", action="store_true", help="预处理时保留摘要")
     parser.add_argument("--schema-path", default="config/relation_types.json")
     parser.add_argument("--oneke-model", default="model/OneKE")
-    parser.add_argument("--chunk-chars", type=int, default=2000)
+    parser.add_argument("--chunk-chars", type=int, default=150, help="文本块大小（极小chunk）")
+    parser.add_argument("--overlap", type=int, default=30, help="重叠字符数（20%）")
     parser.add_argument("--embedding-model", default="model/Yuan-Embedding")
     parser.add_argument("--entity-threshold", type=float, default=0.85)
     parser.add_argument("--relation-threshold", type=float, default=0.9)
@@ -63,6 +64,7 @@ def main() -> None:
         schema_path=args.schema_path,
         model_path=args.oneke_model,
         chunk_chars=args.chunk_chars,
+        overlap=args.overlap,
     )
     
     # Step 4: 知识融合
@@ -73,6 +75,7 @@ def main() -> None:
         model_name=args.embedding_model,
         entity_threshold=args.entity_threshold,
         relation_threshold=args.relation_threshold,
+        schema_path=args.schema_path,
     )
     
     print(f"\n[PIPELINE DONE] raw={raw_count}, fused={fused_count}")
