@@ -160,7 +160,7 @@ class Extractor:
     def __init__(
         self,
         model_path: str = "model/OneKE",
-        load_in_4bit: bool = False,  # 显存充裕，不用量化
+        load_in_4bit: bool = True,  # 默认开启4bit量化
         max_new_tokens: int = 300,  # 官方推荐
         split_num: int = 4,  # RE任务官方推荐值
     ) -> None:
@@ -168,6 +168,7 @@ class Extractor:
         初始化抽取器，加载模型
         Args:
             model_path: 模型路径或HuggingFace模型名
+            load_in_4bit: 是否使用4bit量化（节省显存）
             max_new_tokens: 生成的最大token数（官方推荐300）
             split_num: 每次轮询抽取的schema数量（RE任务官方推荐4）
         """
@@ -177,19 +178,26 @@ class Extractor:
         print("[模型加载] 加载分词器...", flush=True)
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
         
-        # 模型参数（参考官方配置）
+        # 模型参数
         model_kwargs = {
             "device_map": "auto",
             "trust_remote_code": True,
-            "torch_dtype": torch.bfloat16,  # 使用bf16精度
         }
         
-        # 加载模型（不使用量化）
-        print("[模型加载] 加载模型权重（bf16精度，无量化）...", flush=True)
+        # 根据量化选项配置
+        if load_in_4bit:
+            print("[模型加载] 使用4bit量化加载模型...", flush=True)
+            model_kwargs["load_in_4bit"] = True
+            model_kwargs["torch_dtype"] = torch.float16
+        else:
+            print("[模型加载] 使用bf16精度加载模型（无量化）...", flush=True)
+            model_kwargs["torch_dtype"] = torch.bfloat16
+        
+        # 加载模型
         self.model = AutoModelForCausalLM.from_pretrained(model_path, **model_kwargs)
         
         print(f"[模型加载] ✓ 模型加载完成", flush=True)
-        print(f"[模型配置] max_new_tokens={max_new_tokens}, split_num={split_num}", flush=True)
+        print(f"[模型配置] max_new_tokens={max_new_tokens}, split_num={split_num}, 4bit={load_in_4bit}", flush=True)
         
         self.max_new_tokens = max_new_tokens
         self.split_num = split_num
@@ -308,7 +316,7 @@ def run_extract(
     out_jsonl: str,
     schema_path: str,
     model_path: str = "model/OneKE",
-    load_in_4bit: bool = False,  # 显存充裕，不用量化
+    load_in_4bit: bool = True,  # 默认开启4bit量化
     chunk_chars: int = 150,  # 极小chunk，最大化召回率
     overlap: int = 30,  # 20%重叠
 ) -> int:
@@ -420,6 +428,8 @@ def main() -> None:
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径")
     parser.add_argument("--schema-path", default="./config/relation_types.json", help="关系类型配置文件路径")
     parser.add_argument("--model-path", default="model/OneKE", help="OneKE模型路径")
+    parser.add_argument("--load-in-4bit", action="store_true", default=True, help="使用4bit量化（默认开启）")
+    parser.add_argument("--no-quantize", dest="load_in_4bit", action="store_false", help="不使用量化")
     parser.add_argument("--chunk-chars", type=int, default=150, help="文本块最大字符数（极小chunk策略）")
     parser.add_argument("--overlap", type=int, default=30, help="重叠字符数（20%重叠）")
     args = parser.parse_args()
