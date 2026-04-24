@@ -9,7 +9,7 @@ from extract_triples import run_extract
 from normalize_and_filter import run_normalize_and_filter
 from parse_docs import run_parse
 from postprocess import run_postprocess
-from preprocess_docs import process_directory
+from preprocess_docs import run_preprocess
 
 
 def main() -> None:
@@ -38,7 +38,7 @@ def main() -> None:
     parser.add_argument("--oneke-model", default="model/OneKE")
     parser.add_argument("--chunk-chars", type=int, default=150, help="文本块大小")
     parser.add_argument("--overlap", type=int, default=30, help="重叠字符数")
-    parser.add_argument("--embedding-model", default="model/Yuan-Embedding")
+    parser.add_argument("--embedding-model", default="model/Qwen3-Embedding-0.6B")
     parser.add_argument("--entity-threshold", type=float, default=0.93)
     parser.add_argument("--type-threshold", type=float, default=0.6)
     args = parser.parse_args()
@@ -63,7 +63,7 @@ def main() -> None:
     # Step 3: 抽取三元组
     print("\n[Step 3/5] 抽取知识三元组...")
     raw_count = run_extract(
-        parsed_dir=extract_source_dir,
+        in_dir=extract_source_dir,
         out_jsonl=args.raw_triples,
         schema_path=args.schema_path,
         model_path=args.oneke_model,

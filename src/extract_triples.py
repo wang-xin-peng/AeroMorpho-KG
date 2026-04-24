@@ -315,7 +315,7 @@ class Extractor:
 
 
 def run_extract(
-    parsed_dir: str,
+    in_dir: str,
     out_jsonl: str,
     schema_path: str,
     model_path: str = "model/OneKE",
@@ -332,7 +332,7 @@ def run_extract(
     4. 对每个文件切分文本块并抽取
     5. 去重后保存结果
     Args:
-        parsed_dir: 预处理后的Markdown文件目录
+        in_dir: 预处理后的Markdown文件目录
         out_jsonl: 输出JSONL文件路径
         schema_path: Schema配置文件路径
         model_path: OneKE模型路径
@@ -343,14 +343,13 @@ def run_extract(
     Returns:
         抽取的三元组总数
     """
-
     print("="*60)
     print("抽取三元组")
     print("="*60)
 
-    parsed_path = Path(parsed_dir)
+    parsed_path = Path(in_dir)
     if not parsed_path.exists():
-        raise FileNotFoundError(f"解析目录不存在: {parsed_dir}")
+        raise FileNotFoundError(f"解析目录不存在: {in_dir}")
 
     # Step 1: 加载Schema配置
     print(f"\n[Step 1/3] 加载 Schema 配置: {schema_path}", flush=True)
@@ -426,12 +425,12 @@ def main() -> None:
     """
     使用示例：
     python extract_triples.py \
-        --parsed-dir ./test/input \
+        --in-dir ./test/input \
         --out-jsonl ./test.jsonl \
     """
 
     parser = argparse.ArgumentParser(description="使用OneKE抽取知识三元组")
-    parser.add_argument("--parsed-dir", required=True, help="预处理后的Markdown目录")
+    parser.add_argument("--in-dir", required=True, help="预处理后的Markdown目录")
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径")
     parser.add_argument("--schema-path", default="./config/relation_types.json", help="关系类型配置文件路径")
     parser.add_argument("--model-path", default="model/OneKE", help="OneKE模型路径")
@@ -442,7 +441,7 @@ def main() -> None:
     args = parser.parse_args()
 
     run_extract(
-        parsed_dir=args.parsed_dir,
+        in_dir=args.in_dir,
         out_jsonl=args.out_jsonl,
         schema_path=args.schema_path,
         model_path=args.model_path,

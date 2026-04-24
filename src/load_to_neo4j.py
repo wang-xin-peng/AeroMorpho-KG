@@ -55,11 +55,15 @@ def run_load(triples_path: str) -> None:
     driver = GraphDatabase.driver(uri, auth=(user, password))
     
     with driver.session() as session:
-        # Step 4: 创建唯一性约束
+        # Step 4: 清空数据库所有内容
+        session.run("MATCH (n) DETACH DELETE n")
+        print("已清空数据库所有内容")
+        
+        # Step 5: 创建唯一性约束
         session.run("CREATE CONSTRAINT entity_name IF NOT EXISTS FOR (e:Entity) REQUIRE e.name IS UNIQUE")
         print("已确保唯一性约束存在")
         
-        # Step 5: 逐条导入三元组
+        # Step 6: 逐条导入三元组
         count = 0
         for t in triples:
             # 清理关系类型：移除反引号，将空格替换为下划线
@@ -92,7 +96,7 @@ def run_load(triples_path: str) -> None:
         
         print(f"成功导入 {count} 条三元组")
     
-    # Step 6: 关闭数据库连接
+    # Step 7: 关闭数据库连接
     driver.close()
     print(f"[DONE] Neo4j 导入完成: {len(triples)} triples")
 
