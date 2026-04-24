@@ -9,12 +9,10 @@
 import argparse
 import asyncio
 from pathlib import Path
-
 from dotenv import load_dotenv
 from llama_cloud import AsyncLlamaCloud
 from pypdf import PdfReader
 from tqdm import tqdm
-
 from common import list_pdf_files, safe_env
 
 # 加载LLAMA_CLOUD_API_KEY
@@ -76,7 +74,12 @@ async def run_parse(
         out_dir: 输出Markdown文件目录
         skip_exists: 如果输出文件已存在，是否跳过（True=跳过，False=重新解析）
     """
-    # Step 1: 检查API Key（llama模式需要）
+    
+    print("="*60)
+    print("解析PDF")
+    print("="*60)
+
+    # Step 1: 检查API Key
     api_key = safe_env("LLAMA_CLOUD_API_KEY")
     if not api_key:
         raise ValueError("未检测到 LLAMA_CLOUD_API_KEY。请在.env文件中配置或设置环境变量")

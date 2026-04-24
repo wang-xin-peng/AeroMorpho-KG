@@ -36,10 +36,10 @@ def main() -> None:
     parser.add_argument("--schema-path", default="config/relation_types.json")
     parser.add_argument("--entity-types-path", default="config/entity_types.json")
     parser.add_argument("--oneke-model", default="model/OneKE")
-    parser.add_argument("--chunk-chars", type=int, default=150, help="文本块大小（极小chunk）")
-    parser.add_argument("--overlap", type=int, default=30, help="重叠字符数（20%）")
+    parser.add_argument("--chunk-chars", type=int, default=150, help="文本块大小")
+    parser.add_argument("--overlap", type=int, default=30, help="重叠字符数")
     parser.add_argument("--embedding-model", default="model/Yuan-Embedding")
-    parser.add_argument("--entity-threshold", type=float, default=0.85)
+    parser.add_argument("--entity-threshold", type=float, default=0.93)
     parser.add_argument("--type-threshold", type=float, default=0.6)
     args = parser.parse_args()
 
@@ -51,7 +51,7 @@ def main() -> None:
     # Step 2: 预处理Markdown（清理无关内容）
     if not args.skip_preprocess:
         print("\n[Step 2/5] 预处理文档...")
-        process_directory(
+        run_preprocess(
             input_dir=args.parse_dir,
             output_dir=args.preprocess_dir,
             keep_abstract=args.keep_abstract,

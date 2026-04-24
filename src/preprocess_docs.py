@@ -19,10 +19,8 @@ from bs4 import BeautifulSoup
 def convert_html_table_to_markdown(html_table: str) -> str:
     """
     将HTML表格转换为Markdown表格
-    
     Args:
         html_table: HTML表格字符串
-    
     Returns:
         Markdown格式的表格
     """
@@ -100,17 +98,15 @@ def process_image_references(text: str) -> str:
     
     text = re.sub(r'!\[([^\]]*)\]\([^\)]+\)', replace_image, text)
     
-    # 保留图表标题（这些通常包含重要信息）
+    # 保留图表标题
     # 格式：图X.X xxx 或 表X.X xxx
     # 不做处理，让它们保留在文本中
-    
     return text
 
 
 def split_by_chapters(text: str) -> List[Tuple[str, str]]:
     """
     按章节切分文档
-    
     Returns:
         List of (chapter_title, chapter_content)
     """
@@ -131,7 +127,6 @@ def split_by_chapters(text: str) -> List[Tuple[str, str]]:
             # 保存上一章节
             if current_chapter:
                 chapters.append((current_chapter, '\n'.join(current_content)))
-            
             # 开始新章节
             current_chapter = line.strip()
             current_content = []
@@ -156,10 +151,8 @@ def split_into_sentences(text: str) -> List[str]:
     """
     将文本按句子切分
     使用简单规则：按 。！？；\n 分割
-    
     Args:
         text: 输入文本
-    
     Returns:
         句子列表
     """
@@ -409,7 +402,7 @@ def remove_page_markers(text: str) -> str:
 
 def remove_urls_and_dois(text: str) -> str:
     """
-    移除URL和DOI链接（通常在参考文献中）
+    移除URL和DOI链接
     """
     # 移除URL
     text = re.sub(r'https?://[^\s\)]+', '', text)
@@ -455,8 +448,8 @@ def remove_citation_markers(text: str) -> str:
 def clean_whitespace(text: str) -> str:
     """
     清理多余的空白字符
-    - 移除多余的空行（超过2个连续换行）
-    - 移除行首行尾空格
+      移除多余的空行（超过2个连续换行）
+      移除行首行尾空格
     """
     # 移除每行首尾空格
     lines = [line.strip() for line in text.split('\n')]
@@ -479,20 +472,19 @@ def clean_whitespace(text: str) -> str:
 def preprocess_document(text: str, keep_abstract: bool = True, process_tables_flag: bool = True, process_images_flag: bool = True) -> str:
     """
     完整的文档预处理流程
-    
     Args:
         text: 原始文档文本
         keep_abstract: 是否保留摘要部分
-        process_tables_flag: 是否处理表格（HTML转Markdown）
+        process_tables_flag: 是否处理表格
         process_images_flag: 是否处理图片引用
-    
     Returns:
         清理后的文档文本
     """
+
     # 1. 移除学位论文元数据（目录、插图清单、符号说明等）
     text = remove_thesis_metadata(text)
     
-    # 2. 移除参考文献（最先做，避免后续处理参考文献内容）
+    # 2. 移除参考文献
     text = remove_references(text)
     
     # 3. 移除作者和单位信息
@@ -531,7 +523,7 @@ def preprocess_document(text: str, keep_abstract: bool = True, process_tables_fl
     return text
 
 
-def process_directory(
+def run_preprocess(
     input_dir: str,
     output_dir: str,
     keep_abstract: bool = True,
@@ -540,17 +532,20 @@ def process_directory(
 ) -> int:
     """
     批量处理目录中的所有Markdown文件
-    
     Args:
         input_dir: 输入目录（解析后的Markdown）
         output_dir: 输出目录（预处理后的Markdown）
         keep_abstract: 是否保留摘要
         split_chapters: 是否按章节切分并保存为独立文件
         sentence_mode: 是否输出句子级别的切分（用于细粒度抽取）
-    
     Returns:
         处理的文件数量
     """
+    
+    print("="*60)
+    print("文档预处理")
+    print("="*60)
+
     input_path = Path(input_dir)
     output_path = Path(output_dir)
     
@@ -646,7 +641,7 @@ def main():
     
     args = parser.parse_args()
     
-    process_directory(
+    run_preprocess(
         input_dir=args.input_dir,
         output_dir=args.output_dir,
         keep_abstract=args.keep_abstract,

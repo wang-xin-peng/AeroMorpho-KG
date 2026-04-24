@@ -12,14 +12,9 @@ import json
 import os
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
-
 import numpy as np
-
 from common import dump_jsonl, load_jsonl
 from normalize_and_filter import EmbeddingEncoder
-
-
-
 
 def load_entity_types(entity_types_path: str) -> List[Dict]:
     """
@@ -31,7 +26,6 @@ def load_entity_types(entity_types_path: str) -> List[Dict]:
     """
     with open(entity_types_path, 'r', encoding='utf-8') as f:
         return json.load(f)
-
 
 def load_relation_types(relation_types_path: str) -> List[Dict]:
     """
@@ -105,22 +99,16 @@ def annotate_entity_types(
     
     print(f"  实体类型数: {len(type_names)}，原型总数: {len(all_prototypes)}")
     
-    # 类型标注任务指令 - 从 entity_types 动态拼接
-    type_list_str = "、".join(type_names)
-    TYPE_ANNOTATION_INSTRUCTION = f"判断以下航空航天专业术语属于哪种类型：{type_list_str}"
-    
     # Step 3: 编码所有原型向量
     print("  编码类型原型向量...")
     prototype_embeddings = encoder.encode(
-        all_prototypes, normalize_embeddings=True, show_progress_bar=False,
-        instruction=TYPE_ANNOTATION_INSTRUCTION
+        all_prototypes, normalize_embeddings=True, show_progress_bar=False
     )
     
     # Step 4: 编码实体向量
     print("  编码实体向量...")
     entity_embeddings = encoder.encode(
-        entities, normalize_embeddings=True, show_progress_bar=True,
-        instruction=TYPE_ANNOTATION_INSTRUCTION
+        entities, normalize_embeddings=True, show_progress_bar=True
     )
     
     # Step 5: 计算相似度并分配类型
@@ -424,7 +412,7 @@ def run_postprocess(
         out_jsonl: 输出文件路径（后处理后的三元组）
         entity_types_path: 实体类型配置文件路径
         relation_types_path: 关系类型配置文件路径
-        embedding_model: 向量模型路径（支持 Qwen3-Embedding / BGE 系列）
+        embedding_model: 向量模型路径
         type_threshold: 实体类型标注阈值
         enable_type_annotation: 是否启用实体类型标注
         enable_type_check: 是否启用类型约束检查
@@ -435,7 +423,7 @@ def run_postprocess(
         后处理后的三元组数量
     """
     print("="*60)
-    print("知识图谱后处理")
+    print("后处理")
     print("="*60)
     
     triples = load_jsonl(in_jsonl)
@@ -548,9 +536,8 @@ def main() -> None:
     python postprocess.py \
         --in-jsonl ./output/triples_normalized/triples.jsonl \
         --out-jsonl ./output/triples_final/triples.jsonl \
-        --type-threshold 0.6
     """
-    parser = argparse.ArgumentParser(description="知识图谱后处理")
+    parser = argparse.ArgumentParser(description="后处理流程")
     parser.add_argument("--in-jsonl", required=True, help="输入JSONL文件路径（归一化后的三元组）")
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径（后处理后的三元组）")
     parser.add_argument("--entity-types", default="config/entity_types.json", help="实体类型配置文件路径")

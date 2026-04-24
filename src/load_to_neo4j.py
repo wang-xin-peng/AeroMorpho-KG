@@ -31,6 +31,9 @@ def run_load(triples_path: str) -> None:
     Args:
         triples_path: 三元组JSONL文件路径
     """
+    print("="*60)
+    print("导入Neo4j数据库")
+    print("="*60)
 
     # Step 1: 获取Neo4j连接配置
     uri = safe_env("NEO4J_URI")        # Neo4j服务器地址
@@ -97,10 +100,7 @@ def run_load(triples_path: str) -> None:
 def main() -> None:
     """
     使用示例：
-    # 使用默认路径
     python load_to_neo4j.py
-    # 指定三元组文件路径
-    python src/load_to_neo4j.py --triples output/triples_final/triples.jsonl
     """
 
     parser = argparse.ArgumentParser(description="将融合后的三元组导入Neo4j图数据库")
