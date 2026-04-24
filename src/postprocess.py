@@ -138,21 +138,30 @@ def annotate_entity_types(
     entities = sorted({t["head"] for t in triples} | {t["tail"] for t in triples})
     print(f"  待标注实体数: {len(entities)}")
     
-    # Step 2: 构建类型原型文本（类型名 + 描述 + 示例实体）
-    type_prototypes = []
-    type_names = []
+    # Step 2: 构建类型原型文本
+    # 策略：每个类型生成多个原型（类型名本身 + 每个示例实体单独编码），
+    # 取实体与该类型所有原型的最大相似度作为匹配分数，
+    # 这样短实体词能与短示例词直接比较，避免长描述文本带来的语义偏差
+    type_names = [et["name"] for et in entity_types]
+    # 每个类型的原型文本列表：类型名 + 所有示例
+    type_prototype_groups = []
     for et in entity_types:
-        # 拼接：类型名 + 描述 + 前5个示例
-        examples_str = "、".join(et["examples"][:5])
-        prototype_text = f"{et['name']}：{et['description']}。示例：{examples_str}"
-        type_prototypes.append(prototype_text)
-        type_names.append(et["name"])
+        prototypes = [et["name"]] + et.get("examples", [])
+        type_prototype_groups.append(prototypes)
     
-    print(f"  实体类型数: {len(type_names)}")
+    # 展平所有原型，记录每个原型属于哪个类型
+    all_prototypes = []
+    prototype_type_idx = []  # 每个原型对应的类型索引
+    for type_idx, prototypes in enumerate(type_prototype_groups):
+        for p in prototypes:
+            all_prototypes.append(p)
+            prototype_type_idx.append(type_idx)
     
-    # Step 3: 编码类型原型向量
+    print(f"  实体类型数: {len(type_names)}，原型总数: {len(all_prototypes)}")
+    
+    # Step 3: 编码所有原型向量
     print("  编码类型原型向量...")
-    type_embeddings = encoder.encode(type_prototypes, normalize_embeddings=True, show_progress_bar=False)
+    prototype_embeddings = encoder.encode(all_prototypes, normalize_embeddings=True, show_progress_bar=False)
     
     # Step 4: 编码实体向量
     print("  编码实体向量...")
@@ -164,16 +173,22 @@ def annotate_entity_types(
     entity_to_score = {}
     untyped_count = 0
     
-    # 计算相似度矩阵：(n_entities, n_types)
-    similarity_matrix = np.dot(entity_embeddings, type_embeddings.T)
+    # 计算实体与所有原型的相似度矩阵：(n_entities, n_prototypes)
+    similarity_matrix = np.dot(entity_embeddings, prototype_embeddings.T)
     
     for i, entity in enumerate(entities):
-        # 找到最高相似度的类型
-        max_idx = np.argmax(similarity_matrix[i])
-        max_score = similarity_matrix[i][max_idx]
+        # 对每个类型，取该类型所有原型中的最大相似度
+        type_scores = np.zeros(len(type_names))
+        for proto_idx, type_idx in enumerate(prototype_type_idx):
+            score = similarity_matrix[i, proto_idx]
+            if score > type_scores[type_idx]:
+                type_scores[type_idx] = score
+        
+        max_type_idx = np.argmax(type_scores)
+        max_score = type_scores[max_type_idx]
         
         if max_score >= threshold:
-            entity_to_type[entity] = type_names[max_idx]
+            entity_to_type[entity] = type_names[max_type_idx]
             entity_to_score[entity] = float(max_score)
         else:
             untyped_count += 1
@@ -197,28 +212,31 @@ def check_type_constraints(
     triples: List[Dict],
     entity_to_type: Dict[str, str],
     relation_types: List[Dict],
+    log_file=None,
 ) -> List[Dict]:
     """
     检查类型约束
-    验证三元组的头尾实体类型是否符合关系定义
-    
+    只有实体有类型标注且类型不在允许集合内时才过滤，未标注类型的实体直接放行
     Args:
         triples: 三元组列表
         entity_to_type: 实体到类型的映射
         relation_types: 关系类型配置（包含head_types和tail_types字段）
+        log_file: 日志文件对象
     Returns:
         通过类型约束检查的三元组列表
     """
     print("\n[类型约束检查] 开始...")
-    
-    # 构建关系到类型约束的映射
+
+    def log(msg):
+        print(msg)
+        if log_file:
+            log_file.write(msg + "\n")
+
     relation_constraints = {}
     for rt in relation_types:
         relation_name = rt["name"]
         head_types = set(rt.get("head_types", []))
         tail_types = set(rt.get("tail_types", []))
-        
-        # 如果没有定义类型约束，则不检查
         if head_types or tail_types:
             relation_constraints[relation_name] = {
                 "head_types": head_types,
@@ -226,21 +244,21 @@ def check_type_constraints(
             }
     
     if not relation_constraints:
-        print("  警告: relation_types.json中未定义类型约束，跳过检查")
+        log("  警告: relation_types.json中未定义类型约束，跳过检查")
         return triples
     
-    print(f"  关系类型约束数: {len(relation_constraints)}")
+    log(f"  关系类型约束数: {len(relation_constraints)}")
     
-    # 检查每个三元组
     valid_triples = []
     invalid_count = 0
+    # 记录被过滤的原因分布
+    filter_reasons: Dict[str, int] = {}
     
     for triple in triples:
         head = triple["head"]
         relation = triple["relation"]
         tail = triple["tail"]
         
-        # 如果关系没有定义约束，直接通过
         if relation not in relation_constraints:
             valid_triples.append(triple)
             continue
@@ -249,26 +267,32 @@ def check_type_constraints(
         head_type = entity_to_type.get(head)
         tail_type = entity_to_type.get(tail)
         
-        # 检查头实体类型
         head_valid = True
-        if constraints["head_types"]:
-            if not head_type or head_type not in constraints["head_types"]:
+        if constraints["head_types"] and head_type:
+            if head_type not in constraints["head_types"]:
                 head_valid = False
         
-        # 检查尾实体类型
         tail_valid = True
-        if constraints["tail_types"]:
-            if not tail_type or tail_type not in constraints["tail_types"]:
+        if constraints["tail_types"] and tail_type:
+            if tail_type not in constraints["tail_types"]:
                 tail_valid = False
         
-        # 只有头尾都符合约束才通过
         if head_valid and tail_valid:
             valid_triples.append(triple)
         else:
             invalid_count += 1
+            reason = f"{relation}: head={head_type or '未标注'}, tail={tail_type or '未标注'}"
+            filter_reasons[reason] = filter_reasons.get(reason, 0) + 1
+            if log_file:
+                log_file.write(f"  过滤: ({head})-[{relation}]->({tail}) | head_type={head_type or '未标注'}, tail_type={tail_type or '未标注'}\n")
     
-    print(f"  通过检查: {len(valid_triples)} 条")
-    print(f"  未通过检查: {invalid_count} 条")
+    log(f"  通过检查: {len(valid_triples)} 条")
+    log(f"  未通过检查: {invalid_count} 条")
+    
+    if filter_reasons and log_file:
+        log_file.write("\n  过滤原因统计（按频次降序）:\n")
+        for reason, count in sorted(filter_reasons.items(), key=lambda x: -x[1])[:30]:
+            log_file.write(f"    [{count}次] {reason}\n")
     
     return valid_triples
 
@@ -426,6 +450,7 @@ def run_postprocess(
     enable_type_check: bool = True,
     enable_symmetric_completion: bool = True,
     enable_mutex_resolution: bool = True,
+    log_path: str = None,
 ) -> int:
     """
     运行后处理流程
@@ -440,6 +465,7 @@ def run_postprocess(
         enable_type_check: 是否启用类型约束检查
         enable_symmetric_completion: 是否启用对称关系补全
         enable_mutex_resolution: 是否启用互斥关系冲突解决
+        log_path: 日志文件路径
     Returns:
         后处理后的三元组数量
     """
@@ -447,62 +473,86 @@ def run_postprocess(
     print("知识图谱后处理")
     print("="*60)
     
-    # 加载输入三元组
     triples = load_jsonl(in_jsonl)
     if not triples:
         raise ValueError("输入三元组为空")
     
     print(f"\n加载三元组: {len(triples)} 条")
     
-    # 加载配置
     entity_types = load_entity_types(entity_types_path)
     relation_types = load_relation_types(relation_types_path)
     
     print(f"加载实体类型: {len(entity_types)} 个")
     print(f"加载关系类型: {len(relation_types)} 个")
+
+    # 准备日志文件
+    log_file = None
+    if log_path:
+        from pathlib import Path
+        Path(log_path).parent.mkdir(parents=True, exist_ok=True)
+        log_file = open(log_path, 'w', encoding='utf-8')
+        log_file.write("知识图谱后处理日志\n")
+        log_file.write("="*60 + "\n\n")
     
-    # Step 1: 实体类型标注
-    entity_to_type = {}
-    entity_to_score = {}
-    if enable_type_annotation:
-        encoder = YuanEmbeddingEncoder(embedding_model)
-        entity_to_type, entity_to_score = annotate_entity_types(
-            triples, entity_types, encoder, threshold=type_threshold
-        )
+    try:
+        # Step 1: 实体类型标注
+        entity_to_type = {}
+        entity_to_score = {}
+        if enable_type_annotation:
+            encoder = YuanEmbeddingEncoder(embedding_model)
+            entity_to_type, entity_to_score = annotate_entity_types(
+                triples, entity_types, encoder, threshold=type_threshold
+            )
+            
+            # 将类型信息写入日志
+            if log_file:
+                log_file.write("[实体类型标注结果]\n")
+                log_file.write(f"已标注: {len(entity_to_type)} 个\n")
+                log_file.write(f"未标注: {len({t['head'] for t in triples} | {t['tail'] for t in triples}) - len(entity_to_type)} 个\n\n")
+                log_file.write("实体 → 类型 (置信度)\n")
+                for entity, etype in sorted(entity_to_type.items()):
+                    score = entity_to_score.get(entity, 0.0)
+                    log_file.write(f"  {entity} → {etype} ({score:.3f})\n")
+                log_file.write("\n")
+            
+            for triple in triples:
+                triple["head_type"] = entity_to_type.get(triple["head"], "")
+                triple["tail_type"] = entity_to_type.get(triple["tail"], "")
+                triple["head_type_score"] = entity_to_score.get(triple["head"], 0.0)
+                triple["tail_type_score"] = entity_to_score.get(triple["tail"], 0.0)
         
-        # 将类型信息添加到三元组中
-        for triple in triples:
-            triple["head_type"] = entity_to_type.get(triple["head"], "")
-            triple["tail_type"] = entity_to_type.get(triple["tail"], "")
-            triple["head_type_score"] = entity_to_score.get(triple["head"], 0.0)
-            triple["tail_type_score"] = entity_to_score.get(triple["tail"], 0.0)
-    
-    # Step 2: 类型约束检查
-    if enable_type_check and entity_to_type:
-        triples = check_type_constraints(triples, entity_to_type, relation_types)
-    
-    # Step 3: 对称关系补全
-    if enable_symmetric_completion:
-        triples = complete_symmetric_relations(triples, relation_types)
-    
-    # Step 4: 互斥关系冲突解决
-    if enable_mutex_resolution:
-        triples = resolve_mutex_relations(triples, relation_types)
-    
-    # 保存结果
-    dump_jsonl(out_jsonl, triples)
-    
-    # 统计信息
-    entity_count = len({t["head"] for t in triples} | {t["tail"] for t in triples})
-    relation_count = len({t["relation"] for t in triples})
-    
-    print("\n" + "="*60)
-    print("[DONE] 后处理完成")
-    print(f"  - 最终三元组: {len(triples)} 条")
-    print(f"  - 唯一实体: {entity_count} 个")
-    print(f"  - 唯一关系: {relation_count} 个")
-    print(f"[SAVE] {out_jsonl}")
-    print("="*60)
+        # Step 2: 类型约束检查
+        if enable_type_check and entity_to_type:
+            if log_file:
+                log_file.write("="*60 + "\n[类型约束检查 - 被过滤的三元组]\n")
+            triples = check_type_constraints(triples, entity_to_type, relation_types, log_file=log_file)
+        
+        # Step 3: 对称关系补全
+        if enable_symmetric_completion:
+            triples = complete_symmetric_relations(triples, relation_types)
+        
+        # Step 4: 互斥关系冲突解决
+        if enable_mutex_resolution:
+            triples = resolve_mutex_relations(triples, relation_types)
+        
+        dump_jsonl(out_jsonl, triples)
+        
+        entity_count = len({t["head"] for t in triples} | {t["tail"] for t in triples})
+        relation_count = len({t["relation"] for t in triples})
+        
+        print("\n" + "="*60)
+        print("[DONE] 后处理完成")
+        print(f"  - 最终三元组: {len(triples)} 条")
+        print(f"  - 唯一实体: {entity_count} 个")
+        print(f"  - 唯一关系: {relation_count} 个")
+        print(f"[SAVE] {out_jsonl}")
+        if log_path:
+            print(f"[日志] 后处理详情已写入: {log_path}")
+        print("="*60)
+        
+    finally:
+        if log_file:
+            log_file.close()
     
     return len(triples)
 
@@ -526,6 +576,7 @@ def main() -> None:
     parser.add_argument("--disable-type-check", action="store_true", help="禁用类型约束检查")
     parser.add_argument("--disable-symmetric-completion", action="store_true", help="禁用对称关系补全")
     parser.add_argument("--disable-mutex-resolution", action="store_true", help="禁用互斥关系冲突解决")
+    parser.add_argument("--log-path", default="output/logs/postprocess.log", help="日志文件路径")
     args = parser.parse_args()
 
     run_postprocess(
@@ -539,6 +590,7 @@ def main() -> None:
         enable_type_check=not args.disable_type_check,
         enable_symmetric_completion=not args.disable_symmetric_completion,
         enable_mutex_resolution=not args.disable_mutex_resolution,
+        log_path=args.log_path,
     )
 
 

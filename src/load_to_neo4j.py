@@ -98,17 +98,17 @@ def main() -> None:
     """
     使用示例：
     # 使用默认路径
-    python import_to_neo4j.py
+    python load_to_neo4j.py
     # 指定三元组文件路径
-    python import_to_neo4j.py --triples ./output/triples_fused.jsonl
+    python src/load_to_neo4j.py --triples output/triples_final/triples.jsonl
     """
 
     parser = argparse.ArgumentParser(description="将融合后的三元组导入Neo4j图数据库")
     parser.add_argument(
         "--triples",
         required=False,
-        default="data/triples_fused/triples_fused.jsonl",
-        help="融合后三元组jsonl文件路径（默认: data/triples_fused/triples_fused.jsonl）",
+        default="output/triples_final/triples.jsonl",
+        help="融合后三元组jsonl文件路径（默认: output/triples_final/triples.jsonl）",
     )
     
     args = parser.parse_args()

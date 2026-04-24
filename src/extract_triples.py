@@ -14,7 +14,7 @@ from typing import Dict, List, Union
 
 import torch
 from tqdm import tqdm
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from common import dump_jsonl
 from schema import DeepKESchema
@@ -48,12 +48,15 @@ def split_text(text: str, max_chars: int = 150, overlap: int = 30) -> List[str]:
     current_chunk = ""
     
     for sentence in sentences:
-        # 如果当前句子本身就超过max_chars，单独作为一个chunk
+        # 如果当前句子本身就超过max_chars，强制按max_chars切分
         if len(sentence) > max_chars:
             if current_chunk:
                 chunks.append(current_chunk.strip())
                 current_chunk = ""
-            chunks.append(sentence.strip())
+            
+            # 将超长句子按max_chars强制切分
+            for i in range(0, len(sentence), max_chars):
+                chunks.append(sentence[i:i + max_chars].strip())
             continue
         
         # 如果加上当前句子不超过max_chars，添加到当前chunk
@@ -187,8 +190,13 @@ class Extractor:
         # 根据量化选项配置
         if load_in_4bit:
             print("[模型加载] 使用4bit量化加载模型...", flush=True)
-            model_kwargs["load_in_4bit"] = True
-            model_kwargs["torch_dtype"] = torch.float16
+            quantization_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_use_double_quant=True,
+                bnb_4bit_quant_type="nf4"
+            )
+            model_kwargs["quantization_config"] = quantization_config
         else:
             print("[模型加载] 使用bf16精度加载模型（无量化）...", flush=True)
             model_kwargs["torch_dtype"] = torch.bfloat16
