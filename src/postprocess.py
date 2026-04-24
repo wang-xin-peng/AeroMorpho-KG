@@ -9,82 +9,16 @@
 
 import argparse
 import json
+import os
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
 import numpy as np
-import torch
-from transformers import AutoModel, AutoTokenizer
 
 from common import dump_jsonl, load_jsonl
+from normalize_and_filter import EmbeddingEncoder
 
 
-class YuanEmbeddingEncoder:
-    """
-    Yuan-Embedding向量编码器
-    用于将文本转换为语义向量
-    """
-    
-    def __init__(self, model_path: str):
-        """加载模型和分词器"""
-        print(f"加载Yuan-Embedding模型: {model_path}")
-        
-        if not Path(model_path).exists():
-            raise FileNotFoundError(f"模型路径不存在: {model_path}")
-        
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
-        self.model = AutoModel.from_pretrained(model_path)
-        self.model.eval()
-        
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.model.to(self.device)
-        print(f"模型已加载到: {self.device}")
-    
-    def encode(self, texts: List[str], normalize_embeddings: bool = True, show_progress_bar: bool = True) -> np.ndarray:
-        """
-        将文本编码为向量
-        Args:
-            texts: 文本列表
-            normalize_embeddings: 是否归一化向量
-            show_progress_bar: 是否显示进度条
-        Returns:
-            向量矩阵 (n, d)
-        """
-        from tqdm import tqdm
-        
-        embeddings = []
-        batch_size = 32
-        iterator = tqdm(range(0, len(texts), batch_size), desc="编码文本") if show_progress_bar else range(0, len(texts), batch_size)
-        
-        for i in iterator:
-            batch_texts = texts[i:i + batch_size]
-            
-            encoded_input = self.tokenizer(
-                batch_texts,
-                padding=True,
-                truncation=True,
-                max_length=512,
-                return_tensors="pt"
-            ).to(self.device)
-            
-            with torch.no_grad():
-                outputs = self.model(**encoded_input)
-                
-                # Mean Pooling
-                attention_mask = encoded_input["attention_mask"]
-                token_embeddings = outputs.last_hidden_state
-                
-                input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
-                sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
-                sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
-                sentence_embeddings = sum_embeddings / sum_mask
-            
-            if normalize_embeddings:
-                sentence_embeddings = torch.nn.functional.normalize(sentence_embeddings, p=2, dim=1)
-            
-            embeddings.append(sentence_embeddings.cpu().numpy())
-        
-        return np.vstack(embeddings)
 
 
 def load_entity_types(entity_types_path: str) -> List[Dict]:
@@ -114,7 +48,7 @@ def load_relation_types(relation_types_path: str) -> List[Dict]:
 def annotate_entity_types(
     triples: List[Dict],
     entity_types: List[Dict],
-    encoder: YuanEmbeddingEncoder,
+    encoder: EmbeddingEncoder,
     threshold: float = 0.6,
 ) -> Tuple[Dict[str, str], Dict[str, float]]:
     """
@@ -143,10 +77,22 @@ def annotate_entity_types(
     # 取实体与该类型所有原型的最大相似度作为匹配分数，
     # 这样短实体词能与短示例词直接比较，避免长描述文本带来的语义偏差
     type_names = [et["name"] for et in entity_types]
-    # 每个类型的原型文本列表：类型名 + 所有示例
+    # 每个类型的原型文本列表：类型名 + 描述 + 所有示例
     type_prototype_groups = []
     for et in entity_types:
-        prototypes = [et["name"]] + et.get("examples", [])
+        # 组合类型名、描述和示例，形成更丰富的原型
+        description = et.get("description", "")
+        examples = et.get("examples", [])
+        
+        # 策略：每个类型生成多个原型
+        # 1. 类型名本身
+        # 2. 类型名 + 描述（简短版本）
+        # 3. 每个示例
+        prototypes = [et["name"]]
+        if description:
+            # 截取描述的前 50 个字符，避免太长
+            prototypes.append(f"{et['name']}: {description[:80]}")
+        prototypes.extend(examples)
         type_prototype_groups.append(prototypes)
     
     # 展平所有原型，记录每个原型属于哪个类型
@@ -159,19 +105,30 @@ def annotate_entity_types(
     
     print(f"  实体类型数: {len(type_names)}，原型总数: {len(all_prototypes)}")
     
+    # 类型标注任务指令 - 从 entity_types 动态拼接
+    type_list_str = "、".join(type_names)
+    TYPE_ANNOTATION_INSTRUCTION = f"判断以下航空航天专业术语属于哪种类型：{type_list_str}"
+    
     # Step 3: 编码所有原型向量
     print("  编码类型原型向量...")
-    prototype_embeddings = encoder.encode(all_prototypes, normalize_embeddings=True, show_progress_bar=False)
+    prototype_embeddings = encoder.encode(
+        all_prototypes, normalize_embeddings=True, show_progress_bar=False,
+        instruction=TYPE_ANNOTATION_INSTRUCTION
+    )
     
     # Step 4: 编码实体向量
     print("  编码实体向量...")
-    entity_embeddings = encoder.encode(entities, normalize_embeddings=True, show_progress_bar=True)
+    entity_embeddings = encoder.encode(
+        entities, normalize_embeddings=True, show_progress_bar=True,
+        instruction=TYPE_ANNOTATION_INSTRUCTION
+    )
     
     # Step 5: 计算相似度并分配类型
     print("  计算相似度并分配类型...")
     entity_to_type = {}
     entity_to_score = {}
     untyped_count = 0
+    untyped_entities = []  # 记录未标注的实体
     
     # 计算实体与所有原型的相似度矩阵：(n_entities, n_prototypes)
     similarity_matrix = np.dot(entity_embeddings, prototype_embeddings.T)
@@ -192,10 +149,18 @@ def annotate_entity_types(
             entity_to_score[entity] = float(max_score)
         else:
             untyped_count += 1
+            untyped_entities.append((entity, max_score, type_names[max_type_idx], type_scores[max_type_idx]))
     
     print(f"  已标注实体: {len(entity_to_type)} 个")
     print(f"  未标注实体: {untyped_count} 个（相似度低于阈值 {threshold}）")
     
+    # 记录未标注实体到日志
+    if untyped_entities:
+        print(f"  未标注实体列表（按最高相似度排序，前20个）:")
+        sorted_untyped = sorted(untyped_entities, key=lambda x: -x[1])[:20]
+        for entity, score, best_type, best_score in sorted_untyped:
+            print(f"    {entity} (最高相似度: {best_score:.3f} → {best_type})")
+
     # 统计各类型的实体数量
     type_counts = {}
     for entity_type in entity_to_type.values():
@@ -444,8 +409,8 @@ def run_postprocess(
     out_jsonl: str,
     entity_types_path: str = "config/entity_types.json",
     relation_types_path: str = "config/relation_types.json",
-    embedding_model: str = "model/Yuan-Embedding",
-    type_threshold: float = 0.6,
+    embedding_model: str = "model/Qwen3-Embedding-0.6B",
+    type_threshold: float = 0.5,
     enable_type_annotation: bool = True,
     enable_type_check: bool = True,
     enable_symmetric_completion: bool = True,
@@ -459,7 +424,7 @@ def run_postprocess(
         out_jsonl: 输出文件路径（后处理后的三元组）
         entity_types_path: 实体类型配置文件路径
         relation_types_path: 关系类型配置文件路径
-        embedding_model: Yuan-Embedding模型路径
+        embedding_model: 向量模型路径（支持 Qwen3-Embedding / BGE 系列）
         type_threshold: 实体类型标注阈值
         enable_type_annotation: 是否启用实体类型标注
         enable_type_check: 是否启用类型约束检查
@@ -479,27 +444,47 @@ def run_postprocess(
     
     print(f"\n加载三元组: {len(triples)} 条")
     
+    # 统计各关系的三元组数量
+    relation_counts = {}
+    for t in triples:
+        rel = t.get("relation", "未知")
+        relation_counts[rel] = relation_counts.get(rel, 0) + 1
+    
+    print("\n[关系分布统计]")
+    for rel, count in sorted(relation_counts.items(), key=lambda x: -x[1])[:20]:
+        print(f"  {rel}: {count} 条")
+    if len(relation_counts) > 20:
+        print(f"  ... 其他 {len(relation_counts) - 20} 种关系")
+    
+    # 写入日志文件
+    if log_path:
+        with open(log_path, 'w', encoding='utf-8') as f:
+            f.write("知识图谱后处理日志\n")
+            f.write("="*60 + "\n\n")
+            f.write(f"[关系分布统计]\n")
+            for rel, count in sorted(relation_counts.items(), key=lambda x: -x[1]):
+                f.write(f"  {rel}: {count} 条\n")
+            f.write("\n")
+    
     entity_types = load_entity_types(entity_types_path)
     relation_types = load_relation_types(relation_types_path)
     
     print(f"加载实体类型: {len(entity_types)} 个")
     print(f"加载关系类型: {len(relation_types)} 个")
 
-    # 准备日志文件
+    # 准备日志文件（追加模式）
     log_file = None
     if log_path:
         from pathlib import Path
         Path(log_path).parent.mkdir(parents=True, exist_ok=True)
-        log_file = open(log_path, 'w', encoding='utf-8')
-        log_file.write("知识图谱后处理日志\n")
-        log_file.write("="*60 + "\n\n")
+        log_file = open(log_path, 'a', encoding='utf-8')
     
     try:
         # Step 1: 实体类型标注
         entity_to_type = {}
         entity_to_score = {}
         if enable_type_annotation:
-            encoder = YuanEmbeddingEncoder(embedding_model)
+            encoder = EmbeddingEncoder(embedding_model)
             entity_to_type, entity_to_score = annotate_entity_types(
                 triples, entity_types, encoder, threshold=type_threshold
             )
@@ -570,7 +555,7 @@ def main() -> None:
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径（后处理后的三元组）")
     parser.add_argument("--entity-types", default="config/entity_types.json", help="实体类型配置文件路径")
     parser.add_argument("--relation-types", default="config/relation_types.json", help="关系类型配置文件路径")
-    parser.add_argument("--embedding-model", default="model/Yuan-Embedding", help="Yuan-Embedding模型路径")
+    parser.add_argument("--embedding-model", default="model/Qwen3-Embedding-0.6B", help="向量模型路径")
     parser.add_argument("--type-threshold", type=float, default=0.6, help="实体类型标注阈值")
     parser.add_argument("--disable-type-annotation", action="store_true", help="禁用实体类型标注")
     parser.add_argument("--disable-type-check", action="store_true", help="禁用类型约束检查")
