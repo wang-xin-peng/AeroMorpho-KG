@@ -92,10 +92,8 @@ def split_text(text: str, max_chars: int = 150, overlap: int = 30) -> List[str]:
 
 def parse_json_array(text: str) -> List[Dict]:
     """
-    从模型输出文本中解析JSON格式的三元组
-    支持两种格式：
-    1. OneKE格式：{"关系名": [{"subject": "...", "object": "..."}]}
-    2. 标准格式：[{"head": "...", "relation": "...", "tail": "..."}]
+    从模型输出文本中解析三元组
+    {"关系名": [{"subject": "...", "object": "..."}]}
     Args:
         text: 模型输出的原始文本，可能包含额外的解释文字
     Returns:
@@ -103,20 +101,21 @@ def parse_json_array(text: str) -> List[Dict]:
     """
 
     # 使用正则表达式提取JSON部分
-    match = re.search(r"\{[\s\S]*\}|\[[\s\S]*\]", text)
+    match = re.search(r"\{[\s\S]*\}", text)
     if not match:
+        print("[解析] 未找到JSON部分")
         return []
     
     raw = match.group(0)  
-    
     try:
         data = json.loads(raw)
-    except Exception:
+    except Exception as e:
+        print(f"[解析] JSON解析失败: {e}")
         return []
     
     rows: List[Dict] = []
     
-    # 格式1: OneKE格式 {"关系名": [{"subject": "...", "object": "..."}]}
+    # {"关系名": [{"subject": "...", "object": "..."}]}
     if isinstance(data, dict):
         for relation, items in data.items():
             if isinstance(items, list):
@@ -126,18 +125,6 @@ def parse_json_array(text: str) -> List[Dict]:
                         t = str(item.get("object", "")).strip()
                         if h and relation and t:
                             rows.append({"head": h, "relation": relation, "tail": t})
-    
-    # 格式2: 标准格式 [{"head": "...", "relation": "...", "tail": "..."}]
-    elif isinstance(data, list):
-        for item in data:
-            if not isinstance(item, dict):
-                continue
-            
-            h = str(item.get("head", "")).strip()
-            r = str(item.get("relation", "")).strip()
-            t = str(item.get("tail", "")).strip()
-            if h and r and t:
-                rows.append({"head": h, "relation": r, "tail": t})
     
     return rows
 
