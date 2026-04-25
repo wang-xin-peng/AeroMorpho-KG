@@ -2,14 +2,12 @@ Final Accepted Version
 
 # Research on an Aerodynamic-Driven Morphing Aircraft and Its Aerodynamic Design
 
-Tingyu Guo , Chenhua Zhu , Liangtao Feng , Yuyu Duan , Haixin Chen
+Tingyu Guo <sup>a,b</sup>, Chenhua Zhu <sup>a</sup>, Liangtao Feng <sup>a</sup>, Yuyu Duan <sup>a</sup>, Haixin Chen <sup>a,*</sup>
 
-*School of Aerospace Engineering, Tsinghua University, Beijing 100084, China*
-*China Academy of Aerospace Science and Innovation, Beijing 100088, China*
+<sup>a</sup> *School of Aerospace Engineering, Tsinghua University, Beijing 100084, China*
+<sup>b</sup> *China Academy of Aerospace Science and Innovation, Beijing 100088, China*
 
 Received xx xx xxxc; revised xx xx xxxc; accepted xx xx xxxc
-
----
 
 **Abstract**
 
@@ -17,19 +15,17 @@ Morphing technology is considered a crucial direction for the future development
 
 *Keywords:* High aspect ratio aircraft; Morphing aircraft; Flight test; Aerodynamic design; Computational Fluid Dynamics;
 
----
-
 ## 1. Introduction
 
-High-altitude long-endurance aircraft play a crucial role in various fields, including but not limited to Earth/sea observation, resource survey, and meteorology. At high altitudes, where the air is thin, aircraft engaged in high-altitude cruising experience higher lift coefficients, with induced drag constituting a significant portion of the total drag. To enhance the lift-to-drag ratio and extend the range, high-altitude aircraft often adopt designs with high aspect ratios, even to the extent of super-high aspect ratios.
+High-altitude long-endurance aircraft play a crucial role in various fields, including but not limited to Earth/sea observation, resource survey, and meteorology.<sup>1-4</sup> At high altitudes, where the air is thin, aircraft engaged in high-altitude cruising experience higher lift coefficients, with induced drag constituting a significant portion of the total drag. To enhance the lift-to-drag ratio and extend the range, high-altitude aircraft often adopt designs with high aspect ratios, even to the extent of super-high aspect ratios.
 
-However, high aspect ratio aircraft have stringent requirements for takeoff and landing facilities, and their maneuverability and resistance to gusty winds are relatively poor, significantly limiting their practical utility. In recent years, morphing aircraft have emerged as a focal point in aircraft development exploration. By altering the wing span during different flight phases through morphing technology, the conflicting design requirements between takeoff/landing performance and cruising efficiency in high aspect ratio aircraft can be effectively addressed.
+However, high aspect ratio aircraft have stringent requirements for takeoff and landing facilities, and their maneuverability and resistance to gusty winds are relatively poor, significantly limiting their practical utility.<sup>5,6</sup> In recent years, morphing aircraft have emerged as a focal point in aircraft development exploration. By altering the wing span during different flight phases through morphing technology, the conflicting design requirements between takeoff/landing performance and cruising efficiency in high aspect ratio aircraft can be effectively addressed.<sup>7-13</sup>
 
 Although variable-span morphing technology has made considerable progress in recent times, its application still faces substantial challenges. Many existing variable-span morphing aircraft incur high costs in terms of structural weight increase and
 
-internal space occupancy, rendering the benefits of morphing technology unable to offset the various costs. Enhancing the performance benefits of morphing technology and reducing its overall costs are imperative for the future development of morphing technology.
+internal space occupancy, rendering the benefits of morphing technology unable to offset the various costs. Enhancing the performance benefits of morphing technology and reducing its overall costs are imperative for the future development of morphing technology.<sup>7,14-17</sup>
 
-In response to this, the research team proposed an aerodynamic-driven morphing aircraft. The wings of this morphing aircraft consist of fixed wings and movable wings connected by rods. The movable wings rotate around hinges on the rod, while the rod  rotates around hinges on the fixed wings, and the morphing process is achieved through the coordination of these two rotations. During takeoff and landing, the fixed and movable wings form a biplane configuration, resulting in a smaller wingspan, lower requirements for takeoff/landing facilities, and improved resistance to wind during flight. In the cruising state, the fixed and movable wings form a high aspect ratio monoplane configuration, as shown in Figure 1.
+In response to this, the research team proposed an aerodynamic-driven morphing aircraft.<sup>18-20</sup> The wings of this morphing aircraft consist of fixed wings and movable wings connected by rods. The movable wings rotate around hinges on the rod, while the rod  rotates around hinges on the fixed wings, and the morphing process is achieved through the coordination of these two rotations. During takeoff and landing, the fixed and movable wings form a biplane configuration, resulting in a smaller wingspan, lower requirements for takeoff/landing facilities, and improved resistance to wind during flight. In the cruising state, the fixed and movable wings form a high aspect ratio monoplane configuration, as shown in Figure 1.
 
 Diagram showing the morphing process between Biplane Mode and Monoplane Mode, labeling the Movable Wing, Rod, and Fixed Wing.
 
@@ -466,51 +462,3 @@ From the perspective of aerodynamic design, this morphing approach also brings s
 ### Declaration of generative AI and AI-assisted technologies in the writing process
 
 During the preparation of this work the authors used GhatGPT in order to check for grammar errors, improve readability and language. After using this tool/service, the authors reviewed and edited the content as needed and takes full responsibility for the content of the publication.
-
-### References
-
-1. Ragettli S, Pellicciotti F, Immerzeel WW, et al. Unraveling the hydrology of a Himalayan catchment through integration of high resolution in situ data and remote sensing with an advanced simulation model. *Advances in Water Resources* 2015;78:94-111.
-
-2. Gaudel A, Cooper OR, Chang KL, et al. Aircraft observations since the 1990s reveal increases of tropospheric ozone at multiple locations across the Northern Hemisphere. *Sci Adv* 2020; 6, eaba8272.
-
-3. Yuniarti, D. Regulatory challenges of broadband communication services from high altitude platforms (HAPs). *2018 International Conference on Information and Communications Technology (ICOIACT)*. Las Vegas: IEEE; 2018. p4800.
-
-4. Tsach S, Peled A, Penn D, et al. Development trends for next generation of UAV systems. *AIAA Infotech@Aerospace 2007 Conference and Exhibit*. Rohnert Park: AIAA;2013. p2762.
-
-5. Hoblit F M. Gust loads on aircraft: concepts and applications *AIAA Education*, 1988.
-
-6. Wyngaard, John C. Atmospheric turbulence. *Annual Review of Fluid Mechanics* 1992;24(1): 205-234.
-
-7. Weisshaar T A. Morphing Aircraft Systems: Historical Perspectives and Future Challenges. *Journal of Aircraft* 2013;50:337-353.
-
-8. Lingling CH, Qi LI, Feng GU, et al. Design, modeling, and control of morphing aircraft: A review. *Chinese Journal of Aeronautics* 2022; 35(5):220-46.
-
-9. Cistone J. Next Century Aerospace Traffic Management: The Sky is No Longer the Limit. *Journal of Aircraft* 2004;41:36-42.
-
-10. Frommer J, Crossley W. Enabling Continuous Optimization for Sizing Morphing Aircraft Concepts. *43rd AIAA Aerospace Sciences Meeting and Exhibit*. Reno: AIAA; 2017. p. 816.
-
-11. Barbarino S, Bilgen O, Ajaj RM, et al. A Review of Morphing Aircraft. *Journal of Intelligent Material Systems and Structures* 2011;22:823-877.
-
-12. Rodriguez A. Morphing aircraft technology survey. *45th AIAA aerospace sciences meeting and exhibit*. Reno: AIAA;2007. p.1258.
-
-13. Valasek J. Morphing aerospace vehicles and structures. *Journal of Guidance Control & Dynamics* 2012; 36(5):1562-1563.
-
-14. Leng Jinsong, Sun Jian, Liu Yanju. Application Status and Future Prospect of Smart Materials and Structures in Morphing Aircraft. *Acta Aeronautica et Astronautica Sinica* 2014; 35(1): 29-45 [Chinese].
-
-15. Zhang Xuhui, Xie Chunlei, Liu Sijia, et al. Development needs and difficulty analysis for smart morphing aircraft. *Acta Aeronautica et Astronautica Sinica* 2023; 44(21): 529302-529302 [Chinese].
-
-16. Ajaj RM, Beaverstock CS, Friswell MI.
-
-Morphing aircraft: The need for a new design philosophy. *Aerospace Science And Technology* 2016;49:154–66.
-
-17. Muhammed SP, Jafar SP, Rafic M, et al. A review of control strategies used for morphing aircraft applications. *Chinese Journal of Aeronautics* 2023.37(4): 436-463.
-
-18. Guo T, Feng L, Zhu C, et al. Conceptual Research on a Mono-Biplane Aerodynamics-Driven Morphing Aircraft. *Aerospace* 2022; 9(7): 380.
-
-19. Feng L, Guo T, Zhu C, et al. Control of Aerodynamic-Driven Morphing. *Journal of Guidance, Control, and Dynamics* 2023;46(1): 198-205.
-
-20. Feng L, Guo T, Zhu C, et al. Control Design and Flight Test of Aerodynamics-Driven Monoplane-Biplane Morphing Aircraft. *Journal of Guidance, Control, and Dynamics* 2023;46(12): 2373-87.
-
-21. Munk M M. General biplane theory. 1923. Report No. :NACA-TR-151.
-
-22. Prandtl L. Induced drag of multiplanes. 1924. Report No. :NACA-TN-182.

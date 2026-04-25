@@ -228,7 +228,8 @@ def generate_report(results: Dict, output_path: str) -> None:
         f.write("-" * 80 + "\n")
         f.write(f"准确性得分:   {results['accuracy_score']:.2f}\n")
         f.write(f"一致性得分:   {results['consistency_score']:.2f}\n")
-        f.write(f"完整性得分:   {results['completeness_score']:.2f}\n\n")
+        f.write(f"完整性得分:   {results['completeness_score']:.2f}\n")
+        f.write(f"综合得分:     {results['total_score']:.2f}\n\n")
         
         # 准确性详情
         f.write("【二、准确性评估】\n")
@@ -327,6 +328,9 @@ def main() -> None:
         (1 - completeness_results["isolated_entities_rate"]) * 0.2
     ) * 100
     
+    # 综合得分
+    total_score = accuracy_score * 0.5 + consistency_score * 0.2 + completeness_score * 0.3
+    
     # 汇总结果
     results = {
         "accuracy": accuracy_results,
@@ -334,7 +338,8 @@ def main() -> None:
         "completeness": completeness_results,
         "accuracy_score": accuracy_score,
         "consistency_score": consistency_score,
-        "completeness_score": completeness_score
+        "completeness_score": completeness_score,
+        "total_score": total_score
     }
     
     # 保存结果
@@ -352,6 +357,7 @@ def main() -> None:
     print(f"\n准确性得分:   {accuracy_score:.2f}")
     print(f"一致性得分:   {consistency_score:.2f}")
     print(f"完整性得分:   {completeness_score:.2f}")
+    print(f"\n综合得分:     {total_score:.2f}")
     print(f"\n详细报告已保存至: {args.output_dir}/evaluation_report.txt")
     print("=" * 80 + "\n")
 
