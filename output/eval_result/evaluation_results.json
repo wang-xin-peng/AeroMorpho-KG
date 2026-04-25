@@ -1,0 +1,47 @@
+{
+  "accuracy": {
+    "entity": {
+      "precision": 0.7681159420289855,
+      "recall": 0.8877721943048577,
+      "f1": 0.8236208236208237,
+      "correct": 530,
+      "predicted": 690,
+      "ground_truth": 597
+    },
+    "relation": {
+      "precision": 0.4619238476953908,
+      "recall": 0.6623563218390804,
+      "f1": 0.5442739079102715,
+      "correct": 461,
+      "predicted": 998,
+      "ground_truth": 696
+    }
+  },
+  "consistency": {
+    "schema_violations": {
+      "count": 0,
+      "examples": []
+    },
+    "symmetric_violations": {
+      "count": 0,
+      "examples": []
+    },
+    "mutex_violations": {
+      "count": 0,
+      "examples": []
+    }
+  },
+  "completeness": {
+    "entity_coverage": 0.8877721943048577,
+    "relation_coverage": 1.0,
+    "entity_count": 690,
+    "relation_count": 998,
+    "entity_relation_ratio": 0.6913827655310621,
+    "isolated_entities_count": 0,
+    "isolated_entities_rate": 0.0,
+    "avg_connectivity": 1.9363241678726484
+  },
+  "accuracy_score": 65.60126741944924,
+  "consistency_score": 100.0,
+  "completeness_score": 95.51088777219432
+}

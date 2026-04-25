@@ -1,0 +1,959 @@
+{"head": "飞行器", "relation": "应用于", "tail": "军用", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "应用于", "tail": "民用", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "用于", "tail": "侦察监视", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "用于", "tail": "资源普查", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "用于", "tail": "环境监测", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "用于", "tail": "通信中继", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "用于", "tail": "救灾", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "升力系数", "relation": "影响", "tail": "诱导阻力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "高空飞行器", "relation": "面临", "tail": "诱导阻力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "高空飞行器", "relation": "适应", "tail": "高空空气稀薄", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "优化", "tail": "提高展弦比", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比", "relation": "应用于", "tail": "高空长航时飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "超大展弦比", "relation": "应用于", "tail": "高空长航时飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "气动效率", "relation": "提高", "tail": "提高展弦比", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机诱导阻力", "relation": "降低", "tail": "提高展弦比", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞机", "relation": "应用于", "tail": "军用领域", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞机", "relation": "应用于", "tail": "民用领域", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "全球鹰", "relation": "对比", "tail": "波音 737", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体技术", "relation": "应用于", "tail": "飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体技术", "relation": "用于", "tail": "飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞机", "relation": "解决", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞机", "relation": "限制", "tail": "低空飞行和抗侧风、抗突风性能较差", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞机", "relation": "限制", "tail": "对气象条件的要求较高", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变展长变体技术", "relation": "应用于", "tail": "大展弦比飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变展长变体技术", "relation": "用于", "tail": "大展弦比飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变展长变体技术", "relation": "实现", "tail": "增强大展弦比飞行器的飞行性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变展长变体技术", "relation": "实现", "tail": "扩展其适用范围", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞行器", "relation": "增强", "tail": "飞行性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机总阻力", "relation": "包含", "tail": "零升阻力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机总阻力", "relation": "包含", "tail": "诱导阻力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展弦比", "relation": "影响", "tail": "升力系数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机零升阻力", "relation": "包含", "tail": "摩擦阻力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "摩擦阻力", "relation": "属于", "tail": "飞机零升阻力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展弦比", "relation": "影响", "tail": "阻力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展弦比", "relation": "影响", "tail": "航程", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "平直机翼", "relation": "具有", "tail": "气动效率", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "平直机翼", "relation": "提高", "tail": "气动效率", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "美国 RQ-4“全球鹰”无人机", "relation": "具有", "tail": "大展弦比平直机翼布局", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "“全球鹰”系列无人机", "relation": "具有", "tail": "展弦比在 25 以上", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "“全球鹰”系列无人机", "relation": "具有", "tail": "翼展接近 40m", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "“全球鹰”系列无人机", "relation": "具有", "tail": "最大巡航升阻比达到了 28 以上", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "“全球鹰”系列无人机", "relation": "具有", "tail": "航程达 20000km 以上", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "复合材料", "relation": "应用于", "tail": "机翼结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "RQ-4“全球鹰”无人机", "relation": "采用", "tail": "复合材料", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "复合材料", "relation": "用于", "tail": "机翼结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比平直机翼", "relation": "应用于", "tail": "高空长航时军用飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "美国 U-2 高空侦察机", "relation": "采用", "tail": "大展弦比平直机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "以色列“苍鹭”系列高空侦察机", "relation": "采用", "tail": "大展弦比平直机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "西风”太阳能无人机", "relation": "采用", "tail": "大展弦比平直机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比平直机翼", "relation": "用于", "tail": "高空长航时军用飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "全球鹰无人机", "relation": "具有", "tail": "大展弦比机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比机翼", "relation": "应用于", "tail": "飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比机翼", "relation": "提高", "tail": "升阻比", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "降低", "tail": "诱导阻力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比机翼", "relation": "用于", "tail": "飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "全球鹰无人机", "relation": "实现", "tail": "大展弦比机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞行器", "relation": "优化", "tail": "期望突破", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞行器", "relation": "面临", "tail": "布局形式", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "连接翼布局", "relation": "具有", "tail": "跨声速性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "连接翼布局", "relation": "具有", "tail": "侧向力控制能力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "连接翼布局", "relation": "提高", "tail": "跨声速性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "连接翼布局", "relation": "提高", "tail": "侧向力控制能力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "连接翼布局", "relation": "对比", "tail": "常规布局", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "连接翼布局", "relation": "增强", "tail": "跨声速性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "连接翼布局", "relation": "增强", "tail": "侧向力控制能力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "连接翼布局", "relation": "应用于", "tail": "无侦-7 无人侦察机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "弯矩负载", "relation": "降低", "tail": "无侦-7 无人机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "无侦-7 无人侦察机", "relation": "用于", "tail": "中国空军", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "太阳能无人机", "relation": "采用", "tail": "双/多机身布局", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "太阳能无人机", "relation": "用于", "tail": "通信", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "支撑翼布局", "relation": "应用于", "tail": "白骑士二号飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "支撑翼布局", "relation": "降低", "tail": "降低机翼负载", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "布局", "relation": "发展为", "tail": "支撑翼飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "支撑翼", "relation": "应用于", "tail": "客机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞行器", "relation": "提高", "tail": "巡航性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞行器", "relation": "面临", "tail": "诸多的问题与挑战", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "高空长航时飞机", "relation": "具有", "tail": "巨大的翼展", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展弦比", "relation": "影响", "tail": "飞机的翼展", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞机", "relation": "面临", "tail": "在有限空间起降", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦", "relation": "应用于", "tail": "长航时飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "长航时飞机", "relation": "应用于", "tail": "军用领域", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "航母或两栖攻击舰", "relation": "面临", "tail": "大展弦比长航时飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "莫哈韦", "relation": "用于", "tail": "前线机场", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比长航时飞行器", "relation": "面临", "tail": "前线简易机场起降的需求", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "莫哈韦", "relation": "解决", "tail": "前线机场进行起降", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "莫哈韦", "relation": "适应", "tail": "前线机场", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "民用无人机", "relation": "应用于", "tail": "通航产业", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "民用无人机", "relation": "应用于", "tail": "民用领域", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "民用无人机", "relation": "用于", "tail": "通航产业", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "民用无人机", "relation": "用于", "tail": "机场资源", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "民用无人机行业", "relation": "面临", "tail": "机场资源的日趋紧张", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "面临", "tail": "构细长，机翼气动弹性等问题十分突出", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "面临", "tail": "抗突风、抗侧风能力孱弱", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "结构性故障", "relation": "导致", "tail": "坠毁", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体技术", "relation": "应用于", "tail": "大展弦比飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后掠翼", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体技术", "relation": "用于", "tail": "大展弦比飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞机", "relation": "解决", "tail": "变体技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "F-14", "relation": "采用", "tail": "变后掠翼技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "B-1", "relation": "采用", "tail": "变后掠翼技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Tu-160", "relation": "采用", "tail": "变后掠翼技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "激波阻力", "relation": "降低", "tail": "后掠角", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后掠翼技术", "relation": "用于", "tail": "F-14", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后掠翼技术", "relation": "用于", "tail": "B-1", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后掠翼技术", "relation": "用于", "tail": "Tu-160", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后掠翼", "relation": "适应", "tail": "超声速飞行", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "XB-70 轰炸机", "relation": "具有", "tail": "折叠翼尖", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "XB-70 轰炸机", "relation": "采用", "tail": "大三角翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "翼尖", "relation": "连接", "tail": "主机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "超声速配平", "relation": "影响", "tail": "垂直安定面", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "超声速配平", "relation": "抑制", "tail": "部分升力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体技术", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "电作动器", "relation": "应用于", "tail": "飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "电作动器", "relation": "用于", "tail": "Z 字形折叠翼变体飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "驱动", "tail": "电作动器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "鸬鹚”潜射无人机", "relation": "采用", "tail": "折叠翼飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动蒙皮的机翼变体方案", "relation": "提出", "tail": "NextGen Aeronautics 公司", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动蒙皮的机翼变体方案", "relation": "发展为", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "采用", "tail": "充气式机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "活动部分", "relation": "依赖于", "tail": "伺服电机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "机翼", "relation": "驱动", "tail": "伺服电机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "小型无人机的变展长方案", "relation": "提出", "tail": "Mestrinho", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "记忆合金", "relation": "应用于", "tail": "硬壳式伸缩翼变体方案", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性蒙皮", "relation": "应用于", "tail": "硬壳式伸缩翼变体方案", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "新型作动器", "relation": "应用于", "tail": "硬壳式伸缩翼变体方案", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形结构", "relation": "应用于", "tail": "硬壳式伸缩翼变体方案", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "记忆合金", "relation": "用于", "tail": "硬壳式伸缩翼变体", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性蒙皮", "relation": "用于", "tail": "硬壳式伸缩翼变体", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "新型作动器", "relation": "用于", "tail": "硬壳式伸缩翼变体", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形结构", "relation": "用于", "tail": "硬壳式伸缩翼变体", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体机翼", "relation": "用于", "tail": "柔性桁架", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "硬壳式伸缩翼变体方案", "relation": "提出", "tail": "Mestrinho", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体机翼", "relation": "发展为", "tail": "硬壳式伸缩翼变体", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体机翼", "relation": "发展为", "tail": "柔性桁架改变展长", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "桁架", "relation": "应用于", "tail": "机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "桁架", "relation": "用于", "tail": "机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "机翼的伸缩", "relation": "实现", "tail": "桁架连接", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "翼肋", "relation": "连接", "tail": "桁架", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性桁架", "relation": "应用于", "tail": "变展长机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "应用于", "tail": "仿生学", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变展长机翼", "relation": "用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变展长机翼", "relation": "基于", "tail": "0 泊松比蜂窝结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "仿鸟的变体飞行器", "relation": "实现", "tail": "可以同时改变机翼和尾翼的展长", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "仿鸟的变体飞行器", "relation": "基于", "tail": "北苍鹰等鸟类的飞行特点", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼尖", "relation": "应用于", "tail": "波音 777-X 飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼尖", "relation": "用于", "tail": "波音 777-X 飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "波音 777-X 飞机", "relation": "实现", "tail": "折叠翼尖", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "优化", "tail": "起飞/着陆翼展", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼尖技术", "relation": "应用于", "tail": "飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "提高", "tail": "滚转稳定性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "提高", "tail": "抗侧风能力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机的起飞/着陆翼展", "relation": "降低", "tail": "折叠翼尖技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "气动安定面", "relation": "实现", "tail": "折叠翼尖技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机", "relation": "增强", "tail": "抗侧风能力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼尖技术", "relation": "发展为", "tail": "气动安定面", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "波音 777-X", "relation": "具有", "tail": "折叠翼尖", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼尖", "relation": "应用于", "tail": "波音 777-X", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼尖", "relation": "用于", "tail": "波音 777-X", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼尖", "relation": "实现", "tail": "波音 777-X", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "伸缩翼变体", "relation": "实现", "tail": "王礼佳", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "多级伸缩式的伸缩翼变体方案", "relation": "提出", "tail": "王礼佳", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "伸缩机翼", "relation": "采用", "tail": "菱形结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "伸缩机翼", "relation": "实现", "tail": "菱形结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "使用菱形结构进行驱动的伸缩", "relation": "提出", "tail": "李智", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "机翼", "relation": "采用", "tail": "菱形结构驱动板式导轨", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "菱形结构", "relation": "用于", "tail": "驱动", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "板式导轨", "relation": "用于", "tail": "机翼的伸缩", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "机翼", "relation": "驱动", "tail": "板式导轨", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "使用菱形结构进行驱动的伸缩机翼方案", "relation": "提出", "tail": "李智", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "具有连续蒙皮的伸缩翼方案", "relation": "提出", "tail": "张祖豪", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "活动机翼", "relation": "具有", "tail": "连续蒙皮", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定机翼", "relation": "具有", "tail": "连续蒙皮", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "具有连续蒙皮的伸缩机翼方案", "relation": "提出", "tail": "张祖豪", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "伸缩机翼", "relation": "具有", "tail": "连续蒙皮", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "用", "relation": "面临", "tail": "问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "伸缩翼", "relation": "驱动", "tail": "机械结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变展长变体飞行器", "relation": "采用", "tail": "新型材料和结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大型飞行器", "relation": "采用", "tail": "结构强度", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体技术", "relation": "提高", "tail": "性能收益", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体技术", "relation": "提高", "tail": "降低综合代价", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体技术的综合代价", "relation": "降低", "tail": "低", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "具有", "tail": "单翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "具有", "tail": "双翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "降低", "tail": "变体代价", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比飞行器起降与巡航性能的矛盾", "relation": "解决", "tail": "单-双折叠翼变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体飞行器", "relation": "提出", "tail": "陈海昕", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aircraft", "relation": "包含", "tail": "engine", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aircraft", "relation": "包含", "tail": "control surface", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aircraft", "relation": "包含", "tail": "propeller", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "movable wing section", "relation": "属于", "tail": "components", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "engine", "relation": "属于", "tail": "components", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "control surface", "relation": "属于", "tail": "components", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "propeller", "relation": "属于", "tail": "components", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aircraft", "relation": "驱动", "tail": "engine", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aircraft", "relation": "集成", "tail": "components", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aircraft", "relation": "包含", "tail": "fuselage", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "采用", "tail": "变展长变体技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体", "relation": "依赖于", "tail": "气动力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体", "relation": "驱动", "tail": "气动力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "大展弦比变展长变体飞行器", "relation": "发展为", "tail": "气动力驱动的单-双折叠翼变体", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体飞行器", "relation": "依赖于", "tail": "气动力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体飞行器", "relation": "驱动", "tail": "气动力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体技术的原理验证", "relation": "实现", "tail": "单-双折叠翼变体机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体技术", "relation": "验证", "tail": "单-双折叠翼变体原理验证机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "多学科总体设计方法", "relation": "应用于", "tail": "变展长变体技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变展长变体技术", "relation": "应用于", "tail": "大展弦比长航时飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "多学科总体设计方法", "relation": "用于", "tail": "变展长变体技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变展长变体技术", "relation": "应用于", "tail": "飞机的总体设计方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "升阻比", "relation": "对比", "tail": "航程", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "升阻比", "relation": "对比", "tail": "展弦比", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展弦比", "relation": "对比", "tail": "升阻比", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展弦比", "relation": "对比", "tail": "重量", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体", "relation": "采用", "tail": "气动力驱动", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体", "relation": "对比", "tail": "传统变体方式", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "数值计算方法", "relation": "应用于", "tail": "单-双折叠翼变体的气动特性研究", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "数值计算方法", "relation": "用于", "tail": "双翼飞机的气动特性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "气动力变化", "relation": "影响", "tail": "飞机气动稳定性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体", "relation": "驱动", "tail": "气动力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体", "relation": "影响", "tail": "飞机操稳特性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "计算和分析", "relation": "应用于", "tail": "单-双折叠翼变体飞行器的结构机构设计方案", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体飞行器", "relation": "依赖于", "tail": "连杆", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体", "relation": "应用于", "tail": "飞机总体设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体飞行器", "relation": "应用于", "tail": "飞机平面外形设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体飞行器", "relation": "应用于", "tail": "几何外形设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞机平面外形设计参数", "relation": "影响", "tail": "单-双折叠翼变体", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体", "relation": "应用于", "tail": "RQ-4A“全球鹰”无人机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼", "relation": "用于", "tail": "无人机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "具有", "tail": "非线性、时变、气动耦合问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模型", "relation": "应用于", "tail": "控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "面临", "tail": "非线性、时变、气动耦合等问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "单-双折叠翼变体", "relation": "验证", "tail": "试飞", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "局部式小尺度变形", "relation": "应用于", "tail": "改变飞行流场结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "局部式小尺度变形", "relation": "采用", "tail": "微动执行件", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "局部式小尺度变形", "relation": "采用", "tail": "智能材料", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "局部式小尺度变形", "relation": "用于", "tail": "改变飞行流场结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "局部式小尺度变形", "relation": "解决", "tail": "微动执行件", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "局部式小尺度变形", "relation": "解决", "tail": "智能材料的局部变形", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "局部式小尺度变形", "relation": "基于", "tail": "微动执行件", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "局部式小尺度变形", "relation": "基于", "tail": "智能材料", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形构", "relation": "具有", "tail": "低刚度", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形构", "relation": "具有", "tail": "弱阻尼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性多体系统分析方法", "relation": "导致", "tail": "气动耦联现象", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "多刚体动力学建模方法", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性多体系统分析方法", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "多刚体动力学建模方法", "relation": "用于", "tail": "研究", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性多体系统分析方法", "relation": "用于", "tail": "建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "整体式的变形", "relation": "解决", "tail": "多刚体选择", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性多体系统分析方法", "relation": "解决", "tail": "建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "应用于", "tail": "多刚体建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "多刚体建模", "relation": "采用", "tail": "拉格朗日法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "用于", "tail": "多刚体建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "牛顿-欧拉法", "relation": "应用于", "tail": "可变形机翼飞机的动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "牛顿-欧拉法", "relation": "用于", "tail": "可变形机翼飞机的动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "可变形机翼飞机的动力学模型", "relation": "解决", "tail": "牛顿-欧拉法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动力学模型", "relation": "基于", "tail": "牛顿-欧拉法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "具有", "tail": "良好的飞动性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日法", "relation": "应用于", "tail": "纵向多体动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凯恩法", "relation": "应用于", "tail": "纵向多体动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日法", "relation": "用于", "tail": "模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凯恩法", "relation": "用于", "tail": "模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "无人机", "relation": "增强", "tail": "俯视操纵能力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模型预测控制器", "relation": "应用于", "tail": "变形乘波飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模型预测控制器", "relation": "用于", "tail": "变形乘波飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "可变后掠的高超声速宽速域波飞行器", "relation": "解决", "tail": "程飞行器的飞行性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形乘波飞行器", "relation": "适应", "tail": "任务适应性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "可变后掠的高超声速宽速域波飞行器", "relation": "提出", "tail": "文献", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自然坐标法", "relation": "应用于", "tail": "变体飞行", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日方法", "relation": "应用于", "tail": "动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "应用于", "tail": "时飞行器的滚转转向", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拟坐标形式", "relation": "应用于", "tail": "时飞行器的滚转转向", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自然坐标法", "relation": "用于", "tail": "变体飞行", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日方法", "relation": "用于", "tail": "动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "用于", "tail": "滚转转向", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拟坐标形式", "relation": "用于", "tail": "滚转转向", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "系统", "relation": "增强", "tail": "滚转控制能力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "系统", "relation": "增强", "tail": "气动弹性特性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动力学模型", "relation": "基于", "tail": "坐位拉格朗日日方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "应用于", "tail": "理想完整约束系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "用于", "tail": "理想完整约束系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "限制", "tail": "理想完整约束系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凯恩法", "relation": "采用", "tail": "广义速率", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凯恩法", "relation": "采用", "tail": "广义坐标", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "广义速率", "relation": "用于", "tail": "凯恩法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "广义坐标", "relation": "用于", "tail": "凯恩法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凯恩法", "relation": "应用于", "tail": "可不对称变后掠飞行器的多刚体动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形", "relation": "影响", "tail": "气动弹性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形", "relation": "影响", "tail": "动力学特性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凯恩法", "relation": "用于", "tail": "多刚体动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "可不对称变后掠飞行器的多刚体动力学模型", "relation": "解决", "tail": "凯恩法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "可不对称变后掠飞行器", "relation": "提出", "tail": "变形机构与能面的协同控制设计思路", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "多刚体动力学模型", "relation": "基于", "tail": "凯恩法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凯恩法", "relation": "应用于", "tail": "变飞行器的六自由度动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日等方法", "relation": "应用于", "tail": "建立得到系统整体的动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凯恩法", "relation": "用于", "tail": "变飞行器的六自由度动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日等方法", "relation": "用于", "tail": "建立得到系统整体的动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限单元法", "relation": "应用于", "tail": "柔体的运动规律", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限单元法", "relation": "应用于", "tail": "柔性变形飞行器领域", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性变形机翼的模型", "relation": "采用", "tail": "有限元结合非定常空气动力学方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限单元法", "relation": "用于", "tail": "柔体的运动规律", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元结合非定常空气动力学方法", "relation": "用于", "tail": "柔性变形机翼的模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元结合非定常空气动力学方法", "relation": "配合", "tail": "柔性变形机翼的模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "欧拉伯努利梁原理", "relation": "应用于", "tail": "机翼的弯曲挠性动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元法", "relation": "应用于", "tail": "气动弹性方程进行离散化", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "哈密顿原理", "relation": "应用于", "tail": "混合隔离模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Galerkin有限元法", "relation": "应用于", "tail": "混合隔离模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "欧拉伯努利梁原理", "relation": "用于", "tail": "机翼的弯曲挠性动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元法", "relation": "用于", "tail": "气动弹性方程进行离散化", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "哈密顿原理", "relation": "用于", "tail": "混合隔离模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Galerkin有限元法", "relation": "用于", "tail": "混合隔离模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "系统", "relation": "解决", "tail": "混合隔离模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "弯曲挠性动力学模型", "relation": "基于", "tail": "欧拉伯努利梁原理", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "混合隔离模型", "relation": "基于", "tail": "哈密顿原理", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "混合隔离模型", "relation": "基于", "tail": "Galerkin有限元法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "应用于", "tail": "弹性飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限思想", "relation": "应用于", "tail": "弹性飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日方程", "relation": "应用于", "tail": "柔性部件", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动力学模型", "relation": "采用", "tail": "拉格朗日法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动力学模型", "relation": "采用", "tail": "有限元方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动力学模型", "relation": "采用", "tail": "拉格朗日日方程", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "用于", "tail": "弹性飞行器的动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限思想", "relation": "用于", "tail": "弹性飞行器的动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日方程", "relation": "用于", "tail": "柔性部件", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "分析和计算的工作量", "relation": "降低", "tail": "模态分析法与模态分析", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元模型", "relation": "应用于", "tail": "折叠翼飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "参数化离散把模态方法", "relation": "应用于", "tail": "变形机构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠速度", "relation": "影响", "tail": "飞行结构特性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠速度", "relation": "影响", "tail": "气动弹性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "弹性变形", "relation": "影响", "tail": "气动弹性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元模型", "relation": "用于", "tail": "折叠翼飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "参数化离散把模态方法", "relation": "用于", "tail": "变形机构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性气动伺服弹性建模方法", "relation": "提出", "tail": "文献", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模态分析方法", "relation": "应用于", "tail": "折叠翼柔性机体模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日乘子方法", "relation": "应用于", "tail": "折叠翼柔性动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼柔性动力学模型", "relation": "采用", "tail": "拉格朗日日乘子方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模态分析方法", "relation": "用于", "tail": "折叠翼柔性机体模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日乘子方法", "relation": "用于", "tail": "折叠翼柔性动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼柔性机体模型", "relation": "解决", "tail": "模态分析方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼柔性动力学模型", "relation": "解决", "tail": "拉格朗日日乘子方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性材料", "relation": "具有", "tail": "无限维度", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性材料", "relation": "具有", "tail": "高度非线性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性材料", "relation": "具有", "tail": "气动变形耦合", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性体建模", "relation": "应用于", "tail": "柔性变形飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "高阶化方法", "relation": "用于", "tail": "柔性体建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性体建模", "relation": "解决", "tail": "高阶化处理", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性体建模", "relation": "解决", "tail": "摘离化方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性体建模", "relation": "解决", "tail": "有限单元法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性体建模", "relation": "解决", "tail": "模态分析法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性变形飞行器", "relation": "对比", "tail": "多刚体整体飞器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性变形飞行器", "relation": "不同于", "tail": "多刚体整体飞器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "离散化方法", "relation": "应用于", "tail": "刚柔混合体系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日等方法", "relation": "应用于", "tail": "刚柔混合体系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限单元法", "relation": "应用于", "tail": "刚柔混合体系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "离散化方法", "relation": "用于", "tail": "刚柔混合体系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日日等方法", "relation": "用于", "tail": "刚柔混合体系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限单元法", "relation": "用于", "tail": "刚柔混合体系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元", "relation": "应用于", "tail": "柔性变形机翼的模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非定常空气动力学方法", "relation": "应用于", "tail": "柔性变形机翼的模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "机翼的弯曲挠性动力学模型", "relation": "采用", "tail": "欧拉伯努利梁原理", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "气动弹性方程进行离散化", "relation": "采用", "tail": "有限元法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模型", "relation": "基于", "tail": "有限元结合非定常空气动力学方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限思想", "relation": "应用于", "tail": "弹性飞行器的动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日法", "relation": "应用于", "tail": "弹性飞行器的动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "多性性翼型和前后缘的耦合问题", "relation": "解决", "tail": "哈密顿原理", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "多性性翼型和前后缘的耦合问题", "relation": "解决", "tail": "Galerkin有限元法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "建模", "relation": "应用于", "tail": "刚性部件", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "建模", "relation": "应用于", "tail": "柔性部件", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元方法", "relation": "应用于", "tail": "柔性部件", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模态分析法", "relation": "应用于", "tail": "柔体", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "建模", "relation": "用于", "tail": "大柔性飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元方法", "relation": "用于", "tail": "柔性部件", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模态分析法", "relation": "用于", "tail": "柔体的位移规律", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元", "relation": "应用于", "tail": "弹性变形", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模态叠加法", "relation": "应用于", "tail": "弹性变形", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "牛顿拉格朗日方法", "relation": "应用于", "tail": "单链多体系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拓扑关系", "relation": "应用于", "tail": "树状结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性变体飞行器建模方法", "relation": "应用于", "tail": "离散化方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限元", "relation": "用于", "tail": "部件的弹性变形", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模态叠加法", "relation": "用于", "tail": "部件的弹性变形", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "牛顿拉格朗日方法", "relation": "用于", "tail": "单链多体系统的模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拓扑关系", "relation": "用于", "tail": "树状结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性变体飞行器建模方法", "relation": "用于", "tail": "离散化方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性变体飞行器建模方法", "relation": "基于", "tail": "离散化方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "叶素理论", "relation": "应用于", "tail": "扑翼的气动特性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "六自由度非线性动力学模型", "relation": "应用于", "tail": "天蛾扑翼飞行", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "六自由度非线性动力学模型", "relation": "采用", "tail": "建立", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "叶素理论", "relation": "用于", "tail": "扑翼的气动特性进行建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "建模", "relation": "基于", "tail": "叶素理论", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "化学导向模型", "relation": "应用于", "tail": "柔性多体系统建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "化学导向模型", "relation": "用于", "tail": "分布式参数柔性多体系统建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器的外形变化", "relation": "影响", "tail": "质量分布", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器的外形变化", "relation": "影响", "tail": "气动参数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "姿态控制", "relation": "面临", "tail": "质量分布和气动参数的显著变化", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "姿态控制", "relation": "面临", "tail": "惯性力和力矩会对飞行器的稳定性产生不利影响", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制方法", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制方法", "relation": "用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "保位控制", "relation": "应用于", "tail": "滑动表皮机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动态逆控制", "relation": "应用于", "tail": "滑动表皮机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动态逆控制", "relation": "用于", "tail": "滑动表皮机翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动态逆控制", "relation": "用于", "tail": "倾斜翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "后缘翼", "relation": "对比", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "后缘翼", "relation": "对比", "tail": "折叠翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "后缘翼", "relation": "转换为", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "后缘翼", "relation": "转换为", "tail": "折叠翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼", "relation": "优化", "tail": "PID", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼", "relation": "优化", "tail": "LPV + PID", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼", "relation": "优化", "tail": "LPV+自适应反演", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "PID", "relation": "应用于", "tail": "折叠翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "PID", "relation": "用于", "tail": "折叠翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼", "relation": "实现", "tail": "PID", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LPV+自适应反演", "relation": "对比", "tail": "LPV+PID", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼", "relation": "增强", "tail": "LPV + PID", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠翼", "relation": "适应", "tail": "LPV+自适应反演", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模糊控制", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模糊控制", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应增益控制", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "反馈线性化", "relation": "应用于", "tail": "分布式变形翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "前馈控制", "relation": "采用", "tail": "ADP+干扰观测器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "前馈控制", "relation": "采用", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "前馈控制", "relation": "采用", "tail": "反步法+干扰观测", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "前馈控制", "relation": "解决", "tail": "ADP+干扰观测器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "前馈控制", "relation": "解决", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "前馈控制", "relation": "解决", "tail": "反步法+干扰观测", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "器", "relation": "优化", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应神经网络", "relation": "应用于", "tail": "器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应神经网络", "relation": "用于", "tail": "器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "器", "relation": "实现", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "器", "relation": "增强", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "器", "relation": "配合", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "器", "relation": "配合", "tail": "反步法+干扰观测器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "器", "relation": "配合", "tail": "变形翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "器", "relation": "配合", "tail": "自适应神经网络", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络", "relation": "应用于", "tail": "变形翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "并关联制", "relation": "应用于", "tail": "变形翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模样控制", "relation": "应用于", "tail": "变形翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形翼", "relation": "实现", "tail": "智能控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "干扰观测器", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "径向基神经网络", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "强化学习", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "反步法", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "命令滤波", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Q-Learning", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "策略梯度", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "执行评估网络", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "积分强化学习", "relation": "应用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "干扰观测器", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "径向基神经网络", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "强化学习", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "反步法", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "命令滤波", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Q-Learning", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "策略梯度", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "执行评估网络", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "积分强化学习", "relation": "用于", "tail": "变后缘翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后缘翼", "relation": "解决", "tail": "干扰观测器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后缘翼", "relation": "解决", "tail": "径向基神经网络", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后缘翼", "relation": "解决", "tail": "强化学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后缘翼", "relation": "解决", "tail": "反步法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后缘翼", "relation": "解决", "tail": "命令滤波", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后缘翼", "relation": "解决", "tail": "Q-Learning", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后缘翼", "relation": "解决", "tail": "策略梯度", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后缘翼", "relation": "解决", "tail": "执行评估网络", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后缘翼", "relation": "解决", "tail": "积分强化学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "干扰观测器", "relation": "配合", "tail": "径向基神经网络", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "干扰观测器", "relation": "配合", "tail": "强化学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "反步法", "relation": "配合", "tail": "命令滤波", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Q-Learning", "relation": "配合", "tail": "反步法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "策略梯度", "relation": "配合", "tail": "执行评估网络", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "执行评估网络", "relation": "配合", "tail": "积分强化学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制方法", "relation": "包含", "tail": "PID", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制方法", "relation": "包含", "tail": "最优控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制方法", "relation": "包含", "tail": "增益调整", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制方法", "relation": "包含", "tail": "鱼棒控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制", "relation": "采用", "tail": "PID", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制", "relation": "采用", "tail": "最优控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制", "relation": "采用", "tail": "增益调整", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制", "relation": "采用", "tail": "鱼棒控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制方法", "relation": "用于", "tail": "PID", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制方法", "relation": "用于", "tail": "最优控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制方法", "relation": "用于", "tail": "增益调整", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "传统飞行器控制方法", "relation": "用于", "tail": "鱼棒控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "PID 控制方法", "relation": "具有", "tail": "自适应性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "PID 控制方法", "relation": "具有", "tail": "鲁棒性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "PID 控制方法", "relation": "应用于", "tail": "变体飞行器的控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制系统", "relation": "采用", "tail": "PID 控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "PID 控制方法", "relation": "用于", "tail": "变体飞行器的控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器的控制系统设计", "relation": "解决", "tail": "PID 控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "PID 控制方法", "relation": "适应", "tail": "动态模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "PID 控制", "relation": "应用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日方法", "relation": "应用于", "tail": "滑动变形机翼变形和控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "伪逆控制", "relation": "应用于", "tail": "滑动变形机翼变形和控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动态逆控制", "relation": "应用于", "tail": "滑动变形机翼变形和控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "经典 PID 方法", "relation": "应用于", "tail": "滑动变形机翼变形和控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "PID 控制", "relation": "用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日方法", "relation": "用于", "tail": "滑动变形机翼变形和控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "伪逆控制", "relation": "用于", "tail": "滑动变形机翼变形和控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动态逆控制", "relation": "用于", "tail": "滑动变形机翼变形和控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "经典 PID 方法", "relation": "用于", "tail": "滑动变形机翼变形和控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动变形机翼变形和控制问题", "relation": "解决", "tail": "PID 控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动变形机翼变形和控制问题", "relation": "解决", "tail": "拉格朗日方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动变形机翼变形和控制问题", "relation": "解决", "tail": "伪逆控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动变形机翼变形和控制问题", "relation": "解决", "tail": "动态逆控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动变形机翼变形和控制问题", "relation": "解决", "tail": "经典 PID 方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "拉格朗日方法", "relation": "配合", "tail": "PID 控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "伪逆控制", "relation": "配合", "tail": "PID 控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "动态逆控制", "relation": "配合", "tail": "PID 控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "经典 PID 方法", "relation": "配合", "tail": "PID 控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "线性二次型", "relation": "应用于", "tail": "变体飞行器控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制系统设计", "relation": "采用", "tail": "线性二次型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "线性二次型", "relation": "用于", "tail": "变体飞行器控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制系统设计", "relation": "解决", "tail": "线性二次型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LQR 控制器", "relation": "具有", "tail": "实现想控的能力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LQR 控制器", "relation": "应用于", "tail": "飞行控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "限元法", "relation": "应用于", "tail": "柔性变形翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Theodorsen 两数", "relation": "应用于", "tail": "柔性变形翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行控制", "relation": "采用", "tail": "分布式 LQR", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LQR 控制器", "relation": "用于", "tail": "想控", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "限元法", "relation": "用于", "tail": "柔性变形翼进行建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Theodorsen 两数", "relation": "用于", "tail": "柔性变形翼进行建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "柔性变形翼", "relation": "解决", "tail": "分布式 LQR", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "可变形机翼", "relation": "解决", "tail": "分布式 LQR", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "可变形机翼的振颤", "relation": "抑制", "tail": "分布式 LQR", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LQR 控制器", "relation": "应用于", "tail": "非翼无人机新型风减弱系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LQR 控制器", "relation": "用于", "tail": "非翼无人机新型风减弱系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非翼无人机新型风减弱系统", "relation": "实现", "tail": "LQR 控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LQR 控制", "relation": "应用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "增益调整", "relation": "应用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "鱼棒控制", "relation": "应用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LQR 控制", "relation": "用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "增益调整", "relation": "用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "鱼棒控制", "relation": "用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LPV 系统", "relation": "配合", "tail": "变体飞行器控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LPV 系统理论", "relation": "应用于", "tail": "变体飞行器建模与控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LPV 系统理论", "relation": "用于", "tail": "变体飞行器建模与控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器建模与控制", "relation": "解决", "tail": "LPV 系统理论", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LPV 控制方法", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LPV 控制方法", "relation": "用于", "tail": "变体飞行器的控制系统分析", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器大尺度变形", "relation": "解决", "tail": "LPV 控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动桨皮", "relation": "应用于", "tail": "飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动桨皮", "relation": "用于", "tail": "飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "实现", "tail": "滑动桨皮", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "调参数建立 LPV 系统", "relation": "应用于", "tail": "飞行器纵向周期运动控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "分切区间和线性插值方式", "relation": "应用于", "tail": "平滑切换", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变后掠角", "relation": "用于", "tail": "飞行器纵向周期运动控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "调参数", "relation": "用于", "tail": "LPV 系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器纵向周期运动控制问题", "relation": "解决", "tail": "变后掠角", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "调参数建立 LPV 系统", "relation": "应用于", "tail": "机翼可变后掠角的飞行器纵向周期运动控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "分切区间和线性插值方式", "relation": "应用于", "tail": "机翼可变后掠角的飞行器纵向周期运动控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器纵向周期运动控制问题", "relation": "解决", "tail": "调参数建立 LPV 系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器纵向周期运动控制问题", "relation": "解决", "tail": "通过分切区间和线性插值方式实现平滑切换", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "纵向周期运动", "relation": "转换为", "tail": "LPV 系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "输出反馈控制器", "relation": "用于", "tail": "专属平滑切换", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "平滑切换", "relation": "解决", "tail": "输出反馈控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "采用", "tail": "LPV + 增益调参", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制", "relation": "解决", "tail": "LPV + 增益调参", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Beijing", "relation": "位于", "tail": "China", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "适应", "tail": "复杂的环境和任务需求", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制技术", "relation": "包含", "tail": "变形决策技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制技术", "relation": "包含", "tail": "控制系统建模", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制技术", "relation": "包含", "tail": "姿态控制技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制技术", "relation": "用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "增益调度思想", "relation": "应用于", "tail": "LPV方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "增益调度思想", "relation": "应用于", "tail": "控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "增益调度思想", "relation": "用于", "tail": "LPV方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "成熟的理论", "relation": "用于", "tail": "控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "H∞控制器", "relation": "应用于", "tail": "飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性思想换系统", "relation": "应用于", "tail": "非线性控制器设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "文献", "relation": "采用", "tail": "增益自调度的H∞控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "文献", "relation": "采用", "tail": "平均驻留时间", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "文献", "relation": "采用", "tail": "微分不等式技术", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "H∞控制器", "relation": "用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "平均驻留时间", "relation": "用于", "tail": "非线性思想换系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "微分不等式技术", "relation": "用于", "tail": "非线性思想换系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器在整个飞行包线内的稳定性", "relation": "解决", "tail": "增益自调度的H∞控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "全局控制器", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "全局控制器", "relation": "采用", "tail": "增益调度控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性控制器设计", "relation": "采用", "tail": "非线性思想换系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "全局控制器", "relation": "用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性思想换系统", "relation": "用于", "tail": "非线性控制器设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "解决", "tail": "增益调度控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "结构舵PID控制器", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "结构舵PID控制器", "relation": "用于", "tail": "函数控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器LPV模型", "relation": "用于", "tail": "结构舵PID控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "开关系统理论", "relation": "用于", "tail": "结构舵PID控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "参数变化自适应控制理论", "relation": "用于", "tail": "结构舵PID控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "结构舵的PID控制器", "relation": "配合", "tail": "变体飞行器LPV模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "结构舵PID控制器", "relation": "提出", "tail": "函数控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "函数控制方法", "relation": "基于", "tail": "结构舵的PID控制器和变体飞行器LPV模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "结构舵PID控制设计方法", "relation": "基于", "tail": "开关系统理论与参数变化自适应控制理论", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "时变参数闭环模控制", "relation": "应用于", "tail": "非线性时不变系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "FSMC", "relation": "应用于", "tail": "LPV系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "时变参数闭环模控制", "relation": "用于", "tail": "非线性时不变系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "FSMC", "relation": "用于", "tail": "LPV系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性时不变系统", "relation": "解决", "tail": "时变参数闭环模控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "应用于", "tail": "文献", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LPV模型", "relation": "应用于", "tail": "滑模控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应算法", "relation": "应用于", "tail": "滑模控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "采用", "tail": "LPV模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "采用", "tail": "自适应算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "积分滑模控制", "relation": "提高", "tail": "鲁棒性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "用于", "tail": "LPV模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应算法", "relation": "用于", "tail": "积分滑模控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "积分滑模控制", "relation": "增强", "tail": "鲁棒性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "配合", "tail": "LPV模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应算法", "relation": "配合", "tail": "滑模控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LPV模型", "relation": "基于", "tail": "滑模控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "能港滑模控制器", "relation": "具有", "tail": "鲁棒性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "反馈线性化控制器", "relation": "采用", "tail": "非线性动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性渐进控制器", "relation": "采用", "tail": "非线性动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "反馈线性化控制器", "relation": "对比", "tail": "非线性渐进控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "能港滑模控制器", "relation": "对比", "tail": "非线性控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "反馈线性化控制器", "relation": "基于", "tail": "非线性动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性渐进控制器", "relation": "基于", "tail": "非线性动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "属于", "tail": "非线性控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "限幅机动参数考虑指令", "relation": "采用", "tail": "滑模控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制方法", "relation": "用于", "tail": "限幅机动参数考虑指令", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "限幅机动参数考虑指令", "relation": "解决", "tail": "滑模控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动控制", "relation": "具有", "tail": "快速响应", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动控制", "relation": "具有", "tail": "抗干扰能力", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑动模态", "relation": "实现", "tail": "滑动控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "应用于", "tail": "变体飞行器控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "用于", "tail": "变体飞行器控制系统设计方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制系统设计方法", "relation": "基于", "tail": "滑模控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限时间收敛滑模控制", "relation": "应用于", "tail": "非线性时不变系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限时间收敛滑模控制", "relation": "应用于", "tail": "变体LPV系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限时间收敛滑模控制", "relation": "用于", "tail": "非线性时不变系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性时不变系统", "relation": "解决", "tail": "有限时间收敛滑模控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "L2增益", "relation": "影响", "tail": "控制系统的稳定性和L2增益性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "应用于", "tail": "LPV模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应算法", "relation": "应用于", "tail": "积分滑模控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应算法", "relation": "用于", "tail": "LPV模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "适应", "tail": "LPV模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制", "relation": "适应", "tail": "自适应算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "滑模控制方法", "relation": "应用于", "tail": "限幅机动参数考虑指令", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限时间收敛滑模控制方法", "relation": "应用于", "tail": "非线性时变模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "有限时间收敛滑模控制", "relation": "用于", "tail": "非线性时变模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体LPV系统", "relation": "实现", "tail": "不变系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "不变系统", "relation": "转换为", "tail": "变体LPV系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "LPV系统", "relation": "驱动", "tail": "FSMC", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "抗扰动控制", "relation": "应用于", "tail": "飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "抗扰动控制", "relation": "用于", "tail": "飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "面临", "tail": "复杂", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "面临", "tail": "不确定性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "面临", "tail": "干扰", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "解决", "tail": "抗扰动控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "鲁棒性", "relation": "验证", "tail": "气动扰动仿真", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "扩张状态观测器", "relation": "应用于", "tail": "非线性控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "扰动观测器", "relation": "应用于", "tail": "非线性控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "扩张状态观测器", "relation": "用于", "tail": "非线性控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "扰动观测器", "relation": "用于", "tail": "非线性控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "整体飞行器控制领域", "relation": "解决", "tail": "制下扰", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "监测", "tail": "扰动观测器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应动态规划", "relation": "应用于", "tail": "变体飞行器非线性切换系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应动态规划", "relation": "应用于", "tail": "切换控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应动态规划", "relation": "用于", "tail": "切换控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "切换控制器", "relation": "实现", "tail": "自适应动态规划", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制精度", "relation": "增强", "tail": "来", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "切换控制器", "relation": "基于", "tail": "自适应动态规划", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "应用于", "tail": "飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "模型", "relation": "应用于", "tail": "控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制系统", "relation": "提高", "tail": "鲁棒性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "用于", "tail": "整体飞行器的非线性系统模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制方法", "relation": "用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "鲁棒性", "relation": "增强", "tail": "控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "抗扰动控制", "relation": "应用于", "tail": "变体飞行器纵向动力学", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "扰动观测器", "relation": "用于", "tail": "抗扰动控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器纵向动力学的抗扰动控制", "relation": "解决", "tail": "扰动观测器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "扰动", "relation": "抑制", "tail": "抑制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络控制", "relation": "应用于", "tail": "飞行器控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "复合扰动干扰控制器", "relation": "采用", "tail": "神经网络控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络控制", "relation": "用于", "tail": "飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性扰动", "relation": "解决", "tail": "复合扰动干扰控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "整体飞行器控制系统", "relation": "解决", "tail": "神经网络控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "复合扰动干扰控制器", "relation": "集成", "tail": "非线性干扰观测器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "复合扰动干扰控制器", "relation": "集成", "tail": "命令过滤步方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络控制", "relation": "发展为", "tail": "整体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "高阶积分链微分器", "relation": "应用于", "tail": "鲁棒自适应神经网络控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "高阶积分链微分器", "relation": "用于", "tail": "鲁棒自适应神经网络控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形飞行器控制问题", "relation": "解决", "tail": "高阶积分链微分器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形飞行器控制问题", "relation": "解决", "tail": "鲁棒自适应神经网络控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "所提出的控制性", "relation": "验证", "tail": "李雅普诺夫稳定性理论", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "鲁棒自适应神经网络控制器", "relation": "基于", "tail": "高阶积分链微分器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "编码李雅普诺夫函数", "relation": "应用于", "tail": "适应神经网络动态曲面控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络控制器", "relation": "应用于", "tail": "整体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "编码李雅普诺夫函数", "relation": "用于", "tail": "适应神经网络动态曲面控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络控制器", "relation": "用于", "tail": "整体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "整体飞行器", "relation": "解决", "tail": "编码李雅普诺夫函数的适应神经网络动态曲面控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "整体飞行器", "relation": "限制", "tail": "未知动力学", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "整体飞行器", "relation": "限制", "tail": "输入输出约束", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "一种基于编码李雅普诺夫函数的适应神经网络动态曲面控制方法", "relation": "提出", "tail": "文献", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "适应神经网络动态曲面控制方法", "relation": "基于", "tail": "编码李雅普诺夫函数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络控制方法", "relation": "应用于", "tail": "变形飞行器纵向动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "复合开关神经网络控制方法", "relation": "采用", "tail": "神经网络控制器与鲁棒控制器之间控制权限交换的切换机制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络控制方法", "relation": "用于", "tail": "变形飞行器纵向动力学模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "切换机制", "relation": "用于", "tail": "复合开关神经网络控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形飞行器纵向动力学模型", "relation": "解决", "tail": "复合开关神经网络控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变形飞行器纵向动力学模型", "relation": "提出", "tail": "复合开关神经网络控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性控制与稳定性增强系统", "relation": "应用于", "tail": "整体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性控制与稳定性增强系统", "relation": "采用", "tail": "间隔高线神经网络", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性控制与稳定性增强系统", "relation": "采用", "tail": "神经网络架构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性控制与稳定性增强系统", "relation": "采用", "tail": "反向传播算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "不确定性和感性", "relation": "降低", "tail": "整个系统的", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "间隔高线神经网络", "relation": "用于", "tail": "模型反演", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "过拟合现象", "relation": "解决", "tail": "神经网络架构和反向传播算法的结合", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性控制", "relation": "增强", "tail": "稳定性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络架构", "relation": "配合", "tail": "反向传播算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "非线性控制与稳定性增强系统", "relation": "基于", "tail": "反馈线性化", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络", "relation": "应用于", "tail": "飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "采用", "tail": "梯度下降算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "提高", "tail": "响应时间", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "提高", "tail": "超调", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "提高", "tail": "对干扰的抑制程度", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "提高", "tail": "激励的利用率", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络隐藏层", "relation": "用于", "tail": "PID参数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "梯度下降算法", "relation": "用于", "tail": "变后扰乱飞行器在变形、受干扰情况下的参数自适应控制", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "参数自适应控制", "relation": "解决", "tail": "梯度下降算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络", "relation": "增强", "tail": "PID参数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "智能控制理论", "relation": "应用于", "tail": "控制领域", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "反馈控制方法", "relation": "用于", "tail": "整体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经控制方法", "relation": "用于", "tail": "控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "智能控制理论", "relation": "用于", "tail": "控制领域", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "智能方法", "relation": "应用于", "tail": "变体飞行器非线性控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络", "relation": "应用于", "tail": "变体飞行器控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "强化学习", "relation": "应用于", "tail": "变体飞行器控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络", "relation": "用于", "tail": "变体飞行器控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "强化学习", "relation": "用于", "tail": "变体飞行器控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络", "relation": "应用于", "tail": "控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络", "relation": "用于", "tail": "控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络控制", "relation": "实现", "tail": "当代控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "神经网络", "relation": "转换为", "tail": "控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Morphing aircraft", "relation": "适应", "tail": "complex environment", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "deformed structure", "relation": "应用于", "tail": "military", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "deformed structure", "relation": "应用于", "tail": "civil fields", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "control technology", "relation": "应用于", "tail": "morphing aircraft", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "control technology", "relation": "用于", "tail": "morphing aircraft", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "morphing aircraft", "relation": "解决", "tail": "control technology", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "technologies", "relation": "包含", "tail": "deformation decision technology", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "technologies", "relation": "包含", "tail": "control system modeling", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "deformation decision technology", "relation": "应用于", "tail": "phing aircraft control technology", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "control system modeling", "relation": "应用于", "tail": "phing aircraft control technology", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "technologies", "relation": "用于", "tail": "phing aircraft control technology", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "attitude control technology", "relation": "用于", "tail": "mo", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制分配", "relation": "应用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "容错控制", "relation": "应用于", "tail": "变体飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制分配与容错控制", "relation": "用于", "tail": "变体飞行器控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制分配问题", "relation": "应用于", "tail": "飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "提高", "tail": "机动性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "提高", "tail": "操纵性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "提高", "tail": "系统可靠性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器控制系统", "relation": "用于", "tail": "保障飞行安全", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器控制系统", "relation": "用于", "tail": "提升飞行性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "面临", "tail": "控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "增强", "tail": "机动性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "增强", "tail": "操纵性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "增强", "tail": "系统可靠性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "具有", "tail": "结构可变性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凸组合搜索算法", "relation": "应用于", "tail": "在线控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Tent映射长控制策略", "relation": "应用于", "tail": "凸组合搜索算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "在线控制分配问题", "relation": "采用", "tail": "凸组合搜索算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "在线控制分配问题", "relation": "采用", "tail": "Tent映射长控制策略", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "在线控制分配问题", "relation": "提高", "tail": "算法的搜索效率", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "凸组合搜索算法", "relation": "用于", "tail": "作动器的控制指令", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Tent映射长控制策略", "relation": "用于", "tail": "算法的搜索效率", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "面临", "tail": "控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "分布式驱动变体飞行器", "relation": "解决", "tail": "在线控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "分布式驱动变体飞行器", "relation": "解决", "tail": "凸组合搜索算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "分布式驱动变体飞行器", "relation": "解决", "tail": "Tent映射长控制策略", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "在线控制分配问题", "relation": "基于", "tail": "凸组合搜索算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "在线控制分配问题", "relation": "基于", "tail": "Tent映射长控制策略", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器在线控制分配问题", "relation": "优化", "tail": "元启发式优化算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "元启发式优化算法", "relation": "应用于", "tail": "飞行器在线控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "元启发式优化算法", "relation": "用于", "tail": "飞行器在线控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "面临", "tail": "结构可变性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器在线控制分配问题", "relation": "解决", "tail": "参数设置及优化", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器在线控制分配问题", "relation": "解决", "tail": "元启发式优化算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "对比", "tail": "固定翼飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "遗传算法", "relation": "应用于", "tail": "分布式结构变体飞行器的控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "谷鸟搜索算法", "relation": "应用于", "tail": "分布式结构变体飞行器的控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "遗传算法", "relation": "用于", "tail": "分布式结构变体飞行器的控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "谷鸟搜索算法", "relation": "用于", "tail": "分布式结构变体飞行器的控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "分布式结构变体飞行器的控制分配问题", "relation": "解决", "tail": "遗传算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "分布式结构变体飞行器的控制分配问题", "relation": "解决", "tail": "谷鸟搜索算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "执行器故率性故障与偏差和约束", "relation": "转换为", "tail": "整数规划问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定时间观测器", "relation": "应用于", "tail": "自模型不确定性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定时间观测器", "relation": "应用于", "tail": "外部干扰", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定时间观测器", "relation": "应用于", "tail": "执行故障的变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "提高", "tail": "跟踪性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "避传算法", "relation": "提高", "tail": "控制分配结果", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定时间观测器", "relation": "用于", "tail": "自模型不确定性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定时间观测器", "relation": "用于", "tail": "外部干扰", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定时间观测器", "relation": "用于", "tail": "执行故障的变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "面临", "tail": "自模型不确定性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "面临", "tail": "外部干扰", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "面临", "tail": "执行故障", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "解决", "tail": "固定时间观测器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "主容错策略", "relation": "对比", "tail": "方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "避传算法", "relation": "对比", "tail": "方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "主容错策略", "relation": "不同于", "tail": "方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "避传算法", "relation": "不同于", "tail": "方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制分配与容错控制", "relation": "应用于", "tail": "变体飞行器控制系统设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制分配问题", "relation": "应用于", "tail": "飞行器控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制分配问题", "relation": "应用于", "tail": "无人飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "用于", "tail": "控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "高度和速度子系统", "relation": "面临", "tail": "失效", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "优化现有控制器", "relation": "采用", "tail": "强化学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "现有控制器", "relation": "采用", "tail": "强化学习控制器协议", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "改进的下扰观测器", "relation": "采用", "tail": "估计扰动", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "径向基函数神经网络", "relation": "采用", "tail": "虚拟控制律", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "高度跟踪误差", "relation": "降低", "tail": "供补充控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "下扰观测器", "relation": "用于", "tail": "估计扰动", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "径向基函数神经网络", "relation": "用于", "tail": "虚拟控制律", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "供补充控制器", "relation": "用于", "tail": "高度跟踪误差", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "虚拟控制律", "relation": "实现", "tail": "径向基函数神经网络", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制器", "relation": "增强", "tail": "强化学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "下扰观测器", "relation": "配合", "tail": "径向基函数神经网络", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "补充控制器", "relation": "基于", "tail": "强化学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制器", "relation": "包含", "tail": "外部控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制器", "relation": "包含", "tail": "内部控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "外部控制器", "relation": "属于", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "内部控制器", "relation": "属于", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "外部控制器", "relation": "应用于", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "命令滤波技术", "relation": "应用于", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "干扰观测器设计", "relation": "应用于", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "外部控制器", "relation": "用于", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "外部控制结合仿步法、命令滤波技术、干扰观测器设计", "relation": "用于", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "内部控制器", "relation": "用于", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Q Learning算法", "relation": "用于", "tail": "内部控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "外部控制器", "relation": "集成", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "内部控制器", "relation": "集成", "tail": "变体飞行器控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器", "relation": "面临", "tail": "容错控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "遗传算法", "relation": "应用于", "tail": "执行器控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "文献", "relation": "采用", "tail": "改进的遗传算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "遗传算法", "relation": "用于", "tail": "执行器控制分配问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "分布式结构变体飞行器的控制分配问题", "relation": "解决", "tail": "改进的遗传算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "执行器故率性故障与偏差和约束", "relation": "转换为", "tail": "一类整数规划问题中决策变量的约束", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "谷鸟搜索算法", "relation": "应用于", "tail": "执行器控制分配", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "避传算法", "relation": "应用于", "tail": "控制分配", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "文献", "relation": "采用", "tail": "改进的谷鸟搜索算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "执行器控制分配", "relation": "提高", "tail": "跟踪性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "执行器控制分配", "relation": "提高", "tail": "鲁棒性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "谷鸟搜索算法", "relation": "用于", "tail": "执行器控制分配", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "避传算法", "relation": "对比", "tail": "谷鸟搜索算法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "执行器控制分配", "relation": "增强", "tail": "跟踪性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "执行器控制分配", "relation": "增强", "tail": "鲁棒性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定时间观测器", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定时间观测器", "relation": "用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定时间观测器", "relation": "提出", "tail": "使观测器误差在一个稳定的时间内收敛到0", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器控制技术", "relation": "应用于", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "适应", "tail": "飞行环境", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "简单机械变形", "relation": "发展为", "tail": "多维度柔性变形", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器变体", "relation": "实现", "tail": "单域最优变构型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器变体", "relation": "实现", "tail": "多域融合变构型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "飞行器变体", "relation": "实现", "tail": "一器多能变构型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "气动布局方案", "relation": "优化", "tail": "优化", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "解决", "tail": "气动布局与总体协调设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "解决", "tail": "时变空气动力学效应评估", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "解决", "tail": "气动布局方案优化", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体飞行器", "relation": "解决", "tail": "多学科耦合设计", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "固定外形飞行器", "relation": "对比", "tail": "变体飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应强化学习控制器", "relation": "应用于", "tail": "变体翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应强化学习控制器", "relation": "用于", "tail": "变体翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "智能驱动器", "relation": "实现", "tail": "变体翼", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变体翼", "relation": "驱动", "tail": "智能驱动器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应强化学习控制器", "relation": "应用于", "tail": "飞行器形状改变的瞬态飞行条件下控制器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应强化学习控制器", "relation": "用于", "tail": "飞行条件下的转换", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应强化学习控制器", "relation": "适应", "tail": "时变性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应增强学习控制器", "relation": "应用于", "tail": "控制变体翼飞机", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应增强学习控制器", "relation": "用于", "tail": "控制变体翼飞机的形状和航迹跟踪", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制变体翼飞机的形状和航迹跟踪", "relation": "解决", "tail": "自适应增强学习控制器及其相关结构", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自适应增强学习控制器", "relation": "支持", "tail": "控制变体翼飞机的形状和航迹跟踪", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "升力线理论", "relation": "应用于", "tail": "计算", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "升力线理论", "relation": "用于", "tail": "计算", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "栖息机动", "relation": "提高", "tail": "推重比的提高", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "推重比", "relation": "影响", "tail": "栖息机动所需的空间", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "优化", "relation": "包含", "tail": "仿生动力学", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "仿生动力学", "relation": "应用于", "tail": "飞行器做栖息机动", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "仿生动力学", "relation": "用于", "tail": "优化", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构飞行", "relation": "实现", "tail": "机构驱动", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构飞行", "relation": "驱动", "tail": "机构驱动", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构飞行", "relation": "优化", "tail": "严格控制结构重量", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构飞行", "relation": "面临", "tail": "高成本特征", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构飞行", "relation": "限制", "tail": "无法顺利向产品化推进", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天变构飞行器", "relation": "具有", "tail": "自主变化外形", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天变构飞行器", "relation": "具有", "tail": "跨域高效飞行", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天变构飞行器", "relation": "提高", "tail": "飞行性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天变构飞行器", "relation": "提高", "tail": "任务剖面", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天变构飞行器", "relation": "提高", "tail": "跨域高效飞行", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "跨域高效飞行", "relation": "实现", "tail": "空天变构飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天变构飞行器", "relation": "对比", "tail": "传统固定构型飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天变构飞行器", "relation": "增强", "tail": "飞行性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天变构飞行器", "relation": "适应", "tail": "飞行环境", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天变构飞行器", "relation": "不同于", "tail": "传统固定构型飞行器", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "计算流体力学", "relation": "应用于", "tail": "空天飞行器设计方案", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "空天飞行器设计方案", "relation": "采用", "tail": "计算流体力学", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "计算流体力学", "relation": "用于", "tail": "空天飞行器设计方案", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠构型", "relation": "具有", "tail": "减速性能", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展开构型", "relation": "具有", "tail": "高升阻比特性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠构型", "relation": "应用于", "tail": "稳定飞行", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展开构型", "relation": "应用于", "tail": "低空滑翔", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠构型", "relation": "用于", "tail": "减速", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展开构型", "relation": "用于", "tail": "低空滑翔", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠构型", "relation": "对比", "tail": "展开构型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "折叠构型", "relation": "适应", "tail": "高空高速条件下", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "展开构型", "relation": "适应", "tail": "低马赫数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构技术", "relation": "应用于", "tail": "跨域飞行", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "跨域变构飞行器", "relation": "应用于", "tail": "跨空域、跨速域飞行任务", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构技术", "relation": "用于", "tail": "跨域飞行", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "跨域变构飞行器", "relation": "用于", "tail": "跨空域、跨速域飞行任务", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "跨域飞行中，通过变构技术将两种构型进行适应性转变", "relation": "解决", "tail": "高效飞行目标", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "跨域变构飞行器", "relation": "适应", "tail": "跨空域、跨速域飞行任务", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自学习模型预测姿态控制方法", "relation": "应用于", "tail": "控制系统", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "控制系统", "relation": "提高", "tail": "鲁棒性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自学习模型", "relation": "用于", "tail": "姿态控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "姿态控制", "relation": "面临", "tail": "跨域变构滑翔段的动力学模型大范围变化", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "姿态控制", "relation": "面临", "tail": "变构过程引起的气动扰动非线性不确定性", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "姿态控制", "relation": "解决", "tail": "自学习模型预测", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "自学习模型预测姿态控制方法", "relation": "提出", "tail": "随机干扰和构型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "参数化模型", "relation": "应用于", "tail": "控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "参数学习", "relation": "应用于", "tail": "随机最优控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构飞行器模型", "relation": "应用于", "tail": "最优控制参数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "采用", "tail": "参数化模型", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "采用", "tail": "参数学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构飞行器模型", "relation": "采用", "tail": "所提出的控制方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "姿态跟踪响应速度", "relation": "提高", "tail": "训练参数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "随机最优控制问题的代价函数", "relation": "降低", "tail": "参数学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "参数化模型", "relation": "用于", "tail": "控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "参数学习", "relation": "用于", "tail": "随机最优控制问题的代价函数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "变构飞行器模型", "relation": "用于", "tail": "预测最优控制参数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "参数化模型预测控制问题", "relation": "解决", "tail": "方法", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "构型", "relation": "增强", "tail": "气动参数偏差", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "基于", "tail": "参数化模型预测控制问题", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "基于", "tail": "模型偏差和构型作为随机变量", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "基于", "tail": "参数学习", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "基于", "tail": "随机最优控制问题的代价函数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "方法", "relation": "基于", "tail": "变构飞行器模型预测最优控制参数", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Morphing technology", "relation": "应用于", "tail": "aircraft", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Morphing technology", "relation": "用于", "tail": "aircraft", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "morphing aircraft", "relation": "实现", "tail": "Morphing technology", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "Morphing technology", "relation": "发展为", "tail": "aircraft", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "actuators", "relation": "应用于", "tail": "morphing process", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "structural weight", "relation": "影响", "tail": "costs", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "actuators", "relation": "用于", "tail": "morphing process", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "morphing process", "relation": "驱动", "tail": "actuators", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "high aspect ratio aircraft", "relation": "具有", "tail": "large root bending momen", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "morphing", "relation": "应用于", "tail": "high aspect ratio aircraft", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "actuators", "relation": "面临", "tail": "wing deformation", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "forces", "relation": "产生", "tail": "defl", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "morphing", "relation": "优化", "tail": "approach", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "section", "relation": "应用于", "tail": "actuator-driven morphing", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "overall cost", "relation": "降低", "tail": "morphing", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "morphing", "relation": "解决", "tail": "approach", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "morphing", "relation": "驱动", "tail": "actuator", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aircraft", "relation": "优化", "tail": "aerodynamic design", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aerodynamic design", "relation": "应用于", "tail": "aircraft", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aerodynamic design", "relation": "用于", "tail": "aircraft", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aerodynamic design of aircraft", "relation": "面临", "tail": "novel aerodynamic-driven morphing technique", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "aerodynamic-driven process", "relation": "采用", "tail": "numerical simulations", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "variations", "relation": "影响", "tail": "aerodynamic forces", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "process", "relation": "驱动", "tail": "aerodynamic forces", "source": "eval.md", "method": "oneke_deepke_pipeline"}
+{"head": "UAV", "relation": "具有", "tail": "aspect ratio", "source": "eval.md", "method": "oneke_deepke_pipeline"}

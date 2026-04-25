@@ -1,12 +1,6 @@
 """
-综合评估工具
-功能：
-1. 在eval.md上进行提取
-2. 与ground_truth.json对比进行三方面评估:
-    准确性: 实体和关系的精确率、召回率、F1
-    一致性: Schema一致性、对称性、互斥性
-    完整性：实体覆盖率、关系覆盖率、知识密度
-3. 输出评估结果到output/eval_result/...
+继续评估脚本
+功能：使用前两步产生的triples_final.jsonl文件继续执行评估步骤
 """
 
 import argparse
@@ -15,13 +9,10 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
 from common import ensure_parent, load_jsonl, dump_jsonl
-from extract_triples import run_extract
-from normalize_and_filter import run_normalize_and_filter
-from postprocess import run_postprocess
 
 
 def load_ground_truth(gt_path: str) -> Dict:
-    """加载人工标注的答案"""
+    """加载黄金标准"""
     with open(gt_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -38,7 +29,7 @@ def evaluate_accuracy(
     """
     准确性评估：计算实体和关系的精确率、召回率、F1
     """
-    # 构建人工标注的答案集合 - entities是字符串数组
+    # 构建黄金标准集合 - entities是字符串数组
     entities_data = ground_truth["entities"]
     gt_entities = {normalize_entity(e) for e in entities_data}
     gt_relations = set()
@@ -174,9 +165,12 @@ def evaluate_completeness(
     """
     完整性评估：实体覆盖率、关系覆盖率、知识密度
     """
-    # 人工标注的答案 - entities是字符串数组
+    # 黄金标准 - 处理entities可能是字符串数组或字典数组的情况
     entities_data = ground_truth["entities"]
-    gt_entities = {normalize_entity(e) for e in entities_data}
+    if isinstance(entities_data[0], str):
+        gt_entities = {normalize_entity(e) for e in entities_data}
+    else:
+        gt_entities = {normalize_entity(e["name"]) for e in entities_data}
     gt_relations = {r["relation"] for r in ground_truth["relations"]}
     
     # 预测实体
@@ -196,7 +190,7 @@ def evaluate_completeness(
     
     # 知识密度（实体-关系比）
     entity_count = len(pred_entities)
-    relation_count = len(pred_triples)
+    relation_count = len(predicted_triples)
     entity_relation_ratio = entity_count / relation_count if relation_count > 0 else 0
     
     # 实体连接度
@@ -218,62 +212,6 @@ def evaluate_completeness(
         "isolated_entities_rate": len(isolated_entities) / entity_count if entity_count > 0 else 0,
         "avg_connectivity": avg_connectivity
     }
-
-
-def run_on_eval(
-    eval_dir: str,
-    output_dir: str,
-    schema_path: str,
-    entity_types_path: str,
-    oneke_model: str,
-    embedding_model: str
-) -> List[Dict]:
-    """
-    在eval.md上抽取(无需parse和preprocess)
-    """
-    raw_triples_path = f"{output_dir}/triples_raw.jsonl"
-    normalized_triples_path = f"{output_dir}/triples_normalized.jsonl"
-    final_triples_path = f"{output_dir}/triples_final.jsonl"
-    normalization_log_path = f"{output_dir}/normalization.log"
-    postprocess_log_path = f"{output_dir}/postprocess.log"
-    
-    # Step 1: 抽取三元组
-    print("\n[Step 1/3] 抽取知识三元组...")
-    raw_count = run_extract(
-        in_dir=eval_dir,
-        out_jsonl=raw_triples_path,
-        schema_path=schema_path,
-        model_path=oneke_model,
-        chunk_chars=150,
-        overlap=30,
-    )
-    
-    # Step 2: 实体归一化和关系过滤
-    print("\n[Step 2/3] 实体归一化和关系过滤...")
-    normalized_count = run_normalize_and_filter(
-        in_jsonl=raw_triples_path,
-        out_jsonl=normalized_triples_path,
-        model_name=embedding_model,
-        schema_path=schema_path,
-        log_path=normalization_log_path,
-    )
-    
-    # Step 3: 后处理
-    print("\n[Step 3/3] 后处理...")
-    final_count = run_postprocess(
-        in_jsonl=normalized_triples_path,
-        out_jsonl=final_triples_path,
-        entity_types_path=entity_types_path,
-        relation_types_path=schema_path,
-        embedding_model=embedding_model,
-        log_path=postprocess_log_path,
-    )
-    
-    # 加载最终结果
-    triples = load_jsonl(final_triples_path)
-    print(f"\n[PIPELINE DONE] 共抽取 {len(triples)} 个三元组")
-    
-    return triples
 
 
 def generate_report(results: Dict, output_path: str) -> None:
@@ -333,35 +271,26 @@ def generate_report(results: Dict, output_path: str) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="综合评估工具")
-    parser.add_argument("--eval-dir", default="data/evaluation")
+    parser = argparse.ArgumentParser(description="继续评估脚本")
+    parser.add_argument("--final-triples", default="output/eval_result/triples_final.jsonl")
     parser.add_argument("--ground-truth", default="data/evaluation/ground_truth.json")
     parser.add_argument("--output-dir", default="output/eval_result")
     parser.add_argument("--schema-path", default="config/relation_types.json")
-    parser.add_argument("--entity-types-path", default="config/entity_types.json")
-    parser.add_argument("--oneke-model", default="model/OneKE")
-    parser.add_argument("--embedding-model", default="model/Qwen3-Embedding-0.6B")
     args = parser.parse_args()
     
     print("=" * 80)
-    print("开始评估流程")
+    print("继续评估流程")
     print("=" * 80)
     
+    # 加载最终三元组结果
+    print("\n[1/4] 加载最终三元组结果...")
+    predicted_triples = load_jsonl(args.final_triples)
+    print(f"  加载了 {len(predicted_triples)} 个三元组")
+    
     # 加载人工标注的答案
-    print("\n[1/4] 加载人工标注的答案...")
+    print("\n[2/4] 加载人工标注的答案...")
     ground_truth = load_ground_truth(args.ground_truth)
     print(f"  人工标注的答案: {len(ground_truth['entities'])} 个实体, {len(ground_truth['relations'])} 个关系")
-    
-    # 在eval.md上运行pipeline
-    print("\n[2/4] 在测试文档上运行pipeline...")
-    predicted_triples = run_on_eval(
-        eval_dir=args.eval_dir,
-        output_dir=args.output_dir,
-        schema_path=args.schema_path,
-        entity_types_path=args.entity_types_path,
-        oneke_model=args.oneke_model,
-        embedding_model=args.embedding_model
-    )
     
     # 准确性评估
     print("\n[3/4] 进行准确性评估...")
@@ -372,7 +301,7 @@ def main() -> None:
     consistency_results = evaluate_consistency(predicted_triples, args.schema_path)
     
     # 完整性评估
-    print("\n[4/4] 进行完整性评估...")
+    print("\n[5/5] 进行完整性评估...")
     completeness_results = evaluate_completeness(predicted_triples, ground_truth, args.schema_path)
     
     # 计算得分
