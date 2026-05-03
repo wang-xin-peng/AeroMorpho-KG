@@ -165,7 +165,7 @@ def check_type_constraints(
     triples: List[Dict],
     entity_to_type: Dict[str, str],
     relation_types: List[Dict],
-    log_file=None,
+    log_file="output/logs/postprocess.log",
 ) -> List[Dict]:
     """
     检查类型约束

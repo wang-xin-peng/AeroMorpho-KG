@@ -169,7 +169,7 @@ def normalize_and_filter(
     model_name: str = "model/Qwen3-Embedding-0.6B",
     entity_threshold: float = 0.93,
     schema_path: str = "config/relation_types.json",
-    log_path: str = None,
+    log_path: str = "output/logs/normalization.log",
 ) -> List[Dict]:
     """
     对三元组进行实体归一化和关系过滤
@@ -309,7 +309,7 @@ def run_normalize_and_filter(
     model_name: str = "model/Qwen3-Embedding-0.6B",
     entity_threshold: float = 0.93,
     schema_path: str = "config/relation_types.json",
-    log_path: str = None,
+    log_path: str = "output/logs/normalization.log",
 ) -> int:
     """
     运行实体归一化和关系过滤的主函数
