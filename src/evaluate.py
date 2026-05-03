@@ -226,8 +226,8 @@ def run_on_eval(
     schema_path: str,
     entity_types_path: str,
     api_key: str = None,
-    base_url: str = "https://integrate.api.nvidia.com/v1",
-    model: str = "deepseek-ai/deepseek-v4-pro",
+    base_url: str = "https://api.deepseek.com",
+    model: str = "deepseek-v4-flash",
     embedding_model: str = None
 ) -> List[Dict]:
     """
@@ -344,8 +344,8 @@ def main() -> None:
     parser.add_argument("--schema-path", default="config/relation_types.json")
     parser.add_argument("--entity-types-path", default="config/entity_types.json")
     parser.add_argument("--api-key", default=None, help="API密钥")
-    parser.add_argument("--base-url", default="https://integrate.api.nvidia.com/v1", help="API基础URL")
-    parser.add_argument("--model", default="deepseek-ai/deepseek-v4-pro", help="模型名称")
+    parser.add_argument("--base-url", default="https://api.deepseek.com", help="API基础URL")
+    parser.add_argument("--model", default="deepseek-v4-pro", help="模型名称")
     parser.add_argument("--embedding-model", default="model/Qwen3-Embedding-0.6B")
     args = parser.parse_args()
 

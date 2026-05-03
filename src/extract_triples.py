@@ -165,14 +165,14 @@ class Extractor:
     def __init__(
         self,
         api_key: str = None,
-        base_url: str = "https://integrate.api.nvidia.com/v1",
-        model: str = "deepseek-ai/deepseek-v4-pro",
+        base_url: str = "https://api.deepseek.com",
+        model: str = "deepseek-v4-flash",
         max_tokens: int = 300,
         split_num: int = 4,
     ) -> None:
 
         if api_key is None:
-            api_key = os.getenv("NVAPI_KEY")
+            api_key = os.getenv("DEEPSEEK_API_KEY")
 
         print(f"\n[API初始化] 正在连接 DeepSeek API: {model}", flush=True)
 
@@ -285,7 +285,7 @@ def run_extract(
     schema_path: str,
     api_key: str = None,
     base_url: str = "https://integrate.api.nvidia.com/v1",
-    model: str = "deepseek-ai/deepseek-v4-pro",
+    model: str = "deepseek-ai/deepseek-v4-flash",
     chunk_chars: int = 300,
     overlap: int = 30,
 ) -> int:
@@ -402,8 +402,8 @@ def main() -> None:
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径")
     parser.add_argument("--schema-path", default="./config/relation_types.json", help="关系类型配置文件路径")
     parser.add_argument("--api-key", default=None, help="API密钥")
-    parser.add_argument("--base-url", default="https://integrate.api.nvidia.com/v1", help="API基础URL")
-    parser.add_argument("--model", default="deepseek-ai/deepseek-v4-pro", help="模型名称")
+    parser.add_argument("--base-url", default="https://api.deepseek.com", help="API基础URL")
+    parser.add_argument("--model", default="deepseek-v4-flash", help="模型名称")
     parser.add_argument("--chunk-chars", type=int, default=300, help="文本块最大字符数")
     parser.add_argument("--overlap", type=int, default=30, help="重叠字符数")
     args = parser.parse_args()
