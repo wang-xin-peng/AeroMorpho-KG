@@ -1,24 +1,21 @@
 """
-使用DeepSeek API抽取知识三元组
+使用OneKE模型抽取知识三元组
 功能：
 1. 读取LlamaParse解析后的Markdown文件
-2. 使用DeepSeek API根据预定义的Schema抽取实体关系三元组
+2. 使用OneKE大模型根据预定义的Schema抽取实体关系三元组
 3. 去重后输出为JSONL格式文件
 """
 
 import argparse
 import json
-import os
 import re
 from pathlib import Path
 from typing import Dict, List, Union
+import torch
 from tqdm import tqdm
-from openai import OpenAI
-from dotenv import load_dotenv
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from common import dump_jsonl
 from schema import Schema
-
-load_dotenv()
 
 
 def split_text(text: str, max_chars: int = 150, overlap: int = 30) -> List[str]:
@@ -103,40 +100,22 @@ def parse_json_array(text: str) -> List[Dict]:
         解析后的三元组列表，每个三元组包含head、relation、tail字段
     """
 
-    rows: List[Dict] = []
-
-    try:
-        data = json.loads(text)
-        if isinstance(data, dict):
-            for relation, items in data.items():
-                if isinstance(items, list):
-                    for item in items:
-                        if isinstance(item, dict):
-                            h = str(item.get("subject", "")).strip()
-                            t = str(item.get("object", "")).strip()
-                            if h and relation and t:
-                                rows.append({"head": h, "relation": relation, "tail": t})
-        return rows
-    except json.JSONDecodeError:
-        pass
-
-    text = text.strip()
-    start_idx = text.find('{')
-    end_idx = text.rfind('}')
-
-    if start_idx == -1 or end_idx == -1 or start_idx >= end_idx:
+    # 使用正则表达式提取JSON部分
+    match = re.search(r"\{[\s\S]*\}", text)
+    if not match:
         print("[解析] 未找到JSON部分")
         return []
-
-    raw = text[start_idx:end_idx + 1]
-
+    
+    raw = match.group(0)  
     try:
         data = json.loads(raw)
-    except json.JSONDecodeError as e:
+    except Exception as e:
         print(f"[解析] JSON解析失败: {e}")
-        print(f"[原始响应] {text[:500]}")
         return []
-
+    
+    rows: List[Dict] = []
+    
+    # {"关系名": [{"subject": "...", "object": "..."}]}
     if isinstance(data, dict):
         for relation, items in data.items():
             if isinstance(items, list):
@@ -146,50 +125,78 @@ def parse_json_array(text: str) -> List[Dict]:
                         t = str(item.get("object", "")).strip()
                         if h and relation and t:
                             rows.append({"head": h, "relation": relation, "tail": t})
-
+    
     return rows
 
 
 class Extractor:
     """
-    DeepSeek API知识抽取器封装类
+    OneKE知识抽取器封装类
     功能：
-    1. 连接DeepSeek API
+    1. 加载OneKE预训练模型
     2. 接收Schema提示词和文本块
-    3. 调用API推理并解析结果
+    3. 调用模型推理并解析结果
     4. 轮询方式抽取schema
     """
-
+    
+    # OneKE官方推荐的RE任务instruction
     RE_INSTRUCTION = "你是专门进行关系抽取的专家。请从input中抽取出符合schema定义的关系三元组，不存在的关系返回空列表。请按照JSON字符串的格式回答。"
-
+    
     def __init__(
         self,
-        api_key: str = None,
-        base_url: str = "https://api.deepseek.com",
-        model: str = "deepseek-v4-flash",
-        max_tokens: int = 300,
-        split_num: int = 4,
+        model_path: str = "model/OneKE",
+        load_in_4bit: bool = True,  # 默认开启4bit量化
+        max_new_tokens: int = 300,  # 官方推荐
+        split_num: int = 4,  # RE任务官方推荐值
     ) -> None:
+        """
+        初始化抽取器，加载模型
+        Args:
+            model_path: 模型路径或HuggingFace模型名
+            load_in_4bit: 是否使用4bit量化
+            max_new_tokens: 生成的最大token数
+            split_num: 每次轮询抽取的schema数量
+        """
 
-        if api_key is None:
-            api_key = os.getenv("DEEPSEEK_API_KEY")
-
-        print(f"\n[API初始化] 正在连接 DeepSeek API: {model}", flush=True)
-
-        self.client = OpenAI(
-            api_key=api_key,
-            base_url=base_url,
-        )
-        self.model = model
-        self.max_tokens = max_tokens
+        print(f"\n[模型加载] 正在加载 OneKE 模型: {model_path}", flush=True)
+        
+        # 加载分词器
+        print("[模型加载] 加载分词器...", flush=True)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+        
+        # 模型参数
+        model_kwargs = {
+            "device_map": "auto",
+            "trust_remote_code": True,
+        }
+        
+        # 根据量化选项配置
+        if load_in_4bit:
+            print("[模型加载] 使用4bit量化加载模型...", flush=True)
+            quantization_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_use_double_quant=True,
+                bnb_4bit_quant_type="nf4"
+            )
+            model_kwargs["quantization_config"] = quantization_config
+        else:
+            print("[模型加载] 使用bf16精度加载模型（无量化）...", flush=True)
+            model_kwargs["torch_dtype"] = torch.bfloat16
+        
+        # 加载模型
+        self.model = AutoModelForCausalLM.from_pretrained(model_path, **model_kwargs)
+        
+        print(f"[模型加载] ✓ 模型加载完成", flush=True)
+        print(f"[模型配置] max_new_tokens={max_new_tokens}, split_num={split_num}, 4bit={load_in_4bit}", flush=True)
+        
+        self.max_new_tokens = max_new_tokens
         self.split_num = split_num
-
-        print(f"[API配置] model={model}, max_tokens={max_tokens}, split_num={split_num}", flush=True)
 
     def infer_chunk(self, schema: Schema, chunk: str) -> List[Dict]:
         """
         对单个文本块进行推理，抽取三元组
-        使用轮询方式：将schema切分成多个小块，分别抽取后合并结果
+        使用OneKE轮询方式：将schema切分成多个小块，分别抽取后合并结果
         Args:
             schema: Schema 对象，包含关系类型定义
             chunk: 待抽取的文本块
@@ -233,6 +240,8 @@ class Extractor:
         支持两种 schema 格式：
         1. 列表格式（基础模式）：["关系1", "关系2"]
         2. 字典格式（增强模式）：{"关系1": "描述1", "关系2": "描述2"}
+        
+        参考 OneKE 文档的快速运行示例
         """
         
         # system prompt
@@ -252,30 +261,43 @@ class Extractor:
     
     def _run_inference(self, prompt: str) -> List[Dict]:
         """
-        执行API推理并解析结果
+        执行模型推理并解析结果
         Args:
             prompt: OneKE格式的提示词
         Returns:
             解析后的三元组列表
         """
-
-        print("      [推理] 调用API中...", end='', flush=True)
-
-        response = self.client.chat.completions.create(
-            model=self.model,
-            messages=[
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=self.max_tokens,
-            temperature=0,
-        )
-
+        import sys
+        
+        # 分词并移动到模型设备
+        print("      [推理] 分词中...", end='', flush=True)
+        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
+        print(f" 输入tokens: {inputs['input_ids'].shape[1]}", flush=True)
+        
+        # 模型推理
+        print("      [推理] 生成中...", end='', flush=True)
+        sys.stdout.flush()
+        
+        with torch.no_grad():
+            outputs = self.model.generate(
+                **inputs,
+                max_new_tokens=self.max_new_tokens,
+                do_sample=False,      
+                temperature=None, 
+                pad_token_id=self.tokenizer.eos_token_id,
+            )
+        
         print(" 完成", flush=True)
-
-        text = response.choices[0].message.content
-
-        triples = parse_json_array(text)
-
+        
+        # 解码输出
+        text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        
+        # 提取模型生成的部分
+        tail_text = text[len(prompt):] if text.startswith(prompt) else text
+        
+        # 解析JSON数组
+        triples = parse_json_array(tail_text)
+        
         return triples
 
 
@@ -283,17 +305,16 @@ def run_extract(
     in_dir: str,
     out_jsonl: str,
     schema_path: str,
-    api_key: str = None,
-    base_url: str = "https://integrate.api.nvidia.com/v1",
-    model: str = "deepseek-ai/deepseek-v4-flash",
-    chunk_chars: int = 300,
-    overlap: int = 30,
+    model_path: str = "model/OneKE",
+    load_in_4bit: bool = True,  
+    chunk_chars: int = 150, 
+    overlap: int = 30, 
 ) -> int:
     """
-    DeepSeek API抽取主函数
+    OneKE抽取主函数
     流程：
     1. 加载Schema配置
-    2. 初始化DeepSeek API抽取器
+    2. 初始化OneKE抽取器
     3. 遍历所有Markdown文件
     4. 对每个文件切分文本块并抽取
     5. 去重后保存结果
@@ -301,10 +322,10 @@ def run_extract(
         in_dir: 预处理后的Markdown文件目录
         out_jsonl: 输出JSONL文件路径
         schema_path: Schema配置文件路径
-        api_key: API密钥
-        base_url: API基础URL
-        model: 模型名称
+        model_path: OneKE模型路径
+        load_in_4bit: 是否使用4bit量化
         chunk_chars: 文本块最大字符数
+        (官方配置cutoff_len = 512tokens, prompt剩余给input的tokens约250个,一个汉字1.5~2个token,这里保守选择150)
         overlap: 重叠字符数
     Returns:
         抽取的三元组总数
@@ -317,17 +338,15 @@ def run_extract(
     if not parsed_path.exists():
         raise FileNotFoundError(f"解析目录不存在: {in_dir}")
 
+    # Step 1: 加载Schema配置
     print(f"\n[Step 1/3] 加载 Schema 配置: {schema_path}", flush=True)
     schema = Schema.from_json(schema_path)
     relation_count = len(schema.get_relation_names())
     print(f"[Schema] 加载了 {relation_count} 个关系类型", flush=True)
-
-    print(f"\n[Step 2/3] 初始化 DeepSeek API 抽取器", flush=True)
-    extractor = Extractor(
-        api_key=api_key,
-        base_url=base_url,
-        model=model,
-    )
+    
+    # Step 2: 初始化抽取器
+    print(f"\n[Step 2/3] 初始化 OneKE 抽取器", flush=True)
+    extractor = Extractor(model_path=model_path, load_in_4bit=load_in_4bit)
 
     all_rows: List[Dict] = []
     dedup = set() 
@@ -339,7 +358,7 @@ def run_extract(
     print(f"[分块配置] chunk_chars={chunk_chars}, overlap={overlap}, 每个关系批次={extractor.split_num}个", flush=True)
     
     # Step 4: 对每个文件切分文本块并抽取
-    for md_file in tqdm(md_files, desc="DeepSeek Extracting"):
+    for md_file in tqdm(md_files, desc="OneKE Extracting"):
         text = md_file.read_text(encoding="utf-8", errors="ignore")
         chunks = split_text(text, max_chars=chunk_chars, overlap=overlap)
         
@@ -376,7 +395,7 @@ def run_extract(
                         "relation": r["relation"],
                         "tail": r["tail"],
                         "source": md_file.name,      # 记录来源文件
-                        "method": "deepseek_api",  # 记录抽取方法
+                        "method": "oneke_deepke_pipeline",  # 记录抽取方法
                     }
                 )
                 doc_count += 1
@@ -385,7 +404,7 @@ def run_extract(
 
     # Step 5: 保存结果
     dump_jsonl(out_jsonl, all_rows)
-    print(f"[DONE] DeepSeek triples = {len(all_rows)}, saved to {out_jsonl}")
+    print(f"[DONE] OneKE triples = {len(all_rows)}, saved to {out_jsonl}")
     return len(all_rows)
 
 
@@ -397,14 +416,14 @@ def main() -> None:
         --out-jsonl ./test.jsonl \
     """
 
-    parser = argparse.ArgumentParser(description="使用DeepSeek API抽取知识三元组")
+    parser = argparse.ArgumentParser(description="使用OneKE抽取知识三元组")
     parser.add_argument("--in-dir", required=True, help="预处理后的Markdown目录")
     parser.add_argument("--out-jsonl", required=True, help="输出JSONL文件路径")
     parser.add_argument("--schema-path", default="./config/relation_types.json", help="关系类型配置文件路径")
-    parser.add_argument("--api-key", default=None, help="API密钥")
-    parser.add_argument("--base-url", default="https://api.deepseek.com", help="API基础URL")
-    parser.add_argument("--model", default="deepseek-v4-flash", help="模型名称")
-    parser.add_argument("--chunk-chars", type=int, default=300, help="文本块最大字符数")
+    parser.add_argument("--model-path", default="model/OneKE", help="OneKE模型路径")
+    parser.add_argument("--load-in-4bit", action="store_true", default=True, help="使用4bit量化")
+    parser.add_argument("--no-quantize", dest="load_in_4bit", action="store_false", help="不使用量化")
+    parser.add_argument("--chunk-chars", type=int, default=150, help="文本块最大字符数")
     parser.add_argument("--overlap", type=int, default=30, help="重叠字符数")
     args = parser.parse_args()
 
@@ -412,9 +431,7 @@ def main() -> None:
         in_dir=args.in_dir,
         out_jsonl=args.out_jsonl,
         schema_path=args.schema_path,
-        api_key=args.api_key,
-        base_url=args.base_url,
-        model=args.model,
+        model_path=args.model_path,
         chunk_chars=args.chunk_chars,
         overlap=args.overlap,
     )

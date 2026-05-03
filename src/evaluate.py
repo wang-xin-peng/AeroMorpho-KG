@@ -225,10 +225,8 @@ def run_on_eval(
     output_dir: str,
     schema_path: str,
     entity_types_path: str,
-    api_key: str = None,
-    base_url: str = "https://api.deepseek.com",
-    model: str = "deepseek-v4-flash",
-    embedding_model: str = None
+    oneke_model: str,
+    embedding_model: str
 ) -> List[Dict]:
     """
     在eval.md上抽取(无需parse和preprocess)
@@ -238,16 +236,15 @@ def run_on_eval(
     final_triples_path = f"{output_dir}/triples_final.jsonl"
     normalization_log_path = f"{output_dir}/normalization.log"
     postprocess_log_path = f"{output_dir}/postprocess.log"
-
+    
+    # Step 1: 抽取三元组
     print("\n[Step 1/3] 抽取知识三元组...")
     raw_count = run_extract(
         in_dir=eval_dir,
         out_jsonl=raw_triples_path,
         schema_path=schema_path,
-        api_key=api_key,
-        base_url=base_url,
-        model=model,
-        chunk_chars=300,
+        model_path=oneke_model,
+        chunk_chars=150,
         overlap=30,
     )
     
@@ -343,29 +340,27 @@ def main() -> None:
     parser.add_argument("--output-dir", default="output/eval_result")
     parser.add_argument("--schema-path", default="config/relation_types.json")
     parser.add_argument("--entity-types-path", default="config/entity_types.json")
-    parser.add_argument("--api-key", default=None, help="API密钥")
-    parser.add_argument("--base-url", default="https://api.deepseek.com", help="API基础URL")
-    parser.add_argument("--model", default="deepseek-v4-pro", help="模型名称")
+    parser.add_argument("--oneke-model", default="model/OneKE")
     parser.add_argument("--embedding-model", default="model/Qwen3-Embedding-0.6B")
     args = parser.parse_args()
-
+    
     print("=" * 80)
     print("开始评估流程")
     print("=" * 80)
-
+    
+    # 加载人工标注的答案
     print("\n[1/4] 加载人工标注的答案...")
     ground_truth = load_ground_truth(args.ground_truth)
     print(f"  人工标注的答案: {len(ground_truth['entities'])} 个实体, {len(ground_truth['relations'])} 个关系")
-
+    
+    # 在eval.md上运行pipeline
     print("\n[2/4] 在测试文档上运行pipeline...")
     predicted_triples = run_on_eval(
         eval_dir=args.eval_dir,
         output_dir=args.output_dir,
         schema_path=args.schema_path,
         entity_types_path=args.entity_types_path,
-        api_key=args.api_key,
-        base_url=args.base_url,
-        model=args.model,
+        oneke_model=args.oneke_model,
         embedding_model=args.embedding_model
     )
     
@@ -378,7 +373,7 @@ def main() -> None:
     consistency_results = evaluate_consistency(predicted_triples, args.schema_path)
     
     # 完整性评估
-    print("\n[5/5] 进行完整性评估...")
+    print("\n[4/4] 进行完整性评估...")
     completeness_results = evaluate_completeness(predicted_triples, ground_truth, args.schema_path)
     
     # 计算得分
